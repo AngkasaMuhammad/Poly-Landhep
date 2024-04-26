@@ -1,0 +1,179 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet o3dv = {}\n;(async ()=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet lih = ru.lihat\n\tlet h2 = document.querySelector('h2')\n\tlet canv = o3dv.canv = document.querySelector('canvas')\n\tlet cx = o3dv.cx = canv.getContext('webgpu')\n\tlet w = canv.width\n\tlet h = canv.height\n\tlet d = +canv.getAttribute('mydepth')\n\tlet layar2dbufcopy\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet canvres = e=>{\n\t\tlet s = canv.style\n\t\tif(innerWidth/innerHeight > canv.width/canv.height){\n\t\t\ts.height = '100%'\n\t\t\ts.width = ''\n\t\t}else{\n\t\t\ts.height = ''\n\t\t\ts.width = '100%'\n\t\t}\n\t}\n\taddEventListener('resize',canvres,)\n\tcanvres()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet adap = await navigator.gpu.requestAdapter()\n\tlet dv = await adap.requestDevice()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\tcx.configure({\n\t\tdevice:dv,\n\t\tformat: presentationFormat,\n\t})\n\tlet rendermod = dv.createShaderModule({\n\t\tlabel:'ini render module',\n\t\tcode:`\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\nstruct hasil{\n\t@builtin(position) pos: vec4f,\n\t@location(0) tex: vec2f,\n}\n@vertex fn vs(\n\t@builtin(vertex_index) vertexIndex : u32\n) -> hasil {\n\tlet pos = array(\n\t\tvec2f( -0.9,  2.7),\n\t\tvec2f(-0.9, -0.9),\n\t\tvec2f( 2.7, -0.9)\n\t);\n\t\n\tlet xy = pos[vertexIndex];\n\treturn hasil(\n\t\tvec4f(xy, 0.0, 1.0),\n\t\txy,\n\t);\n}\n@group(0) @binding(0) var<storage, read_write> layar3d: array<f32>;\n@fragment fn fs(\n\tparh: hasil//parameter hasil\n) -> @location(0) vec4f {\n\t\n\tlayar3d[0] += .006;\n\tif(layar3d[0] > .94){\n\t\tlayar3d[0] = .0;\n\t}\n\t\n\treturn vec4f(\n\t\tparh.tex,\n\t\tlayar3d[0],\n\t\t1,\n\t);\n}\n\n\n\t\t\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "`,\n\t\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet mod = dv.createShaderModule({\n\t\tlabel:'ini module',\n\t\tcode:`\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "111",
+					"g": "255",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct suniu{\n\tw:u32,\n\th:u32,\n\td:u32\n};\n\n@group(0) @binding(0) var<storage, read_write> layar2d: array<u32>;\n@group(0) @binding(1) var<storage, read_write> layar3d: array<u32>;\n@group(0) @binding(2) var<uniform> uniu: suniu;\n\n@compute @workgroup_size(1) fn hitung(\n\t@builtin(global_invocation_id) id: vec3u\n) {\n\t//biar ga error jumlah (entries / yang terpakai)\n\tlet sek = layar3d[0]+layar2d[0]+uniu.h;\n\t//ok lanjut\n\tlet w = uniu.w;\n\tlet h = uniu.h;\n\tlet d = uniu.d;\n\t/*\n\tlet r:u32 = layar3d[i]/0x1000000;\n\tlet g:u32 = layar3d[i]/0x10000;\n\tlet b:u32 = layar3d[i]/0x100;\n\tlet a:u32 = layar3d[i]/0x1;\n\tlayar2d[i] =\n\t\tr*0x1000000\n\t\t+g*0x10000\n\t\t+b*0x100\n\t\t+a*0x1\n\t;\n\t*/\n\t\n\tlayar2d[\n\t\tid.x\n\t\t+id.y*w\n\t\t+id.z*w*h\n\t] = 123u;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "188",
+					"b": "55",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\t`,\n\t\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "111",
+					"g": "255",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})()",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

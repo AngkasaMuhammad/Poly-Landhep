@@ -1,0 +1,476 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet o3dv = {}\n;(async ()=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//let\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet lih = ru.lihat\n\tlet h2 = document.querySelector('h2')\n\tlet canv = o3dv.canv = document.querySelector('canvas')\n\tlet cx = o3dv.cx = canv.getContext('webgpu')\n\tlet m4 = wgpuMatrix.mat4\n\tlet v3 = wgpuMatrix.vec3\n\tlet w = canv.width\n\tlet h = canv.height\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//canvas resize\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet canvres = e=>{\n\t\tlet s = canv.style\n\t\tif(innerWidth/innerHeight > canv.width/canv.height){\n\t\t\ts.height = '100%'\n\t\t\ts.width = ''\n\t\t}else{\n\t\t\ts.height = ''\n\t\t\ts.width = '100%'\n\t\t}\n\t}\n\taddEventListener('resize',canvres,)\n\tcanvres()\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//adapter\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet adap = await navigator.gpu.requestAdapter()\n\tlet dv = await adap.requestDevice()\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//presentationFormat\n//",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\tcx.configure({\n\t\tdevice:dv,\n\t\tformat: presentationFormat,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//meshshader\n\tlet code = await fetch('js/O3DV-meshshader.txt')\n\tcode = await code.text()\n\tlih(code)\n\tlet meshmod = dv.createShaderModule({\n\t\tlabel:'ini mesh module',\n\t\tcode,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n/*================\n\t//screenshader\n\tcode = await fetch('js/O3DV-screenshader.txt')\n\tcode = await code.text()\n\tlih(code)\n\tlet screenmod = dv.createShaderModule({\n\t\tlabel:'ini screen module',\n\t\tcode,\n\t})\n----------------*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "200",
+					"g": "200",
+					"b": "200",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet meshpipe = dv.createRenderPipeline({\n\t\tlabel: 'ini pipa mesh',\n\t\tlayout: 'auto',\n\t\tvertex: {\n\t\t\tmodule:meshmod,\n\t\t\tentryPoint: 'vs',\n\t\t\tbuffers: [\n\t\t\t\t{//pos\n\t\t\t\t\tarrayStride: 3 * 4, // 3 floats, 4 bytes each\n\t\t\t\t\tattributes: [\n\t\t\t\t\t\t{shaderLocation: 0, offset: 0, format: 'float32x3'},\n\t\t\t\t\t],\n\t\t\t\t},\n\t\t\t\t{//color\n\t\t\t\t\tarrayStride: 1 * 4, // 1 floats, 4 bytes each\n\t\t\t\t\tattributes: [\n\t\t\t\t\t\t{shaderLocation: 1, offset: 0, format: 'float32'},\n\t\t\t\t\t],\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t\tfragment: {\n\t\t\tmodule:meshmod,\n\t\t\tentryPoint: 'fs',\n\t\t\ttargets: [{ format: presentationFormat }],\n\t\t},\n\t\tprimitive: {\n\t\t\tcullMode: 'back',\n\t\t},\n\t\tdepthStencil: {\n\t\t\tdepthWriteEnabled: true,\n\t\t\tdepthCompare: 'greater',\n\t\t\tformat: 'depth24plus',\n\t\t},\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet renderPassDescriptor = {\n\t\tlabel: 'our basic canvas meshPass',\n\t\tcolorAttachments: [\n\t\t\t{\n\t\t\t\tclearValue: [0.3, 0.1, 0.1, 1],\n\t\t\t\tloadOp: 'clear',\n\t\t\t\tstoreOp: 'store',\n\t\t\t\tview:null,// <- to be filled out when we render\n\t\t\t},\n\t\t],\n\t\tdepthStencilAttachment: {\n\t\t\tdepthClearValue: 0.0,\n\t\t\tdepthLoadOp: 'clear',\n\t\t\tdepthStoreOp: 'store',\n\t\t\tview:null,// <- to be filled out when we render\n\t\t},\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "166",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\t\n\t\n\t\n\tlet posarr = new Float32Array([\n\t\t0,1,0,\n\t\t0,0,0,\n\t\t1,0,0,\n\t\t1,-.4,-1,\n\t\t-1,-.4,-1,\n\t\t-1,-.4,1,\n\t\t1,-.4,1,\n\t\t0,1,-.5,\n\t\t0,-2,-.5,\n\t\t1,-2,-.5,\n\t])\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "199",
+					"g": "199",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet biru = 0x0000ff66\n\tlet merah = 0xff0000aa\n\tlet kuning = 0xffff0044\n\tlet colorarr = new Uint32Array([\n\t\tbiru,\n\t\tbiru,\n\t\tbiru,\n\t\tkuning,\n\t\tmerah,\n\t\tbiru,\n\t\tmerah,\n\t\tkuning,\n\t\tkuning,\n\t\tkuning,\n\t])\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "234",
+					"b": "216",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet indarr = [\n\t\t0,1,2,\n\t\t3,4,5,\n\t\t3,5,6,\n\t\t7,8,9,\n\t]\n\tif(indarr.length%2){\n\t\tindarr.push(0)\n\t}\n\tindarr =  new Uint16Array(indarr)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "200",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet persp = o3dv.persp = m4.identity()\n\tlet cam = m4.identity()\n\tlet view = m4.identity()//hasil dari persp*cam \n\t\n    m4.perspective(\n        1.3,//rad\n        w/h,\n        .01,      // zNear\n        9.01,   // zFar\n        persp,\n    );\n\t\n\t//change z to 1-z\n\tm4.invert(persp,persp,)\n\t\tm4.translate(persp,[0,0,1,],persp)\n\t\tm4.scale(persp,[1,1,-1,],persp,)\n\tm4.invert(persp,persp,)\n\t//then it wokkkkkk, HOW?? \n/*================\n----------------*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//let layar\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet posbuf = dv.createBuffer({\n\t\tlabel:'ini posbuf',\n\t\tsize:posarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(posbuf,0,posarr,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "144",
+					"g": "144",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet colorbuf = dv.createBuffer({\n\t\tlabel:'ini colorbuf',\n\t\tsize:colorarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(colorbuf,0,colorarr,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "215",
+					"g": "213",
+					"b": "174",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet indbuf = dv.createBuffer({\n\t\tlabel:'ini indbuf',\n\t\tsize:indarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.INDEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(indbuf,0,indarr,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "144",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet matbuf = dv.createBuffer({\n\t\tlabel:'ini matbuf',\n\t\tsize:cam.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.UNIFORM|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "144",
+					"g": "211",
+					"b": "144",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet layarbuf = dv.createBuffer({\n\t\tlabel:'ini matbuf',\n\t\tsize:w*h*4,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_SRC|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet ulainbuf = dv.createBuffer({\n\t\tlabel:'ini ulain buffer',\n\t\tsize:2*4,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_SRC|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(ulainbuf,0,new Uint32Array([w,h,]),)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "206",
+					"g": "157",
+					"b": "201",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet depthtex = dv.createTexture({\n\t\tsize: [w,h,],\n\t\tformat: 'depth24plus',\n\t\tusage: GPUTextureUsage.RENDER_ATTACHMENT,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "155",
+					"b": "133",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet meshbind = dv.createBindGroup({\n\t\tlabel: 'iiinnnnii  mesh bindGroup',\n\t\tlayout: meshpipe.getBindGroupLayout(0),\n\t\tentries: [\n\t\t\t{ binding: 0, resource: { buffer: matbuf} },\n\t\t\t//{ binding: 1, resource: { buffer: layarbuf} },\n\t\t\t//{ binding: 2, resource: { buffer: ulainbuf} },\n\t\t],\n\t});\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n\tlet lukis = async ()=>{\n\t\tdv.queue.writeBuffer(layarbuf,0,new Uint32Array(w*h).fill(0),)\n\t\t\n\t\tlet encoder = dv.createCommandEncoder({\n\t\t\tlabel: 'encoderrrrrrr',\n\t\t})\n\t\trenderPassDescriptor.colorAttachments[0].view = cx.getCurrentTexture().createView()\n\t\trenderPassDescriptor.depthStencilAttachment.view = depthtex.createView()\n\t\tlet pass = encoder.beginRenderPass(renderPassDescriptor)\n\t\tpass.setPipeline(meshpipe)\n\t\tpass.setBindGroup(0, meshbind)\n\t\tpass.setVertexBuffer(0,posbuf,)\n\t\tpass.setVertexBuffer(1,colorbuf,)\n\t\tpass.setIndexBuffer(indbuf,'uint16',)\n\t\tpass.drawIndexed(indarr.length)\n\t\tpass.end()\n\t\t\n\t\tdv.queue.submit([encoder.finish()])\n\t\tawait dv.queue.onSubmittedWorkDone()\n\t\trequestAnimationFrame(lukis)\n\t\t//lukis()\n\t}\n\tlet prm//lukis promise\n\trequestAnimationFrame(lukis)\n\tlih('sudah submit')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet rgel = 0\n\tlet rang = 0\n\tlet zoom = 0\n\tlet fmouse = o3dv.fmouse = e=>{\n\t\t\n\t\tm4.identity(cam)\n\t\tm4.rotateY(cam,rgel,cam,)\n\t\tm4.rotateX(cam,rang,cam,)\n\t\tm4.translate(cam,[0,0,zoom,],cam,)\n\t\tm4.invert(cam,cam,)\n\t\tm4.mul(persp,cam,view,)\n\t\tdv.queue.writeBuffer(matbuf,0,view,)\n\t}\n\taddEventListener('mousemove',e=>{\n\t\trgel += -e.movementX*.01\n\t\trang += -e.movementY*.01\n\t\t\n\t\tfmouse()\n\t},)\n\taddEventListener('wheel',e=>{\n\t\tzoom += e.deltaY*.001\n\t\t\n\t\tfmouse()\n\t},)\n\tfmouse()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})()",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

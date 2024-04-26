@@ -1,0 +1,160 @@
+[
+	[
+		{
+			"text": "//mesh shader\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//texture -->> Y down\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct masuk{\n\t@location(0) pos : vec3f,//xyz\n\t@location(1) tex : vec2f,\n\t@location(2) voroidx : u32,\n\t@location(3) joi : vec4u,\n\t@location(4) wei : vec4f,\n}\nstruct hasil{\n\t@builtin(position) pos: vec4f,\n\t@location(0) tex:vec2f,\n\t@location(1) @interpolate(flat) voroidx:u32,\n}\nstruct datamat{\n\tmat:mat4x4f,\n}\n\t\t\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@group(0) @binding(0) var<uniform> unimat: datamat;\n@group(0) @binding(1) var<storage,read_write> layar:array<f32>;\n@group(0) @binding(2) var<storage> ulain: array<u32>;\n/*=======\n@group(0) @binding(3) var<storage> vorotail: array<u32>; //voronoi\n@group(0) @binding(4) var<storage> voropos: array<vec2f>;\n@group(0) @binding(5) var<storage> vorocolor: array<u32>;\n--------*/\n@group(0) @binding(6) var<storage> tepos: array<vec2f>;\n@group(0) @binding(7) var<storage> tejoi: array<u32>;\n@group(0) @binding(8) var<storage> tecond: array<u32>;\n@group(0) @binding(9) var<storage> tecolor: array<u32>;\n@group(0) @binding(10) var<storage> mat2d: array<mat3x3f>;\n@group(0) @binding(11) var<storage> mat3d: array<mat4x4f>;\n",
+			"visible": true,
+			"time": "1.00000",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn vs(\n\tdata:masuk,\n) -> hasil {\n\tlet joi = data.joi;\n\tlet wei = data.wei;\n\tlet pos = unimat.mat*(\n\t\tmat3d[joi[0]]*wei[0]\n\t\t+mat3d[joi[1]]*wei[1]\n\t\t+mat3d[joi[2]]*wei[2]\n\t\t+mat3d[joi[3]]*wei[3]\n\t)*vec4f(data.pos,1.,);//xyzw\n\treturn hasil(\n\t\tpos,\n\t\tdata.tex,\n\t\tdata.voroidx,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "99",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst iterlen = 111u;//angkasukasuka\n@fragment fn fs(\n\tparh: hasil //parameter hasil\n) -> @location(0) vec4f {\n\n\n\nlet bentar1 = layar\t[0];\nlet bentar2 = ulain\t[0];\nlet bentar3 = tepos\t[0];\nlet bentar4 = tejoi\t[0];\nlet bentar5 = tecond\t[0];\nlet bentar6 = tecolor\t[0];\nlet bentar7 = mat2d\t[0];\nlet bentar8 = mat3d\t[0];\n\n\n\n\tlet pelen = ulain[2];//panjang perintah\n\tlet p = parh.tex;\n\tvar ipe = parh.voroidx;//index dalam pe, bukan per perintah\n\tvar colorini = vec4f(.5);\n\t\n\tfor(var a = 0u;a < iterlen;a++){\n\t\tif(pelen <= ipe){\n\t\t\tcolorini = unpack4x8unorm(\n\t\t\t\ttecolor[ipe-pelen]\n\t\t\t).abgr;\n\t\t\tbreak;\n\t\t}\n\t\tlet iglo = ipe*4;\n\t\tlet praw0 = tepos[tecond[iglo+0]];\n\t\tlet praw1 = tepos[tecond[iglo+1]];\n\t\tlet pmat0 = mat2d[tejoi[tecond[iglo+0]]]*vec3f(praw0,1.,);\n\t\tlet pmat1 = mat2d[tejoi[tecond[iglo+1]]]*vec3f(praw1,1.,);\n\t\tlet p0 = pmat0/pmat0.z;\n\t\tlet p1 = pmat1/pmat1.z;\n\t\tlet v0 = vec3f(p0.xy,.0,);\n\t\tlet v1 = vec3f(p1.xy,.0,);\n\t\tlet v2 = vec3f(p,.0,);\n\t\tlet iawal = ipe;\n\t\t//di kiri relatif\n\t\tipe += select(\n\t\t\ttecond[iglo+2],\n\t\t\ttecond[iglo+3],\n\t\t\tcross(v1-v0,v1-v2,).z > .0,\n\t\t);\n\t\tif(iawal == ipe){\n\t\t\t//return colorini;\n\t\t\tbreak;\n\t\t}\n\t}\n\t\n\t//blipping transparenccccccc\n\tlet w = ulain[0];\n\tlet h = ulain[1];\n\tlet ilayar =\n\t\tu32(parh.pos.x)\n\t\t+u32(parh.pos.y)*w\n\t;\n\tvar blip =\n\t\tsin(layar[ilayar]*2222.3)\n\t\t+layar[ilayar+1u]\n\t\t+sin(parh.pos.x+parh.pos.y*1111.03)\n\t\t+2.41\n\t;\n\tblip = blip%1.;\n\tlayar[ilayar] = blip;\n\tif(colorini.a < blip){\n\t\tdiscard;\n\t}\n\treturn colorini;\n}",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

@@ -1,0 +1,442 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Poly Landhep
+		</title>
+		<link rel="stylesheet" href="css/object3dview.css"/>
+		<link id="meshshader" href="js/O3DV-meshshader.wgsl"/>
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="menuscene">
+					<!--
+						sh = show hide
+						tabletarget = element id, table yang akan muncul/hilang
+						menutarget = element id, menu yang akan muncul/hilang
+					-->
+					<svg id="shhelp" tabletarget="help" menutarget="menuedithelp" class="nyala" mousedescr="Show/Hide Help" xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 592 592">
+						<path fill="white" d="M372.3,34.2c32.7,23.6,49,58.5,49,104.9c0,24.3-8,47.9-23.9,70.7c-4.6,7.6-21.3,22.8-50.2,45.6L321,272.5   c-15.2,12.9-24.3,24.3-27.4,34.2c-2.3,6.1-3.8,14.4-4.6,25.1c0,5.3-3,8-9.1,8h-73c-6.1,0-9.1-2.3-9.1-6.8   c1.5-37.2,6.8-60.8,16-70.7c6.1-8.4,15.2-17.5,27.4-27.4s22.8-17.9,31.9-23.9l13.7-8c8.4-6.1,14.8-12.5,19.4-19.4   c10.6-16.7,16-30,16-39.9c0-15.2-4.9-30-14.8-44.5c-10.6-13.7-28.1-20.5-52.4-20.5c-25.8,0-43.7,8.4-53.6,25.1   c-10.6,16-16,33.4-16,52.4H90.7c2.3-61.6,23.9-105.7,65-132.3C182.3,8,213.8,0,250.3,0C299.7,0,340.4,11.4,372.3,34.2 M249.2,396.8   c16.7,0,30.6,5.7,41.6,17.1c11,11.4,16.2,25.5,15.4,42.2c-0.8,17.5-6.8,31.4-18.2,41.6s-25.5,15-42.2,14.3   c-16.7,0-30.6-5.5-41.6-16.5c-11-11-16.2-25.3-15.4-42.8c0.8-17.5,6.8-31.4,18.2-41.6S232.4,396,249.2,396.8"/>
+					</svg>
+					<svg id="shvert" tabletarget="vert" menutarget="menueditvert" class="" mousedescr="Show/Hide Vertex Data" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="shind" tabletarget="ind" menutarget="menueditind" class="" mousedescr="Show/Hide Index Data" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="shtelog" tabletarget="telog" menutarget="menuedittelog" class="" mousedescr="Show/Hide Texture Logic" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="shmat2d" tabletarget="mat2d" menutarget="menueditmat2d" class="" mousedescr="Show/Hide Matrix 2D" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="shmat3d" tabletarget="mat3d" menutarget="menueditmat3d" class="" mousedescr="Show/Hide Matrix 3D" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+				</div>
+				<!--
+				<div id="menueditnav" class="menueditdipilih">
+					<svg id="rotatecam" mousedescr="Rotate Camera & Zoom" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M 0 -40 L 0 40
+							M -15 -25 L 0 -40 L 10 -30
+							M -10 30 L 0 40 L 10 30
+							M -40 0 L 40 0
+							M -30 -10 L -40 0 L -30 10
+							M 30 -10 L 40 0 L 30 10
+						"/>
+					</svg>
+				</div>
+				-->
+				<div id="menuedithelp" class="menuedit menueditdipilih">
+				</div>
+				<div id="menueditvert" class="menuedit">
+					<svg id="newvert" mousedescr="New Vertex" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="copyvert" mousedescr="Copy Vertex"" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -40 -40
+							L -40 20
+							L 20 20
+							L 20 -40
+							Z
+							M -20 -20
+							L -20 40
+							L 40 40
+							L 40 -20
+							Z
+						"/>
+					</svg>
+					<svg id="movevert" mousedescr="Move Vertex" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M 0 -20 L 0 20
+							M -10 -10 L 0 -20 L 10 -10
+							M -10 10 L 0 20 L 10 10
+						"/>
+					</svg>
+					<svg id="deletevert" mousedescr="Delete Vertex" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+				</div>
+				<div id="menueditind" class="menuedit">
+					<svg id="newind" mousedescr="New Index" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deleteind" mousedescr="Delete Index" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+				</div>
+				<div id="menuedittelog" class="menuedit">
+					<svg id="newtepos" mousedescr="New Position" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deletetepos" mousedescr="Delete Position" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+					<svg id="newtecond" mousedescr="New Condition" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deletetecond" mousedescr="Delete Condition" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+					<svg id="newtecolor" mousedescr="New Color" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deletetecolor" mousedescr="Delete Color" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+				</div>
+				<div id="menueditmat2d" class="menuedit">
+					<svg id="newmat2d" mousedescr="New Matrix 2D" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deletemat2d" mousedescr="Delete Matrix 2D" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+				</div>
+				<div id="menueditmat3d" class="menuedit">
+					<svg id="newmat3d" mousedescr="New Matrix 3D" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="deletemat3d" mousedescr="Delete Matrix 3D" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+						"/>
+					</svg>
+				</div>
+				<div id="menufile">
+					<svg id="open" mousedescr="Open" viewBox="0 0 48 48">
+						<path fill="none" stroke="white" stroke-width="2px" d="M38,12H22l-4-4H8c-2.2,0-4,1.8-4,4v24c0,2.2,1.8,4,4,4h31c1.7,0,3-1.3,3-3V16C42,13.8,40.2,12,38,12z"/>
+						<path fill="none" stroke="white" stroke-width="2px" d="M42.2,18H15.3c-1.9,0-3.6,1.4-3.9,3.3L8,40h31.7c1.9,0,3.6-1.4,3.9-3.3l2.5-14C46.6,20.3,44.7,18,42.2,18z"/>
+					</svg>
+					<!-- https://brandeps.com/icon/S/Save-03 -->
+					<svg id="save" mousedescr="Save" viewBox="-50 -50 612 612">
+						<path fill="none" stroke="white" stroke-width="22px" d="
+							M12.4,0h333M12.4,0v512h487.3V114.3L404.1,0h-58.9v195.4H85.8V0H12.4z M207.8,24.7v122h97.3v-122H207.8z    M85.8,276.5h341.3v186.9H85.8V276.5z M134.4,316.6v24.7h244.1v-24.7H134.4z M134.4,390v24.7h244.1V390   C378.5,390,134.4,390,134.4,390z
+						"/>
+					</svg>
+					<svg id="saveas" mousedescr="Save As" viewBox="-50 -50 612 612">
+						<path fill="none" stroke="white" stroke-width="22px" d="
+							M12.4,0h333M12.4,0v512h487.3V114.3L404.1,0h-58.9v195.4H85.8V0H12.4z M207.8,24.7v122h97.3v-122H207.8z    M85.8,276.5h341.3v186.9H85.8V276.5z M134.4,316.6v24.7h244.1v-24.7H134.4z M134.4,390v24.7h244.1V390   C378.5,390,134.4,390,134.4,390z
+						"/>
+					</svg>
+					<svg id="newfile" mousedescr="New File" viewBox="-10 -10 20 20">
+						<path fill="none" stroke="white" stroke-width="1px" d="
+							M -6 -8
+							L 2 -8
+							L 6 -4
+							L 6 8
+							L -6 8
+							Z
+							M 2 -8
+							L 2 -4
+							L 6 -4
+						"/>
+					</svg>
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<div id="help" class="tablebisadipilih">
+					<h2>Poly Landhep</h2>
+					v1
+					<br/>
+					<br/>
+					<table><tbody id="helptbody">
+						<tr><td>Hold R	</td><td>: Rotate camera	</td></tr>
+						<tr><td>Hold R <span>+</span> wheel	</td><td>: Zoom camera	</td></tr>
+						<tr><td>Hold M	</td><td>: Move camera xy axis	</td></tr>
+						<tr><td>Hold M <span>+</span> wheel	</td><td>: Move camera z axis	</td></tr>
+						<tr><td>Press H	</td><td>: Reset camera	</td></tr>
+						<tr><td>Hold X<span>/</span>Y<span>/</span>Z <span>+</span> vertex table active	</td><td>: Move vertex coordinate	</td></tr>
+						<tr><td>Hold R<span>/</span>H<span>/</span>X<span>/</span>Y<span>/</span>Z <span>+</span> vertex table active <span>+</span> click	</td><td>: Select vertex near camera point	</td></tr>
+					</tbody></table>
+					<br/>Icon Delete harus double click
+					<br/>Save file berformat binary (format buatanku),
+					<br/>Belum support (e.g. OBJ, FBX, 3DS, PLY, STL, etc.)
+					<br/>Sumbu XYZ masingmasing berukuran 1000 units
+					<br/>
+					<span style="
+						color:#00ff00;
+						font-size:80%;
+					">
+						<br/>Aku latihan bikin 3d editor yang diharapkan bisa dijalankan
+						<br/>di komputer kentang.
+						<br/>Sekarang (v1), texture tidak berupa voronoi. Texture terbentuk dari
+						<br/>beberapa garis batas warna. (sedang dalam pembangunan)
+						<br/>Matrix 2d & 3d memudahkan transform vertex secara bersamaan saat
+						<br/>menggunakan animasi (belum sedia editor animasi, hanya bisa pake js)
+						<br/>
+					</span>
+					<br/>
+				</div>
+				<table id="vert" menutarget="menueditvert" class="tablebisadipilih">
+					<thead>
+						<tr>
+							<th rowspan="2"></th>
+							<th colspan="3">Position</th>
+							<th colspan="2">Tex Coord</th>
+							<th rowspan="2">Condition</th> 
+							<th colspan="4">Joint</th> 
+							<th rowspan="2">Weight</th> 
+						</tr>
+						<tr>
+							<th>x</th><th>y</th><th>z</th>
+							<th>x</th><th>y</th>
+							<th>0</th><th>1</th><th>2</th><th>3</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<table id="ind" menutarget="menueditind" class="tablebisadipilih">
+					<thead>
+						<tr>
+							<th></th>
+							<th colspan="3">Indices</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<div id="telog">
+					<table id="tepos" menutarget="menuedittelog" class="tablebisadipilih">
+						<thead>
+							<tr>
+								<th colspan="4">Position</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>x</th>
+								<th>y</th>
+								<th>Joint</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<table id="tecond" menutarget="menuedittelog" class="tablebisadipilih">
+						<thead>
+							<tr>
+								<th colspan="5">Is left condition</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>Start</th>
+								<th>End</th>
+								<th>True</th>
+								<th>False</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+					<table id="tecolor" menutarget="menuedittelog" class="tablebisadipilih">
+						<thead><tr>
+							<th></th>
+							<th>Color</th>
+						</tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
+				<table id="mat2d" menutarget="menueditmat2d" class="tablebisadipilih">
+					<thead>
+						<tr>
+							<th colspan="13">2d Matrix</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th>x axis x</th>
+							<th>x axis y</th>
+							<th>x axis w</th>
+							<th>padded</th>
+							<th>y axis x</th>
+							<th>y axis y</th>
+							<th>y axis w</th>
+							<th>padded</th>
+							<th>x</th>
+							<th>y</th>
+							<th>w</th>
+							<th>padded</th>
+						</tr>
+						<tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<table id="mat3d" menutarget="menueditmat3d" class="tablebisadipilih">
+					<thead>
+						<tr>
+							<th colspan="17">3d Matrix</th>
+						</tr>
+						<tr>
+							<th></th>
+							<th>x axis x</th><th>x axis y</th><th>x axis z</th><th>x axis w</th>
+							<th>y axis x</th><th>y axis y</th><th>y axis z</th><th>y axis w</th>
+							<th>z axis x</th><th>z axis y</th><th>z axis z</th><th>z axis w</th>
+							<th>x</th><th>y</th><th>z</th><th>w</th>
+						</tr>
+						<tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<div id="scrollberlebih">----------</div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="js/wgpu-matrix.js"></script>
+		<script src="js/rumus.js"></script>
+		<script src="js/readbin.js"></script>
+		<script src="js/O3DV.js"></script>
+		<script src="js/ui.js"></script>
+		<script src="js/loadtaman.js"></script>
+	</body>
+</html>

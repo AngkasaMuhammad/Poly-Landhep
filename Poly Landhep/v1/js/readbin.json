@@ -1,0 +1,407 @@
+[
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\"use strict\"\n",
+			"visible": true,
+			"time": "625606.3140078222",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "222",
+					"g": "166",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": ".04"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet isLE//isLittleEndian, untuk interaksi ArrayBuffer, antara TypedArray & DataView\n\t;{\n\t\tlet f = new Float32Array([12.345,])//angka sukasuka\n\t\tlet dv = new DataView(f.buffer)\n\t\tisLE = dv.getFloat32(0,) !== f[0]\n\t\tru.lihat('Pakai Little Endian? '+isLE)\n\t}\nlet readbin = byte=>{\n\t\tlet lih = ru.lihat\n\t\tlet byteview = new DataView(byte)\n\t\tlih(byteview)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\nlet ib = 0//index byte\n\nlet versi =\nbyteview.getUint32(ib,isLE,)\nib += 4\n\nlih('versi = '+versi)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet vertlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet indlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teposlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecondlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecolorlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "22",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat2dlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat3dlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet vertdata = []\nfor(let a = 0;a < vertlen;a++){\n\tlet d = []\n\t\n\t//pos\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//tex\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//texture idx\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\t//joi\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tvertdata.push(d)\n}\no3dv.me.setvertall(vertdata)\n//tableshowvert()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(vertdata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet inddata = []\nfor(let a = 0;a < indlen;a++){\n\tinddata\n\t.push(byteview.getUint16(ib,isLE,))\n\tib += 2\n}\no3dv.setindall(inddata)\n//tableshowind()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(inddata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teposdata = []\nfor(let a = 0;a < teposlen;a++){\n\tlet d = []\n\t\n\t//pos\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//joi\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tteposdata.push(d)\n\t\n}\no3dv.te.setposall(teposdata)\n//tableshowtepos()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(teposdata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teconddata = []\nfor(let a = 0;a < tecondlen;a++){\n\tlet d = []\n\t\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tteconddata.push(d)\n\t\n}\no3dv.te.setcondall(teconddata)\n//tableshowtecond()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(teconddata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecolordata = []\nfor(let a = 0;a < tecolorlen;a++){\n\ttecolordata\n\t.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n}\no3dv.te.setcolorall(tecolordata)\n//tableshowtecolor()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(tecolordata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat2ddata = []\nfor(let a = 0;a < mat2dlen;a++){\nfor(let b = 0;b < 12;b++){\t\n\tmat2ddata\n\t.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n}}\no3dv.setmat2dall(mat2ddata)\n//tableshowmat2d()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(mat2ddata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "55",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat3ddata = []\nfor(let a = 0;a < mat3dlen;a++){\nfor(let b = 0;b < 16;b++){\t\n\tmat3ddata\n\t.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n}}\no3dv.setmat3dall(mat3ddata)\n//tableshowmat3d()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(mat3ddata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "623965.6772078597",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	]
+]

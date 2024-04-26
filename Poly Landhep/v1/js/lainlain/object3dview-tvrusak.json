@@ -1,0 +1,213 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet o3dv = {}\n;(async ()=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet lih = ru.lihat\n\tlet h2 = document.querySelector('h2')\n\tlet canv = o3dv.canv = document.querySelector('canvas')\n\tlet cx = o3dv.cx = canv.getContext('webgpu')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet canvres = e=>{\n\t\tlet s = canv.style\n\t\tif(innerWidth/innerHeight > canv.width/canv.height){\n\t\t\ts.height = '100%'\n\t\t\ts.width = ''\n\t\t}else{\n\t\t\ts.height = ''\n\t\t\ts.width = '100%'\n\t\t}\n\t}\n\taddEventListener('resize',canvres,)\n\tcanvres()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet adap = await navigator.gpu.requestAdapter()\n\tlet dv = await adap.requestDevice()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\tcx.configure({\n\t\tdevice:dv,\n\t\tformat: presentationFormat,\n\t})\n\tlet rendermod = dv.createShaderModule({\n\t\tlabel:'ini render module',\n\t\tcode:`\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\nstruct hasil{\n\t@builtin(position) pos: vec4f,\n\t@location(0) tex: vec2f,\n}\n@vertex fn vs(\n\t@builtin(vertex_index) vertexIndex : u32\n) -> hasil {\n\tlet pos = array(\n\t\tvec2f( -0.9,  2.7),\n\t\tvec2f(-0.9, -0.9),\n\t\tvec2f( 2.7, -0.9)\n\t);\n\t\n\tlet xy = pos[vertexIndex];\n\treturn hasil(\n\t\tvec4f(xy, 0.0, 1.0),\n\t\txy,\n\t);\n}\n@group(0) @binding(0) var<storage, read_write> layar3d: array<f32>;\n@fragment fn fs(\n\tparh: hasil//parameter hasil\n) -> @location(0) vec4f {\n\t\n\tlayar3d[0] += .006;\n\tif(layar3d[0] > .94){\n\t\tlayar3d[0] = .0;\n\t}\n\t\n\treturn vec4f(\n\t\tparh.tex,\n\t\tlayar3d[0],\n\t\t1,\n\t);\n}\n\n\n\t\t\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "`,\n\t\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet renderpipe = dv.createRenderPipeline({\n\t\tlabel: 'ini pipa render',\n\t\tlayout: 'auto',\n\t\tvertex: {\n\t\t\tmodule:rendermod,\n\t\t\tentryPoint: 'vs',\n\t\t},\n\t\tfragment: {\n\t\t\tmodule:rendermod,\n\t\t\tentryPoint: 'fs',\n\t\t\ttargets: [{ format: presentationFormat }],\n\t\t}\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet renderPassDescriptor = {\n\t\tlabel: 'our basic canvas renderPass',\n\t\tcolorAttachments: [\n\t\t\t{\n\t\t\t\tclearValue: [0.3, 0.3, 0.7, 1],\n\t\t\t\tloadOp: 'clear',\n\t\t\t\tstoreOp: 'store',\n\t\t\t\tview:null,\n\t\t\t},\n\t\t],\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet layar3darr = new Uint32Array([0,])\n\tlet layar3dbuf = dv.createBuffer({\n\t\tlabel: 'layar 3d arr buf',\n\t\tsize: layar3darr.byteLength,\n\t\tusage:  GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC | GPUBufferUsage.COPY_DST,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet renderbind = dv.createBindGroup({\n\t\tlabel: 'iiinnnnii  render bindGroup',\n\t\tlayout: renderpipe.getBindGroupLayout(0),\n\t\tentries: [\n\t\t\t{ binding: 0, resource: { buffer: layar3dbuf} },\n\t\t],\n\t});\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\tlet lukis = ()=>{\n\t\t\tlet encoder = dv.createCommandEncoder({\n\t\t\t\tlabel: 'encoderrrrrrr',\n\t\t\t})\n\t\t\trenderPassDescriptor.colorAttachments[0].view = cx.getCurrentTexture().createView()\n\t\t\tlet pass = encoder.beginRenderPass(renderPassDescriptor)\n\t\t\tpass.setPipeline(renderpipe)\n\t\t\tpass.setBindGroup(0, renderbind)\n\t\t\tpass.draw(3)\n\t\t\tpass.end()\n\t\t\t\n\t\t\tdv.queue.writeBuffer(layar3dbuf,0,layar3darr,0,1,)\n\t\t\tdv.queue.submit([encoder.finish()])\n\t\t\tdv.queue.onSubmittedWorkDone().then(prm=prm?prm:e=>{\n\t\t\t\trequestAnimationFrame(lukis)\n\t\t\t})\n\t\t}\n\t\tlet prm//lukis promise\n\t\trequestAnimationFrame(lukis)\n\t\tlih('sudah submit')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})()",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

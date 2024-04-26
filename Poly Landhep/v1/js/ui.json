@@ -1,0 +1,2984 @@
+[
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\"use strict\"\n\n/*\n--\tsegera\n=>\tdiurus\n\tsudah\n\n-------------\n\tbikin class vertdipilih, inddipilih, seeddipilih\n\tubah data buffer\n\toperasi baris: add copy move delete\n\tatur kamera pake key, saat document.activeElement bukan berupa input / textarea\n\tbikin fixed table\n\ttexture logic\n\tbikin new delete\n\ttekan x y z jadi hilang, perbaiki jadi harus table vert active lalu bisa tekan x y z\n=>\tpointer digeser:\n\t\tvoroidx -->> tecond\n\t\tjoi 0 1 2 3 -->> mat3d\n\t\tind -->> vert\n\t\ttejoi -->> mat2d\n\t\ttecond start end -->> tepos\n\t=>\ttecond true false -->> tecond & tecolor\n*/\nlet ui = {}\no3dv.javascript_ui = async aa=>{\n",
+			"visible": true,
+			"time": "628617.1724076814",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "222",
+					"g": "166",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": ".04"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet lih = ru.lihat\n\tlet cla = ru.cla\n\tlet que = ru.que\n\tlet attr = ru.attr\n\tlet v3 = wgpuMatrix.vec3\n\tlet v4 = wgpuMatrix.vec4\n\tlet m4 = wgpuMatrix.mat4\n\tlet w = o3dv.canv.width\n\tlet h = o3dv.canv.height\n\tlet docele = document.documentElement\n",
+			"visible": true,
+			"time": "646796.0937724917",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "199",
+					"g": "155",
+					"b": "99",
+					"frame": "0"
+				},
+				{
+					"r": "199",
+					"g": "155",
+					"b": "99",
+					"frame": "2"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "2.01"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "2.07"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet moutex = que('#moutex')[0]\n\tlet help = que('#help')[0]\n\tlet vert = que('#vert')[0]\n\tlet ind = que('#ind')[0]\n\tlet tepos = que('#tepos')[0]\n\tlet tecond = que('#tecond')[0]\n\tlet tecolor = que('#tecolor')[0]\n\tlet mat2d = que('#mat2d')[0]\n\tlet mat3d = que('#mat3d')[0]\n",
+			"visible": true,
+			"time": "646756.5281085081",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "44",
+					"g": "44",
+					"b": "111",
+					"frame": "0"
+				},
+				{
+					"r": "44",
+					"g": "44",
+					"b": "111",
+					"frame": ".3"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": ".31"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "4"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet verttbody = que('#vert > tbody')[0]\n\tlet indtbody = que('#ind > tbody')[0]\n\tlet tepostbody = que('#tepos > tbody')[0]\n\tlet tecondtbody = que('#tecond > tbody')[0]\n\tlet tecolortbody = que('#tecolor > tbody')[0]\n\tlet mat2dtbody = que('#mat2d > tbody')[0]\n\tlet mat3dtbody = que('#mat3d > tbody')[0]\n",
+			"visible": true,
+			"time": "646543.0920084622",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "177",
+					"b": "177",
+					"frame": "7"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet newvert = que('#newvert')[0]\n\tlet copyvert = que('#copyvert')[0]\n\tlet movevert = que('#movevert')[0]\n\tlet deletevert = que('#deletevert')[0]\n\tlet newind = que('#newind')[0]\n\tlet deleteind = que('#deleteind')[0]\n\tlet newtepos = que('#newtepos')[0]\n\tlet deletetepos = que('#deletetepos')[0]\n\tlet newtecond = que('#newtecond')[0]\n\tlet deletetecond = que('#deletetecond')[0]\n\tlet newtecolor = que('#newtecolor')[0]\n\tlet deletetecolor = que('#deletetecolor')[0]\n\tlet newmat2d = que('#newmat2d')[0]\n\tlet deletemat2d = que('#deletemat2d')[0]\n\tlet newmat3d = que('#newmat3d')[0]\n\tlet deletemat3d = que('#deletemat3d')[0]\n\t\n\tlet open = que('#open')[0]\n\tlet save = que('#save')[0]\n\tlet saveas = que('#saveas')[0]\n\tlet newfile = que('#newfile')[0]\n",
+			"visible": true,
+			"time": "646318.2247084617",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "166",
+					"b": "166",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "627067.2777077188",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t//-----------------------------\n\tlet datang = e=>moutex.textContent = attr(e.target,'mousedescr',)\n\tlet pergi = e=>moutex.textContent = ''\n\tlet eleindex = ele=>+Array.from(ele.parentElement.children).indexOf(ele)\n",
+			"visible": true,
+			"time": "645849.8918084619",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "4"
+				},
+				{
+					"r": "177",
+					"g": "177",
+					"b": "255",
+					"frame": "4.01"
+				},
+				{
+					"r": "177",
+					"g": "177",
+					"b": "255",
+					"frame": "4.1"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihtable = e=>pilihtable(e.currentTarget)\n\tlet pilihtable = cur=>{\n\t\tlet str = 'tabledipilih'\n\t\tcla(str)[0]?.classList.remove(str)\n\t\tcur.classList.add(str)\n\t\t\n\t\tstr = 'menueditdipilih'\n\t\tcla(str)[0]?.classList.remove(str)\n\t\t//lih(que('#menuedit'+cur.id)[0])?.classList.add(str)\n\t\tque('#'+attr(cur,'menutarget',))[0]?.classList.add(str)\n\t}\n\tlet fshtable = shele=>{//show hide table\n\t\tlet table = que('#'+attr(shele,'tabletarget',))[0]\n\t\tlet menu = que('#'+attr(shele,'menutarget',))[0]\n\t\tlet nyala = shele.classList.toggle('nyala')\n\t\tlet cmd = nyala?'remove':'add'\n\t\ttable.classList[cmd]('hilang')\n\t\tif(nyala){\n\t\t\tpilihtable(table)\n\t\t}else{\n\t\t\tlet str = 'tabledipilih'\n\t\t\ttable.classList.remove(str)\n\t\t\tstr = 'menueditdipilih'\n\t\t\tmenu.classList.remove(str)\n\t\t}\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tableshowvert = ui.tableshowvert = ()=>{\n\t\tlet posarr = o3dv.posarr\n\t\tlet texarr = o3dv.texarr\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tlet joiarr = o3dv.joiarr\n\t\tlet ch = Array.from(verttbody.children)\n\t\tlet vesc = Math.floor(vertscroll)\n\t\tlet s = 'vertdipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\tfor(let i = 0;i < ch.length;i++){\n\t\t\tlet tr = ch[i]\n\t\t\tlet no = tr.children[0]\n\t\t\tlet vx = tr.children[1].firstElementChild\n\t\t\tlet vy = tr.children[2].firstElementChild\n\t\t\tlet vz = tr.children[3].firstElementChild\n\t\t\tlet tx = tr.children[4].firstElementChild\n\t\t\tlet ty = tr.children[5].firstElementChild\n\t\t\tlet voro = tr.children[6].firstElementChild\n\t\t\tlet j0 = tr.children[7].firstElementChild\n\t\t\tlet j1 = tr.children[8].firstElementChild\n\t\t\tlet j2 = tr.children[9].firstElementChild\n\t\t\tlet j3 = tr.children[10].firstElementChild\n\t\t\tlet w = tr.children[11].firstElementChild\n\t\t\t\n\t\t\tif(i < posarr.length/3-vesc){\n\t\t\t\ttr.classList.remove('datakosong')\n\t\t\t\tlet ivert = i+vesc\n\t\t\t\tif(notrvd === ivert){\n\t\t\t\t\ttr.classList.add(s)\n\t\t\t\t}\n\t\t\t\tno.textContent = ivert\n\t\t\t\tvx.value = posarr[ivert*3+0]\n\t\t\t\tvy.value = posarr[ivert*3+1]\n\t\t\t\tvz.value = posarr[ivert*3+2]\n\t\t\t\ttx.value = texarr[ivert*2+0]\n\t\t\t\tty.value = texarr[ivert*2+1]\n\t\t\t\tvoro.value = voroidxarr[ivert*1+0]\n\t\t\t\tj0.value = joiarr[ivert*5+0]\n\t\t\t\tj1.value = joiarr[ivert*5+1]\n\t\t\t\tj2.value = joiarr[ivert*5+2]\n\t\t\t\tj3.value = joiarr[ivert*5+3]\n\t\t\t\tw.value = '0x'+joiarr[ivert*5+4].toString(16).padStart(8,'0',)\n\t\t\t}else{\n\t\t\t\ttr.classList.add('datakosong')\n\t\t\t\tno.textContent =\n\t\t\t\tvx.value =\n\t\t\t\tvy.value =\n\t\t\t\tvz.value =\n\t\t\t\ttx.value =\n\t\t\t\tty.value =\n\t\t\t\tvoro.value =\n\t\t\t\tj0.value =\n\t\t\t\tj1.value =\n\t\t\t\tj2.value =\n\t\t\t\tj3.value =\n\t\t\t\tw.value =\n\t\t\t\t'-'\n\t\t\t}\n\t\t\t\n\t\t}\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tableshowind = ui.tableshowind = ()=>{\n\t\tlet indarr = o3dv.indarr\n\t\tlet ch = Array.from(indtbody.children)\n\t\tlet indsc = Math.floor(indscroll/2)*2\n\t\tlet s = 'inddipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\t\n\t\tfor(let i = 0;i < ch.length;i++){\n\t\t\tlet tr = ch[i]\n\t\t\tlet no = tr.children[0]\n\t\t\tlet inp0 = tr.children[1].firstElementChild\n\t\t\tlet inp1 = tr.children[2].firstElementChild\n\t\t\tlet inp2 = tr.children[3].firstElementChild\n\t\t\t\n\t\t\tif(i < indarr.length/3-indsc){\n\t\t\t\ttr.classList.remove('datakosong')\n\t\t\t\tlet iind = i+indsc\n\t\t\t\t\n\t\t\t\tif(notratasid === iind){\n\t\t\t\t\ttr.classList.add(s)\n\t\t\t\t\ttr.nextElementSibling.classList.add(s)\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tno.textContent = iind\n\t\t\t\tinp0.value = indarr[iind*3+0]\n\t\t\t\tinp1.value = indarr[iind*3+1]\n\t\t\t\tinp2.value = indarr[iind*3+2]\n\t\t\t}else{\n\t\t\t\ttr.classList.add('datakosong')\n\t\t\t\tno.textContent =\n\t\t\t\tinp0.value =\n\t\t\t\tinp1.value =\n\t\t\t\tinp2.value =\n\t\t\t\t'-'\n\t\t\t}\n\t\t}\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tableshowtepos = ui.tableshowtepos = ()=>{\n\t\tlet teposarr = o3dv.teposarr\n\t\tlet tejoiarr = o3dv.tejoiarr\n\t\tlet ch = Array.from(tepostbody.children)\n\t\tlet tepossc = Math.floor(teposscroll)\n\t\tlet s = 'teposdipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\t//\n\t\t\n\t\tfor(let i in ch){\n\t\t\tlet tr = ch[i = +i]\n\t\t\tlet no = tr.children[0]\n\t\t\t\n\t\t\tlet tdx = tr.children[1]\t;let inpx = tdx.firstElementChild\n\t\t\tlet tdy = tr.children[2]\t;let inpy = tdy.firstElementChild\n\t\t\tlet tdjoi = tr.children[3]\t;let inpjoi = tdjoi.firstElementChild\n\t\t\t\n\t\t\tlet itepos = i+tepossc\n\t\t\t\n\t\t\tif(itepos < teposarr.length/2){\n\t\t\t\ttr.classList.remove('datakosong')\n\t\t\t\tif(notrtpd === itepos){\n\t\t\t\t\ttr.classList.add(s)\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tno.textContent = itepos\n\t\t\t\tinpx.value = teposarr[itepos*2+0]\n\t\t\t\tinpy.value = teposarr[itepos*2+1]\n\t\t\t\tinpjoi.value = tejoiarr[itepos*1+0]\n\t\t\t}else{\n\t\t\t\ttr.classList.add('datakosong')\n\t\t\t\tno.textContent =\n\t\t\t\tinpx.value =\n\t\t\t\tinpy.value =\n\t\t\t\tinpjoi.value = \n\t\t\t\t'-'\n\t\t\t}\n\t\t}\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tableshowtecond = ui.tableshowtecond = ()=>{\n\tlet tecondarr = o3dv.tecondarr\n\tlet ch = Array.from(tecondtbody.children)\n\tlet tecondsc = Math.floor(tecondscroll)\n\tlet s = 'teconddipilih'\n\tque('.'+s)[0]?.classList.remove(s)\n\t//\n\t\n\tfor(let i in ch){\n\t\tlet tr = ch[i = +i]\n\t\tlet no = tr.children[0]\n\t\t\n\t\tlet tds = tr.children[1]\t;let inps = tds.firstElementChild\n\t\tlet tde = tr.children[2]\t;let inpe = tde.firstElementChild\n\t\tlet tdt = tr.children[3]\t;let inpt = tdt.firstElementChild\n\t\tlet tdf = tr.children[4]\t;let inpf = tdf.firstElementChild\n\t\t\n\t\tlet itecond = i+tecondsc\n\t\t\n\t\tif(itecond < tecondarr.length/4){\n\t\t\ttr.classList.remove('datakosong')\n\t\t\tif(notrtcd === itecond){\n\t\t\t\ttr.classList.add(s)\n\t\t\t}\n\t\t\t\n\t\t\tno.textContent = itecond\n\t\t\tinps.value = tecondarr[itecond*4+0]\n\t\t\tinpe.value = tecondarr[itecond*4+1]\n\t\t\tinpt.value = tecondarr[itecond*4+2]\n\t\t\tinpf.value = tecondarr[itecond*4+3]\n\t\t}else{\n\t\t\ttr.classList.add('datakosong')\n\t\t\tno.textContent =\n\t\t\tinps.value =\n\t\t\tinpe.value =\n\t\t\tinpt.value =\n\t\t\tinpf.value =\n\t\t\t'-'\n\t\t}\n\t}\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tableshowtecolor = ui.tableshowtecolor = ()=>{\n\tlet tecolorarr = o3dv.tecolorarr\n\tlet ch = Array.from(tecolortbody.children)\n\tlet tecolorsc = Math.floor(tecolorscroll)\n\tlet s = 'tecolordipilih'\n\tque('.'+s)[0]?.classList.remove(s)\n\t//\n\t\n\tfor(let i in ch){\n\t\tlet tr = ch[i = +i]\n\t\tlet no = tr.children[0]\n\t\t\n\t\tlet td = tr.children[1]\t;let inp = td.firstElementChild\n\t\t\n\t\tlet itecolor = i+tecolorsc\n\t\t\n\t\tif(itecolor < tecolorarr.length){\n\t\t\ttr.classList.remove('datakosong')\n\t\t\tif(notrtcod === itecolor){\n\t\t\t\ttr.classList.add(s)\n\t\t\t}\n\t\t\t\n\t\t\tno.textContent = itecolor\n\t\t\tinp.value = '0x'+tecolorarr[itecolor].toString(16).padStart(8,'0',)\n\t\t}else{\n\t\t\ttr.classList.add('datakosong')\n\t\t\tno.textContent =\n\t\t\tinp.value =\n\t\t\t'-'\n\t\t}\n\t}\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tableshowmat2d = ui.tableshowmat2d = ()=>{\n\tlet mat2darr = o3dv.mat2darr\n\tlet ch = Array.from(mat2dtbody.children)\n\tlet mat2dsc = Math.floor(mat2dscroll)\n\tlet s = 'mat2ddipilih'\n\tque('.'+s)[0]?.classList.remove(s)\n\t//\n\t\n\tfor(let i in ch){\n\t\tlet tr = ch[i = +i]\n\t\tlet no = tr.children[0]\n\t\t\n\t\tlet tdxx\t= tr.children[1\t]\t;let inpxx = tdxx.firstElementChild\n\t\tlet tdxy\t= tr.children[2\t]\t;let inpxy = tdxy.firstElementChild\n\t\tlet tdxw\t= tr.children[3\t]\t;let inpxw = tdxw.firstElementChild\n\t\tlet tdp0\t= tr.children[4\t]\n\t\tlet tdyx\t= tr.children[5\t]\t;let inpyx = tdyx.firstElementChild\n\t\tlet tdyy\t= tr.children[6\t]\t;let inpyy = tdyy.firstElementChild\n\t\tlet tdyw\t= tr.children[7\t]\t;let inpyw = tdyw.firstElementChild\n\t\tlet tdp1\t= tr.children[8\t]\n\t\tlet tdx\t= tr.children[9\t]\t;let inpx = tdx.firstElementChild\n\t\tlet tdy\t= tr.children[10\t]\t;let inpy = tdy.firstElementChild\n\t\tlet tdw\t= tr.children[11\t]\t;let inpw = tdw.firstElementChild\n\t\tlet tdp2\t= tr.children[12\t]\n\t\t\n\t\tlet imat2d = i+mat2dsc\n\t\t\n\t\tif(imat2d < mat2darr.length/12){\n\t\t\ttr.classList.remove('datakosong')\n\t\t\tif(notrm2d === imat2d){\n\t\t\t\ttr.classList.add(s)\n\t\t\t}\n\t\t\t\n\t\t\tno.textContent = imat2d\n\t\t\tinpxx.value\t= mat2darr[imat2d*12+0\t]\n\t\t\tinpxy.value\t= mat2darr[imat2d*12+1\t]\n\t\t\tinpxw.value\t= mat2darr[imat2d*12+2\t]\n\t\t\ttdp0.textContent\t= mat2darr[imat2d*12+3\t]\n\t\t\tinpyx.value\t= mat2darr[imat2d*12+4\t]\n\t\t\tinpyy.value\t= mat2darr[imat2d*12+5\t]\n\t\t\tinpyw.value\t= mat2darr[imat2d*12+6\t]\n\t\t\ttdp1.textContent\t= mat2darr[imat2d*12+7\t]\n\t\t\tinpx.value\t= mat2darr[imat2d*12+8\t]\n\t\t\tinpy.value\t= mat2darr[imat2d*12+9\t]\n\t\t\tinpw.value\t= mat2darr[imat2d*12+10\t]\n\t\t\ttdp2.textContent\t= mat2darr[imat2d*12+11\t]\n\t\t}else{\n\t\t\ttr.classList.add('datakosong')\n\t\t\tno.textContent =\n\t\t\tinpxx.value\t=\n\t\t\tinpxy.value\t=\n\t\t\tinpxw.value\t=\n\t\t\ttdp0.textContent\t=\n\t\t\tinpyx.value\t=\n\t\t\tinpyy.value\t=\n\t\t\tinpyw.value\t=\n\t\t\ttdp1.textContent\t=\n\t\t\tinpx.value\t=\n\t\t\tinpy.value\t=\n\t\t\tinpw.value\t=\n\t\t\ttdp2.textContent\t=\n\t\t\t'-'\n\t\t}\n\t}\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tableshowmat3d = ui.tableshowmat3d = ()=>{\n\tlet mat3darr = o3dv.mat3darr\n\tlet ch = Array.from(mat3dtbody.children)\n\tlet mat3dsc = Math.floor(mat3dscroll)\n\tlet s = 'mat3ddipilih'\n\tque('.'+s)[0]?.classList.remove(s)\n\t//\n\t\n\tfor(let i in ch){\n\t\tlet tr = ch[i = +i]\n\t\tlet no = tr.children[0]\n\t\t\n\t\tlet tdxx\t= tr.children[1\t]\t;let inpxx = tdxx.firstElementChild\n\t\tlet tdxy\t= tr.children[2\t]\t;let inpxy = tdxy.firstElementChild\n\t\tlet tdxz\t= tr.children[3\t]\t;let inpxz = tdxz.firstElementChild\n\t\tlet tdxw\t= tr.children[4\t]\t;let inpxw = tdxw.firstElementChild\n\t\tlet tdyx\t= tr.children[5\t]\t;let inpyx = tdyx.firstElementChild\n\t\tlet tdyy\t= tr.children[6\t]\t;let inpyy = tdyy.firstElementChild\n\t\tlet tdyz\t= tr.children[7\t]\t;let inpyz = tdyz.firstElementChild\n\t\tlet tdyw\t= tr.children[8\t]\t;let inpyw = tdyw.firstElementChild\n\t\tlet tdzx\t= tr.children[9\t]\t;let inpzx = tdzx.firstElementChild\n\t\tlet tdzy\t= tr.children[10\t]\t;let inpzy = tdzy.firstElementChild\n\t\tlet tdzz\t= tr.children[11\t]\t;let inpzz = tdzz.firstElementChild\n\t\tlet tdzw\t= tr.children[12\t]\t;let inpzw = tdzw.firstElementChild\n\t\tlet tdwx\t= tr.children[13\t]\t;let inpwx = tdwx.firstElementChild\n\t\tlet tdwy\t= tr.children[14\t]\t;let inpwy = tdwy.firstElementChild\n\t\tlet tdwz\t= tr.children[15\t]\t;let inpwz = tdwz.firstElementChild\n\t\tlet tdww\t= tr.children[16\t]\t;let inpww = tdww.firstElementChild\n\t\t\n\t\tlet imat3d = i+mat3dsc\n\t\t\n\t\tif(imat3d < mat3darr.length/16){\n\t\t\ttr.classList.remove('datakosong')\n\t\t\tif(notrm3d === imat3d){\n\t\t\t\ttr.classList.add(s)\n\t\t\t}\n\t\t\t\n\t\t\tno.textContent = imat3d\n\t\t\tinpxx.value\t= mat3darr[imat3d*16+0\t]\n\t\t\tinpxy.value\t= mat3darr[imat3d*16+1\t]\n\t\t\tinpxz.value\t= mat3darr[imat3d*16+2\t]\n\t\t\tinpxw.value\t= mat3darr[imat3d*16+3\t]\n\t\t\tinpyx.value\t= mat3darr[imat3d*16+4\t]\n\t\t\tinpyy.value\t= mat3darr[imat3d*16+5\t]\n\t\t\tinpyz.value\t= mat3darr[imat3d*16+6\t]\n\t\t\tinpyw.value\t= mat3darr[imat3d*16+7\t]\n\t\t\tinpzx.value\t= mat3darr[imat3d*16+8\t]\n\t\t\tinpzy.value\t= mat3darr[imat3d*16+9\t]\n\t\t\tinpzz.value\t= mat3darr[imat3d*16+10\t]\n\t\t\tinpzw.value\t= mat3darr[imat3d*16+11\t]\n\t\t\tinpwx.value\t= mat3darr[imat3d*16+12\t]\n\t\t\tinpwy.value\t= mat3darr[imat3d*16+13\t]\n\t\t\tinpwz.value\t= mat3darr[imat3d*16+14\t]\n\t\t\tinpww.value\t= mat3darr[imat3d*16+15\t]\n\t\t}else{\n\t\t\ttr.classList.add('datakosong')\n\t\t\tno.textContent =\n\t\t\tinpxx.value\t=\n\t\t\tinpxy.value\t=\n\t\t\tinpxz.value\t=\n\t\t\tinpxw.value\t=\n\t\t\tinpyx.value\t=\n\t\t\tinpyy.value\t=\n\t\t\tinpyz.value\t=\n\t\t\tinpyw.value\t=\n\t\t\tinpzx.value\t=\n\t\t\tinpzy.value\t=\n\t\t\tinpzz.value\t=\n\t\t\tinpzw.value\t=\n\t\t\tinpwx.value\t=\n\t\t\tinpwy.value\t=\n\t\t\tinpwz.value\t=\n\t\t\tinpww.value\t=\n\t\t\t'-'\n\t\t}\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihvert = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihvert(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihvert(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(vert)\n\t}\n\tlet pilihvert = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'vertdipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrvd = +tr.firstElementChild.textContent\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihind = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihind(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihind(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(ind)\n\t}\n\tlet pilihind = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'inddipilih'\n\t\tlet i = eleindex(tr)\n\t\tlet tratas = (i%2)?tr.previousElementSibling:tr\n\t\tlet trbawah = tratas.nextElementSibling\n\t\t\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttratas.classList.add(s)\n\t\ttrbawah.classList.add(s)\n\t\t\n\t\tnotratasid = +tratas.firstElementChild.textContent\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihseed = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihseed(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihseed(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(seedlist)\n\t}\n\tlet pilihseed = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'seeddipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrsd = +tr.firstElementChild.textContent\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "99",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihtepos = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihtepos(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihtepos(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(tepos)\n\t}\n\tlet pilihtepos = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'teposdipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrtpd = +tr.firstElementChild.textContent\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "99",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihtecond = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihtecond(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihtecond(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(tecond)\n\t}\n\tlet pilihtecond = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'teconddipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrtcd = +tr.firstElementChild.textContent\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihtecolor = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihtecolor(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihtecolor(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(tecolor)\n\t}\n\tlet pilihtecolor = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'tecolordipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrtcod = +tr.firstElementChild.textContent\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihmat2d = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihmat2d(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihmat2d(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(mat2d)\n\t}\n\tlet pilihmat2d = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'mat2ddipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrm2d = +tr.firstElementChild.textContent\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fpilihmat3d = e=>{\n\t\tlet ele = e.currentTarget\n\t\tlet co = ele.constructor\n\t\t\n\t\tif(co === HTMLTableRowElement){\n\t\t\tpilihmat3d(ele)\n\t\t}else if(co === HTMLInputElement){\n\t\t\tpilihmat3d(ele.parentElement.parentElement)\n\t\t}\n\t\tpilihtable(mat3d)\n\t}\n\tlet pilihmat3d = tr=>{\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet s = 'mat3ddipilih'\n\t\tque('.'+s)[0]?.classList.remove(s)\n\t\ttr.classList.add(s)\n\t\tnotrm3d = +tr.firstElementChild.textContent\n\t\t\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet keycodes = {\n\t\t[82]:'r',\n\t\t[77]:'m',\n\t\t[72]:'h',\n\t\t[88]:'x',\n\t\t[89]:'y',\n\t\t[90]:'z',\n\t}\n\tlet key = {}\n\t\n\tlet fkey = e=>{\n \t\t//lih(e.keyCode)\n\t\tif(\n\t\t\t(document.activeElement !== document.body) ||\n\t\t\te.ctrlKey ||\n\t\t\te.shiftKey ||\n\t\t\te.altKey\n\t\t){return}\n\t\tlet keyini = keycodes[e.keyCode]\n\t\tlet awal = key[keyini]\n\t\tif(awal === undefined){return}\n\t\tlet akhir = e.type === 'keydown'\n\t\tlet berubah = awal !== akhir\n\t\tkey[keyini] = akhir\n",
+			"visible": true,
+			"time": "628784.1903076726",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "99",
+					"frame": "0"
+				},
+				{
+					"r": "177",
+					"g": "177",
+					"b": "99",
+					"frame": "2"
+				},
+				{
+					"r": "177",
+					"g": "0",
+					"b": "255",
+					"frame": "2.01"
+				},
+				{
+					"r": "177",
+					"g": "0",
+					"b": "255",
+					"frame": "2.1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "2.11"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "2.2"
+				}
+			]
+		},
+		{
+			"text": "\n\tif((keyini === 'r') && berubah){\n\t\tdocele\n\t\t.requestPointerLock({\n\t\t\tunadjustedMovement:true,\n\t\t})\n\t\tui.camdiputar(key.r)\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "234",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tif((keyini === 'm') && berubah){\n\t\tdocele\n\t\t.requestPointerLock({\n\t\t\tunadjustedMovement:true,\n\t\t})\n\t\tui.camdigeser(key.m)\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tif(key.h && berubah){\n\t\tui.camreset()\n\t\tfmouse()\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "177",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tif(\n\t(\n\t\tkey.x ||\n\t\tkey.y ||\n\t\tkey.z\n\t)\n\t&& berubah\n\t&& (que('.tabledipilih')[0] === vert)\n\t){\n\t\tdocele\n\t\t.requestPointerLock({\n\t\t\tunadjustedMovement:true,\n\t\t})\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tif(\n\t\t!key.m &&\n\t\t!key.r &&\n\t\t!key.x &&\n\t\t!key.y &&\n\t\t!key.z\n\t){\n\t\tdocument\n\t\t.exitPointerLock()\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tambahvert = (px,py,pz,tx,ty,voro,j0,j1,j2,j3,w,)=>{\n\t\tif(o3dv.posarr.length)\n\t\t\tnotrvd++\n\t\t\n\t\tlet me = o3dv.me\n\t\tme.newvert(notrvd)\n\t\tme.setpos(notrvd,px,py,pz,)\n\t\tme.settex(notrvd,tx,ty,)\n\t\tme.setvoro(notrvd,voro,)\n\t\tme.setjoi(notrvd,j0,j1,j2,j3,w,)\n\t\t\n\t\tlet indarrbaru = Array.from(o3dv.indarr)\n\t\tfor(let i = 0;i < indarrbaru.length;i++){\n\t\t\tif(indarrbaru[i] >= notrvd){\n\t\t\t\tindarrbaru[i]++\n\t\t\t}\n\t\t}\n\t\t\n\t\to3dv.setindall(indarrbaru)\n\t\ttableshowvert()\n\t\ttableshowind()\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet hapusvert = ()=>{\n\t\tlet indarrbaru = Array.from(o3dv.indarr)\n\t\tfor(let i = 0;i < indarrbaru.length;i++){\n\t\t\tlet itris = Math.floor(i/3)*3\n\t\t\tif(indarrbaru[i] > notrvd){\n\t\t\t\tindarrbaru[i]--\n\t\t\t}else if(indarrbaru[i] == notrvd){\n\t\t\t\tindarrbaru[itris+0] =\n\t\t\t\tindarrbaru[itris+1] =\n\t\t\t\tindarrbaru[itris+2] = 0\n\t\t\t}\n\t\t}\n\t\t\n\t\to3dv.me.deletevert(notrvd,)\n\t\tnotrvd--\n\t\tnotrvd = Math.max(notrvd,0,)\n\t\t\n\t\to3dv.setindall(indarrbaru)\n\t\ttableshowvert()\n\t\ttableshowind()\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet geservert = ui.geservert = i=>{\n\t\tlet me = o3dv.me\n\t\tlet d = me.deletevert(notrvd)//deleted data\n\t\t\n\t\tlet iab = Array.from(o3dv.indarr)//ind arr baru\n\t\tfor(let j = 0;j < iab.length;j++){\n\t\t\tif(iab[j] === notrvd){\n\t\t\t\tiab[j] = i\n\t\t\t}else if(\n\t\t\t\t(notrvd < iab[j]) &&\n\t\t\t\t(iab[j] <= i)\n\t\t\t){\n\t\t\t\tiab[j]--\n\t\t\t}else if(\n\t\t\t\t(i <= iab[j]) &&\n\t\t\t\t(iab[j] < notrvd )\n\t\t\t){\n\t\t\t\tiab[j]++\n\t\t\t}\n\t\t}\n\t\t\n\t\tme.newvert(i)\n\t\tme.setpos(i,d[0],d[1],d[2],)\n\t\tme.settex(i,d[3],d[4],)\n\t\tme.setvoro(i,d[5],)\n\t\tme.setjoi(i,d[6],d[7],d[8],d[9],d[10],)\n\t\tlet min = Math.min(notrvd,i,)\n\t\tlet max = Math.max(notrvd,i,)\n\t\tme.updvertbuf(min,max+1,)\n\t\tnotrvd = i\n\t\t\n\t\to3dv.setindall(iab)\n\t\ttableshowvert()\n\t\ttableshowind()\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpsetpos = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = [\n\t\t\t+tr.children[1].firstElementChild.value,\n\t\t\t+tr.children[2].firstElementChild.value,\n\t\t\t+tr.children[3].firstElementChild.value,\n\t\t]\n\t\tlet ixyz = eleindex(td)-1\n\t\t\n\t\t//data[ixyz] = +inp.value\n\t\to3dv.me.setpos(notrvd,...data,)\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpsettex = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = [\n\t\t\t+tr.children[4].firstElementChild.value,\n\t\t\t+tr.children[5].firstElementChild.value,\n\t\t]\n\t\tlet ixy = eleindex(td)-4\n\t\t\n\t\t//data[ixy] = +inp.value\n\t\to3dv.me.settex(notrvd,...data,)\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "144",
+					"g": "144",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpsetvoro = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = +tr.children[6].firstElementChild.value\n\t\t\n\t\to3dv.me.setvoro(notrvd,data,)\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "166",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpsetjoi = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = [\n\t\t\t+tr.children[7].firstElementChild.value,\n\t\t\t+tr.children[8].firstElementChild.value,\n\t\t\t+tr.children[9].firstElementChild.value,\n\t\t\t+tr.children[10].firstElementChild.value,\n\t\t\t+tr.children[11].firstElementChild.value,\n\t\t]\n\t\tlet ixy = eleindex(td)-4\n\t\t\n\t\t//data[ixy] = +inp.value\n\t\to3dv.me.setjoi(notrvd,...data,)\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpind = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\t\n\t\tlet tratas = (\n\t\t\t+tr.firstElementChild.textContent%2\n\t\t)?tr.previousElementSibling:tr\n\t\tlet trbawah = tratas.nextElementSibling\n\t\tlet tratasch = tratas.children\n\t\tlet trbawahch = trbawah.children\n\t\t\n\t\tlet i0 = +tratasch[1].firstElementChild.value\n\t\tlet i1 = +tratasch[2].firstElementChild.value\n\t\tlet i2 = +tratasch[3].firstElementChild.value\n\t\tlet i3 = +trbawahch[1].firstElementChild.value\n\t\tlet i4 = +trbawahch[2].firstElementChild.value\n\t\tlet i5 = +trbawahch[3].firstElementChild.value\n\t\to3dv.setind(notratasid*3,i0,i1,i2,i3,i4,i5,)\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finptepos = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = [\n\t\t\t+tr.children[1].firstElementChild.value,\n\t\t\t+tr.children[2].firstElementChild.value,\n\t\t\t+tr.children[3].firstElementChild.value,\n\t\t]\n\t\tlet ixy = eleindex(td)-1\n\t\t\n\t\t//data[ixy] = +inp.value\n\t\to3dv.te.setpos(notrtpd,...data,)\n\t\t\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finptecond = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\tlet data = [\n\t\t\t+tr.children[1].firstElementChild.value,\n\t\t\t+tr.children[2].firstElementChild.value,\n\t\t\t+tr.children[3].firstElementChild.value,\n\t\t\t+tr.children[4].firstElementChild.value,\n\t\t]\n\t\tlet i = eleindex(td)-1\n\t\t\n\t\t//data[i] = +inp.value\n\t\to3dv.te.setcond(notrtcd,...data,)\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finptecolor = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\t\n\t\tlet data = +tr.children[1].firstElementChild.value\n\t\to3dv.te.setcolor(notrtcod,data,)\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpmat2d = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\t\n\t\tlet data = [\n\t\t\t+tr.children[1].firstElementChild.value,\n\t\t\t+tr.children[2].firstElementChild.value,\n\t\t\t+tr.children[3].firstElementChild.value,\n\t\t\t0,\n\t\t\t+tr.children[5].firstElementChild.value,\n\t\t\t+tr.children[6].firstElementChild.value,\n\t\t\t+tr.children[7].firstElementChild.value,\n\t\t\t0,\n\t\t\t+tr.children[9].firstElementChild.value,\n\t\t\t+tr.children[10].firstElementChild.value,\n\t\t\t+tr.children[11].firstElementChild.value,\n\t\t\t0,\n\t\t]\n\t\tlet ixy = eleindex(td)-1\n\t\t\n\t\t//data[ixy] = +inp.value\n\t\to3dv.setmat2d(notrm2d,...data,)\n\t}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet finpmat3d = e=>{\n\t\tlet inp = e.currentTarget\n\t\tlet td = inp.parentElement\n\t\tlet tr = td.parentElement\n\t\tif(tr.classList.contains('datakosong')){return}\n\t\t\n\t\tlet data = [\n\t\t\t+tr.children[1\t].firstElementChild.value,\n\t\t\t+tr.children[2\t].firstElementChild.value,\n\t\t\t+tr.children[3\t].firstElementChild.value,\n\t\t\t+tr.children[4\t].firstElementChild.value,\n\t\t\t+tr.children[5\t].firstElementChild.value,\n\t\t\t+tr.children[6\t].firstElementChild.value,\n\t\t\t+tr.children[7\t].firstElementChild.value,\n\t\t\t+tr.children[8\t].firstElementChild.value,\n\t\t\t+tr.children[9\t].firstElementChild.value,\n\t\t\t+tr.children[10\t].firstElementChild.value,\n\t\t\t+tr.children[11\t].firstElementChild.value,\n\t\t\t+tr.children[12\t].firstElementChild.value,\n\t\t\t+tr.children[13\t].firstElementChild.value,\n\t\t\t+tr.children[14\t].firstElementChild.value,\n\t\t\t+tr.children[15\t].firstElementChild.value,\n\t\t\t+tr.children[16\t].firstElementChild.value,\n\t\t]\n\t\t\n\t\to3dv.setmat3d(notrm3d,...data,)\n\t}\n",
+			"visible": true,
+			"time": "1",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet reqpoi = async e=>{\n\t\te.currentTarget.requestPointerLock({unadjustedMovement: true})\n\t}\n\tlet lerpsaatw = (va,vb,w,vout,)=>\n\t\tv4.lerp(va,vb,\n\t\t\t(va[3]-w)\n\t\t\t/(va[3]-vb[3])\n\t\t,vout,)\n\t\n\tlet lukisgaris = (va,vb,)=>{\n\t\tlet cx = o3dv.cx2d\n\t\tif(\n\t\t\t(va[3] <= minw) &&\n\t\t\t(vb[3] <= minw)\n\t\t){\n\t\t\treturn\n\t\t}\n\t\tlerpsaatw(va,vb,minw,vp0,)\n\t\tif(\n\t\t\t(va[3] <= minw) &&\n\t\t\t(vb[3] > minw)\n\t\t){\n\t\t\tcx.moveTo(vp0[0]/vp0[3],vp0[1]/vp0[3],)\n\t\t\tcx.lineTo(vb[0]/vb[3],vb[1]/vb[3],)\n\t\t}else if(\n\t\t\t(va[3] > minw) &&\n\t\t\t(vb[3] <= minw)\n\t\t){\n\t\t\tcx.moveTo(va[0]/va[3],va[1]/va[3],)\n\t\t\tcx.lineTo(vp0[0]/vp0[3],vp0[1]/vp0[3],)\n\t\t}else{\n\t\t\tcx.moveTo(va[0]/va[3],va[1]/va[3],)\n\t\t\tcx.lineTo(vb[0]/vb[3],vb[1]/vb[3],)\n\t\t\t\n\t\t}\n\t\t\n\t}\n\tlet lukistitik = (v,str,)=>{\n\t\tif(v[3] <= minw){return}\n\t\tlet cx = o3dv.cx2d\n\t\tlet x = v[0]/v[3]\n\t\tlet y = v[1]/v[3]\n\t\tcx.fillRect(x-5,y-5,10,10,)\n\t\t\n\t\tcx.font = '14px Consolas'\n\t\tcx.fillStyle = '#ffffff88'\n\t\tlet canv2d = o3dv.canv2d\n\t\tlet w = canv2d.width\n\t\tlet h = canv2d.height\n\t\tcx.fillText(str,x+5,y,)\n\t}\n",
+			"visible": false,
+			"time": "625487.5619079149",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": ".3"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t//file\n\tlet fhsave = null\n\t\n\tlet fsaveas = async ()=>{\n\t\tfhsave = await showSaveFilePicker()\n\t\tattr(save,'mousedescr','Save '+fhsave.name,)\n\t\tfsave()\n\t}\n\tlet fsave = async ()=>{\n\t\tif(!fhsave){return}\n",
+			"visible": true,
+			"time": "251372.38929995827",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "99",
+					"g": "177",
+					"b": "99",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\nlet versi = 1\nlet bytelen = 4\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet posarr = o3dv.posarr\n\tlet vertlen = posarr.length/3\n\tbytelen += \n\t\t1*4\n\t\t+vertlen*3*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet texarr = o3dv.texarr\n\t\n\tbytelen += \n\t\t1*4\n\t\t+vertlen*2*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet voroidxarr = o3dv.voroidxarr\n\t\n\tbytelen += \n\t\t1*4\n\t\t+vertlen*1*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "111",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet joiarr = o3dv.joiarr\n\t\n\tbytelen += \n\t\t1*4\n\t\t+vertlen*5*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "111",
+					"g": "255",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet indarr = o3dv.indarr\n\tlet indlen = indarr.length\n\tbytelen += \n\t\t1*4\n\t\t+indlen*1*2\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet teposarr = o3dv.teposarr\n\tlet teposlen = teposarr.length/2\n\tbytelen += \n\t\t1*4\n\t\t+teposlen*2*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "111",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tejoiarr = o3dv.tejoiarr\n\t\n\tbytelen += \n\t\t1*4\n\t\t+teposlen*1*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tecondarr = o3dv.tecondarr\n\tlet tecondlen = tecondarr.length/4\n\tbytelen += \n\t\t1*4\n\t\t+tecondlen*4*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tecolorarr = o3dv.tecolorarr\n\tlet tecolorlen = tecolorarr.length\n\tbytelen += \n\t\t1*4\n\t\t+tecolorlen*1*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet mat2darr = o3dv.mat2darr\n\tlet mat2dlen = mat2darr.length/12\n\tbytelen += \n\t\t1*4\n\t\t+mat2dlen*12*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet mat3darr = o3dv.mat3darr\n\tlet mat3dlen = mat3darr.length/16\n\tbytelen += \n\t\t1*4\n\t\t+mat3dlen*16*4\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\nlet byte = new ArrayBuffer(bytelen)\nlet bytedata = new DataView(byte)\nlet ib = 0//index byte\n\nbytedata.setUint32(ib,versi,isLE,)\nib += 4\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,vertlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,indlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t_\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,teposlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,tecondlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t_\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,tecolorlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t_\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,mat2dlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t_\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "55",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nbytedata.setUint32(ib,mat3dlen,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\t_\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < vertlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setFloat32(ib,posarr[a*3+0],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,posarr[a*3+1],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,posarr[a*3+2],\nisLE,)\nib += 4\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setFloat32(ib,texarr[a*2+0],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,texarr[a*2+1],\nisLE,)\nib += 4\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint32(ib,voroidxarr[a*1+0],\nisLE,)\nib += 4\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint32(ib,joiarr[a*5+0],\nisLE,)\nib += 4\nbytedata.setUint32(ib,joiarr[a*5+1],\nisLE,)\nib += 4\nbytedata.setUint32(ib,joiarr[a*5+2],\nisLE,)\nib += 4\nbytedata.setUint32(ib,joiarr[a*5+3],\nisLE,)\nib += 4\nbytedata.setUint32(ib,joiarr[a*5+4],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < indlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint16(ib,indarr[a*1+0],\nisLE,)\nib += 2\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < teposlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setFloat32(ib,teposarr[a*2+0],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,teposarr[a*2+1],\nisLE,)\nib += 4\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint32(ib,tejoiarr[a*1+0],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < tecondlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint32(ib,tecondarr[a*4+0],\nisLE,)\nib += 4\nbytedata.setUint32(ib,tecondarr[a*4+1],\nisLE,)\nib += 4\nbytedata.setUint32(ib,tecondarr[a*4+2],\nisLE,)\nib += 4\nbytedata.setUint32(ib,tecondarr[a*4+3],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < tecolorlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setUint32(ib,tecolorarr[a*1+0],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < mat2dlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setFloat32(ib,mat2darr[a*12+0],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+1],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+2],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+3],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+4],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+5],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+6],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+7],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+8],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+9],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+10],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat2darr[a*12+11],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfor(let a = 0;a < mat3dlen;a++){\n//\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\t=\nbytedata.setFloat32(ib,mat3darr[a*16+0],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+1],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+2],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+3],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+4],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+5],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+6],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+7],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+8],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+9],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+10],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+11],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+12],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+13],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+14],\nisLE,)\nib += 4\nbytedata.setFloat32(ib,mat3darr[a*16+15],\nisLE,)\nib += 4\n\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t\t//write file\n\t\tlet wri = await fhsave.createWritable()\n\t\t//await wri.write(new Uint32Array([0x41424344,0x45464748,]))\n\t\t//await wri.write(lih(new TextEncoder().encode('ABCDHI')))\n\t\tlih(byte)\n\t\tawait wri.write(byte)\n\t\tawait wri.close()\n\t}\n",
+			"visible": false,
+			"time": "251364.36199995826",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "122",
+					"g": "255",
+					"b": "122",
+					"frame": "1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet freadfile = ui.freadfile = byte=>{//GA EKPAKE, udah diganti di readbin.js\n\t\tlet byteview = new DataView(byte)\n\t\tlih(byteview)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\nlet ib = 0//index byte\n\nlet versi =\nbyteview.getUint32(ib,isLE,)\nib += 4\n\nlih('versi = '+versi)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet vertlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet indlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teposlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecondlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecolorlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "22",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat2dlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat3dlen =\nbyteview.getUint32(ib,isLE,)\nib += 4\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\t+\t+\t+\t+\t+\t+\t+\t+\t+\t+\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet vertdata = []\nfor(let a = 0;a < vertlen;a++){\n\tlet d = []\n\t\n\t//pos\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//tex\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//texture idx\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\t//joi\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tvertdata.push(d)\n}\no3dv.me.setvertall(vertdata)\ntableshowvert()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(vertdata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet inddata = []\nfor(let a = 0;a < indlen;a++){\n\tinddata\n\t.push(byteview.getUint16(ib,isLE,))\n\tib += 2\n}\no3dv.setindall(inddata)\ntableshowind()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(inddata)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teposdata = []\nfor(let a = 0;a < teposlen;a++){\n\tlet d = []\n\t\n\t//pos\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n\t//joi\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tteposdata.push(d)\n\t\n}\no3dv.te.setposall(teposdata)\ntableshowtepos()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(teposdata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet teconddata = []\nfor(let a = 0;a < tecondlen;a++){\n\tlet d = []\n\t\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\td.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n\t\n\tteconddata.push(d)\n\t\n}\no3dv.te.setcondall(teconddata)\ntableshowtecond()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(teconddata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet tecolordata = []\nfor(let a = 0;a < tecolorlen;a++){\n\ttecolordata\n\t.push(byteview.getUint32(ib,isLE,))\n\tib += 4\n}\no3dv.te.setcolorall(tecolordata)\ntableshowtecolor()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(tecolordata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat2ddata = []\nfor(let a = 0;a < mat2dlen;a++){\nfor(let b = 0;b < 12;b++){\t\n\tmat2ddata\n\t.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n}}\no3dv.setmat2dall(mat2ddata)\ntableshowmat2d()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(mat2ddata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "55",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mat3ddata = []\nfor(let a = 0;a < mat3dlen;a++){\nfor(let b = 0;b < 16;b++){\t\n\tmat3ddata\n\t.push(byteview.getFloat32(ib,isLE,))\n\tib += 4\n\t\n}}\no3dv.setmat3dall(mat3ddata)\ntableshowmat3d()\n//\t__\t__\t__\t__\t__\t__\t__\t__\t__\t__\nlih(mat3ddata)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "177",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "626976.5356077189",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t//-----------------------------\n\tfor(let ele of que('[mousedescr]')){\n\t\tele.addEventListener('mouseenter',datang,)\n\t\tele.addEventListener('mouseleave',pergi,)\n\t}\n\taddEventListener('mousemove',e=>{\n\t\tlet x = Math.min(e.clientX+11,innerWidth-moutex.clientWidth,)\n\t\tlet y = Math.min(e.clientY+11,innerHeight-moutex.clientHeight,)\n\t\tmoutex.style.left = x+'px'\n\t\tmoutex.style.top = y+'px'\n\t},)\n\t\n\tfor(let code in keycodes){\n\t\tkey[keycodes[code]] = false\n\t}\n\taddEventListener('keydown',fkey,)\n\taddEventListener('keyup',fkey,)\n",
+			"visible": false,
+			"time": "625563.6632079149",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "222",
+					"g": "200",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": "1"
+				}
+			]
+		},
+		{
+			"text": "\nfor(\n\tlet i = 0;\n\ti < 16;\n\ti++\n){\n\tlet tr\n\t,td\n\t,inp\n",
+			"visible": false,
+			"time": "625631.2311079148",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "144",
+					"g": "144",
+					"b": "144",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".2"
+				}
+			]
+		},
+		{
+			"text": "\n//vert\ntr = document.createElement('tr')\n\ttr.addEventListener('mousedown',fpilihvert,)\n\t//no\n\ttd = document.createElement('td')\n\t\ttd.textContent = i\n\ttr.appendChild(td)\n\t//vx\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetpos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//vy\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetpos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//vz\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetpos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//tx\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsettex,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//ty\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsettex,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//texture index\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetvoro,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//joi\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetjoi,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetjoi,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetjoi,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetjoi,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\t//wei\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihvert,)\n\t\t\tinp.addEventListener('input',finpsetjoi,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\nverttbody.appendChild(tr)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//ind\ntr = document.createElement('tr')\n\ttr.addEventListener('mousedown',fpilihind,)\n\t//no\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\t//index\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihind,)\n\t\t\tinp.addEventListener('input',finpind,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihind,)\n\t\t\tinp.addEventListener('input',finpind,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihind,)\n\t\t\tinp.addEventListener('input',finpind,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\nindtbody.appendChild(tr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "144",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tepos\ntr = document.createElement('tr')\n\ttr.addEventListener('mousedown',fpilihtepos,)\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtepos,)\n\t\t\tinp.addEventListener('input',finptepos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtepos,)\n\t\t\tinp.addEventListener('input',finptepos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtepos,)\n\t\t\tinp.addEventListener('input',finptepos,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\ntepostbody.appendChild(tr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tecond\ntr = document.createElement('tr')\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtecond,)\n\t\t\tinp.addEventListener('input',finptecond,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtecond,)\n\t\t\tinp.addEventListener('input',finptecond,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtecond,)\n\t\t\tinp.addEventListener('input',finptecond,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtecond,)\n\t\t\tinp.addEventListener('input',finptecond,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\ntecondtbody.appendChild(tr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tecolor\ntr = document.createElement('tr')\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihtecolor,)\n\t\t\tinp.addEventListener('input',finptecolor,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\ntecolortbody.appendChild(tr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//mat2d\ntr = document.createElement('tr')\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat2d,)\n\t\t\tinp.addEventListener('input',finpmat2d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\nmat2dtbody.appendChild(tr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//mat3d\ntr = document.createElement('tr')\n\ttd = document.createElement('td')\n\t\ttd.textContent = '0'\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\n\ttd = document.createElement('td')\n\t\tinp = document.createElement('input')\n\t\t\tinp.addEventListener('focus',fpilihmat3d,)\n\t\t\tinp.addEventListener('input',finpmat3d,)\n\t\t\tinp.value = 0\n\t\ttd.appendChild(inp)\n\ttr.appendChild(td)\nmat3dtbody.appendChild(tr)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n}\n\n\tfor(let ele of que('.tablebisadipilih')){\n\t\tele.addEventListener('mousedown',fpilihtable,)\n\t}\n\tfor(let ele of que('[tabletarget]')){\n\t\tele.addEventListener('click',e=>fshtable(e.currentTarget),)\n\t\tfshtable(ele)\n\t\tfshtable(ele)\n\t}\n",
+			"visible": false,
+			"time": "34109.11410006276",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "144",
+					"g": "144",
+					"b": "144",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet vertscroll = 0\n\tvert.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\tvertscroll += e.deltaY/111\n\t\tvertscroll = Math.max(Math.min(vertscroll,o3dv.posarr.length/3-1,),0,)\n\t\ttableshowvert()\n\t\t\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet indscroll = 0\n\tind.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\tindscroll += e.deltaY/111\n\t\tindscroll = Math.max(Math.min(indscroll,o3dv.indarr.length/3-1,),0,)\n\t\ttableshowind()\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet teposscroll = 0\n\ttepos.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\tteposscroll += e.deltaY/111\n\t\tteposscroll = Math.max(Math.min(teposscroll,o3dv.teposarr.length/2-1,),0,)\n\t\ttableshowtepos()\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tecondscroll = 0\n\ttecond.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\ttecondscroll += e.deltaY/111\n\t\ttecondscroll = Math.max(Math.min(tecondscroll,o3dv.tecondarr.length/4-1,),0,)\n\t\ttableshowtecond()\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "255",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet tecolorscroll = 0\n\ttecolor.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\ttecolorscroll += e.deltaY/111\n\t\ttecolorscroll = Math.max(Math.min(tecolorscroll,o3dv.tecolorarr.length-1,),0,)\n\t\ttableshowtecolor()\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "88",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet mat2dscroll = 0\n\tmat2d.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\tmat2dscroll += e.deltaY/111\n\t\tmat2dscroll = Math.max(Math.min(mat2dscroll,o3dv.mat2darr.length/12-1,),0,)\n\t\ttableshowmat2d()\n\t},)//{passive:0,},\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet mat3dscroll = 0\n\tmat3d.addEventListener('wheel',e=>{\n\t\te.preventDefault()\n\t\tif(document.activeElement !== document.body){\n\t\t\tdocument.activeElement.blur()\n\t\t}\n\t\tmat3dscroll += e.deltaY/111\n\t\tmat3dscroll = Math.max(Math.min(mat3dscroll,o3dv.mat3darr.length/16-1,),0,)\n\t\ttableshowmat3d()\n\t},)//{passive:0,},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet notrvd = 0 //nomor tr vertdipilih\n\tlet notratasid = 0 //nomor tr atas inddipilih\n\t//let notrvod = 0 //nomor tr vorodipilih\n\t//let notrsd = 0 //nomor tr seeddipilih, lokal, di dalam voro\n\tlet notrtpd = 0//nomor tr teposdipilih\n\tlet notrtcd = 0//nomor tr teconddipilih\n\tlet notrtcod = 0//nomor tr tecolordipilih\n\tlet notrm2d = 0//nomor tr mat2ddipilih\n\tlet notrm3d = 0//nomor tr mat3dipilih\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "88",
+					"g": "255",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewvert.addEventListener('click',()=>{\n\t\t//tambahvert(1.1,-1000,3.3,4.4,5.5,6,)\n\t\ttambahvert(0,0,0,0,0,0,0,0,0,0,0x000000ff,)\n\t\to3dv.me.updvertbuf(notrvd,o3dv.posarr.length,)\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tcopyvert.addEventListener('click',()=>{\n\t\tlet posarr = o3dv.posarr\n\t\tif(!posarr.length){return}\n\t\tlet texarr = o3dv.texarr\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tlet joiarr = o3dv.joiarr\n\t\t\n\t\ttambahvert(\n\t\t\tposarr[notrvd*3+0],\n\t\t\tposarr[notrvd*3+1],\n\t\t\tposarr[notrvd*3+2],\n\t\t\ttexarr[notrvd*2+0],\n\t\t\ttexarr[notrvd*2+1],\n\t\t\tvoroidxarr[notrvd*1+0],\n\t\t\tjoiarr[notrvd*5+0],\n\t\t\tjoiarr[notrvd*5+1],\n\t\t\tjoiarr[notrvd*5+2],\n\t\t\tjoiarr[notrvd*5+3],\n\t\t\tjoiarr[notrvd*5+4],\n\t\t)\n\t\to3dv.me.updvertbuf(notrvd,o3dv.posarr.length,)\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tmovevert.addEventListener('mousedown',reqpoi,)\n\tlet movebaris = 0\n\taddEventListener('mousemove',e=>{\n\t\tif(document.pointerLockElement !== movevert){return}\n\t\tmovebaris += e.movementY\n\t\tlet posarr = o3dv.posarr\n\t\tlet jarak = 44\n\t\tlet lanjut = false\n\t\tlet nobaru = notrvd\n\t\twhile(movebaris < 0){\n\t\t\tmovebaris += jarak\n\t\t\tif(nobaru <= 0){return}\n\t\t\tnobaru--\n\t\t\tlanjut = true\n\t\t}\n\t\twhile(movebaris > jarak){\n\t\t\tmovebaris -= jarak\n\t\t\tif(nobaru >= posarr.length/3-1){return}\n\t\t\tnobaru++\n\t\t\tlanjut = true\n\t\t}\n\t\tif(!lanjut){return}\n\t\tgeservert(nobaru)\n\t\t\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\taddEventListener('mousemove',e=>{\n\t\tif(!document.pointerLockElement){return}\n\t\tif(que('.tabledipilih')[0] !== vert){return}\n\t\t\n\t\tlet posarr = o3dv.posarr\n\t\tif(!posarr.length){return}\n\t\t\n\t\tlet xyz = [\n\t\t\tposarr[notrvd*3+0],\n\t\t\tposarr[notrvd*3+1],\n\t\t\tposarr[notrvd*3+2],\n\t\t]\n\t\t\n\t\tm4.copy(camges,mp0,)\n\t\tm4.translate(mp0,[\n\t\t\te.movementX*.001,\n\t\t\t-e.movementY*.001,\n\t\t\te.movementY*.001,\n\t\t],mp0,)\n\t\tm4.invert(camges,mp1,)\n\t\tm4.mul(mp0,mp1,mp0,)\n\t\tv3.copy(xyz,vp0,)\n\t\tv3.transformMat4(xyz,mp0,xyz,)\n\t\tif(key.x){vp0[0] = xyz[0]}\n\t\tif(key.y){vp0[1] = xyz[1]}\n\t\tif(key.z){vp0[2] = xyz[2]}\n\t\to3dv.me.setpos(notrvd,...vp0,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeletevert.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\thapusvert()\n\t\to3dv.me.updvertbuf(notrvd,o3dv.posarr.length,)\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewind.addEventListener('click',e=>{\n\t\tlet i = (notratasid += 2)*3 //i berlipat 6\n\t\to3dv.newind(i)\n\t\to3dv.updindbuf(i,o3dv.indarr.length,)\n\t\t\n\t\ttableshowind()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeleteind.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\tlet i = notratasid*3 //i berlipat 6\n\t\to3dv.deleteind(i)\n\t\to3dv.updindbuf(i,o3dv.indarr.length,)\n\t\tnotratasid -= 2\n\t\t\n\t\ttableshowind()\n\t\t\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fnewtepos =\n\tui.fnewtepos = ()=>{\n\t\tlet te = o3dv.te\n\t\t\n\t\tif(o3dv.teposarr.length){\n\t\t\tnotrtpd++\n\t\t}\n\t\tte.newpos(notrtpd)\n\t\t\n\t\tte.updpos()\n\t\ttableshowtepos()\n\t\t\n\t\t//ubah tecond start end\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tfor(let a = 0;a < tecondarr.length;a += 4){\n\t\t\tif(notrtpd <= tecondarr[a+0]){tecondarr[a+0]++}\n\t\t\tif(notrtpd <= tecondarr[a+1]){tecondarr[a+1]++}\n\t\t}\n\t\to3dv.te.updcond()\n\t\ttableshowtecond()\n\t}\n\tnewtepos.addEventListener('click',fnewtepos,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet fdeletetepos =\n\tui.fdeletetepos = e=>{\n\t\tif(e.detail%2){return}\n\t\tlet te = o3dv.te\n\t\tlet noawal = notrtpd\n\t\t\n\t\tte.deletepos(notrtpd)\n\t\tif(notrtpd){\n\t\t\tnotrtpd--\n\t\t}\n\t\t\n\t\tte.updpos()\n\t\ttableshowtepos()\n\t\t\n\t\t//ubah tecond start end\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tfor(let a = 0;a < tecondarr.length;a += 4){\n\t\t\tif(noawal === tecondarr[a+0]){tecondarr[a+0] = 0}\n\t\t\telse if(noawal < tecondarr[a+0]){tecondarr[a+0]--}\n\t\t\tif(noawal === tecondarr[a+1]){tecondarr[a+1] = 0}\n\t\t\telse if(noawal < tecondarr[a+1]){tecondarr[a+1]--}\n\t\t}\n\t\to3dv.te.updcond()\n\t\ttableshowtecond()\n\t}\n\tdeletetepos.addEventListener('click',fdeletetepos,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewtecond.addEventListener('click',e=>{\n\t\tlet te = o3dv.te\n\t\t\n\t\tif(o3dv.tecondarr.length){\n\t\t\tnotrtcd++\n\t\t}\n\t\tte.newcond(notrtcd)\n\t\t\n\t\t//ubah tecond true false\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tfor(let a = 0;a < notrtcd;a++){\n\t\t\tlet b = a*4\n\t\t\tif(notrtcd <= a+tecondarr[b+2]){tecondarr[b+2]++}\n\t\t\tif(notrtcd <= a+tecondarr[b+3]){tecondarr[b+3]++}\n\t\t}\n\t\t\n\t\tte.updcond()\n\t\ttableshowtecond()\n\t\t\n\t\t//ubah vert voroidx\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tfor(let a = 0;a < voroidxarr.length;a++){\n\t\t\tif(notrtcd <= voroidxarr[a]){voroidxarr[a]++}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeletetecond.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\tlet te = o3dv.te\n\t\tlet noawal = notrtcd\n\t\t\n\t\tte.deletecond(notrtcd)\n\t\tif(notrtcd){\n\t\t\tnotrtcd--\n\t\t}\n\t\t\n\t\t//ubah tecond true false\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tfor(let a = 0;a <= notrtcd;a++){\n\t\t\tlet b = a*4\n\t\t\tif(notrtcd === a+tecondarr[b+2]){tecondarr[b+2] = 0}\n\t\t\tif(notrtcd < a+tecondarr[b+2]){tecondarr[b+2]--}\n\t\t\tif(notrtcd === a+tecondarr[b+3]){tecondarr[b+3] = 0}\n\t\t\tif(notrtcd < a+tecondarr[b+3]){tecondarr[b+3]--}\n\t\t}\n\t\t\n\t\tte.updcond()\n\t\ttableshowtecond()\n\t\t\n\t\t//ubah vert voroidx\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tfor(let a = 0;a < voroidxarr.length;a++){\n\t\t\tif(noawal === voroidxarr[a]){voroidxarr[a] = 0}\n\t\t\telse if(noawal < voroidxarr[a]){voroidxarr[a]--}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewtecolor.addEventListener('click',e=>{\n\t\tlet te = o3dv.te\n\t\t\n\t\tif(o3dv.tecolorarr.length){\n\t\t\tnotrtcod++\n\t\t}\n\t\tte.newcolor(notrtcod)\n\t\t\n\t\tte.updcolor()\n\t\ttableshowtecolor()\n\t\t\n\t\t//ubah tecond true false\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tlet clen = tecondarr.length/4\n\t\tlet colen = o3dv.tecolorarr.length\n\t\tfor(let a = 0;a < clen;a++){\n\t\t\tlet b = a*4\n\t\t\tif(notrtcod+clen <= a+tecondarr[b+2]){tecondarr[b+2]++}\n\t\t\tif(notrtcod+clen <= a+tecondarr[b+3]){tecondarr[b+3]++}\n\t\t}\n\t\t\n\t\tte.updcond()\n\t\ttableshowtecond()\n\t\t\n\t\t//ubah vert voroidx\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tfor(let a = 0;a < voroidxarr.length;a++){\n\t\t\tif(notrtcod+clen <= voroidxarr[a]){voroidxarr[a]++}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeletetecolor.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\tlet te = o3dv.te\n\t\tlet noawal = notrtcod\n\t\t\n\t\tte.deletecolor(notrtcod)\n\t\tif(notrtcod){\n\t\t\tnotrtcod--\n\t\t}\n\t\t\n\t\tte.updcolor()\n\t\ttableshowtecolor()\n\t\t\n\t\t//ubah tecond true false\n\t\tlet tecondarr = o3dv.tecondarr\n\t\tlet clen = tecondarr.length/4\n\t\tlet colen = o3dv.tecolorarr.length\n\t\tfor(let a = 0;a < clen;a++){\n\t\t\tlet b = a*4\n\t\t\tif(noawal+clen === a+tecondarr[b+2]){tecondarr[b+2] = 0}\n\t\t\telse if(noawal+clen < a+tecondarr[b+2]){tecondarr[b+2]--}\n\t\t\tif(noawal+clen === a+tecondarr[b+3]){tecondarr[b+3] = 0}\n\t\t\telse if(noawal+clen < a+tecondarr[b+3]){tecondarr[b+3]--}\n\t\t}\n\t\t\n\t\tte.updcond()\n\t\ttableshowtecond()\n\t\t\n\t\t//ubah vert voroidx\n\t\tlet voroidxarr = o3dv.voroidxarr\n\t\tfor(let a = 0;a < voroidxarr.length;a++){\n\t\t\tif(noawal+clen === voroidxarr[a]){voroidxarr[a] = 0}\n\t\t\telse if(noawal+clen < voroidxarr[a]){voroidxarr[a]--}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewmat2d.addEventListener('click',e=>{\n\t\tif(o3dv.mat2darr.length){\n\t\t\tnotrm2d++\n\t\t}\n\t\to3dv.newmat2d(notrm2d)\n\t\t\n\t\to3dv.updmat2d()\n\t\ttableshowmat2d()\n\t\t\n\t\t//ubah tepos joint\n\t\tlet tejoiarr = o3dv.tejoiarr\n\t\tfor(let a in tejoiarr){\n\t\t\tif(notrm2d <= tejoiarr[a]){tejoiarr[a]++}\n\t\t}\n\t\t\n\t\to3dv.te.updpos()\n\t\ttableshowtepos()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeletemat2d.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\to3dv.deletemat2d(notrm2d)\n\t\tlet noawal = notrm2d\n\t\tif(notrm2d){\n\t\t\tnotrm2d--\n\t\t}\n\t\t\n\t\to3dv.updmat2d()\n\t\ttableshowmat2d()\n\t\t\n\t\t//ubah tepos joint\n\t\tlet tejoiarr = o3dv.tejoiarr\n\t\tfor(let a in tejoiarr){\n\t\t\tif(noawal === tejoiarr[a]){tejoiarr[a] = 0}\n\t\t\telse if(noawal <= tejoiarr[a]){tejoiarr[a]--}\n\t\t}\n\t\t\n\t\to3dv.te.updpos()\n\t\ttableshowtepos()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewmat3d.addEventListener('click',e=>{\n\t\tif(o3dv.mat3darr.length){\n\t\t\tnotrm3d++\n\t\t}\n\t\to3dv.newmat3d(notrm3d)\n\t\t\n\t\to3dv.updmat3d()\n\t\ttableshowmat3d()\n\t\t\n\t\t//ubah vert joint\n\t\tlet joiarr = o3dv.joiarr\n\t\tfor(let a = 0;a < joiarr.length/5;a += 5){\n\t\t\tif(notrm3d <= joiarr[a+0]){joiarr[a+0]++}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,o3dv.voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tdeletemat3d.addEventListener('click',e=>{\n\t\tif(e.detail%2){return}\n\t\t\n\t\to3dv.deletemat3d(notrm3d)\n\t\tif(notrm3d){\n\t\t\tnotrm3d--\n\t\t}\n\t\t\n\t\to3dv.updmat3d()\n\t\ttableshowmat3d()\n\t\t\n\t\t//ubah vert joint\n\t\tlet joiarr = o3dv.joiarr\n\t\tfor(let a = 0;a < joiarr.length/5;a += 5){\n\t\t\tif(notrm3d === joiarr[a+0]){joiarr[a+0] = 0}\n\t\t\telse if(notrm3d < joiarr[a+0]){joiarr[a+0]--}\n\t\t}\n\t\t\n\t\to3dv.me.updvertbuf(0,o3dv.voroidxarr.length,)\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\topen.addEventListener('click',async ()=>{\n\t\tlet pickfile = await showOpenFilePicker()\n\t\t;[fhsave] = pickfile\n\t\tattr(save,'mousedescr','Save '+fhsave.name,)\n\t\tlet byte = await fhsave.getFile()\n\t\tbyte = await byte.arrayBuffer()\n\t\t//freadfil/e(byte)\n\t\treadbin(byte)\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tsave.addEventListener('click',()=>fhsave?fsave():fsaveas(),)\n\tsaveas.addEventListener('click',fsaveas,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tnewfile.addEventListener('click',e=>{\n\t\tif(!confirm('WowGGGearing: INGAT! Some changes may not be saved.')){return}\n\t\tattr(save,'mousedescr','Save',)\n\t\t\n\t\tlet me = o3dv.me\n\t\tlet te = o3dv.te\n\t\t\n\t\tme.setvertall([])\n\t\to3dv.setindall([])\n\t\tte.setposall([])\n\t\tte.setcondall([])\n\t\tte.setcolorall([])\n\t\to3dv.setmat2dall([])\n\t\to3dv.setmat3dall([])\n\t\t\n\t\tnotrvd =\n\t\tnotratasid =\n\t\tnotrtpd =\n\t\tnotrtcd =\n\t\tnotrtcod =\n\t\tnotrm2d =\n\t\tnotrm3d =\n\t\t0\n\t\t\n\t\ttableshowvert()\n\t\ttableshowind()\n\t\ttableshowtepos()\n\t\ttableshowtecond()\n\t\ttableshowtecolor()\n\t\ttableshowmat2d()\n\t\ttableshowmat3d()\n\t},)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\taddEventListener('mouseup',e=>{\n\t\tif(document.pointerLockElement === docele){return}\n\t\tdocument.exitPointerLock()\n\t\tdocele.classList.remove('pegang')\n\t\tque('.terima')[0]?.classList.remove('terima')\n\t})\n\taddEventListener('beforeunload',e=>{\n\t\te.returnValue = true\n\t},)\n\taddEventListener('wheel',e=>{\n\t\tif(document.pointerLockElement){\n\t\t\te.preventDefault()\n\t\t}\n\t},{passive:0,},)\n\tlet notrvdcampos = 0//dari o3dv.render\n\taddEventListener('mousedown',()=>{\n\t\tif(!document.pointerLockElement){return}\n\t\tif(\n\t\t\t(que('.tabledipilih')[0] !== vert) &&\n\t\t\t(que('.tabledipilih')[0] !== ind)\n\t\t){return}\n\t\tvertscroll = notrvd = notrvdcampos\n\t\ttableshowvert()\n\t},)\n",
+			"visible": true,
+			"time": "598187.5767082609",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "188",
+					"g": "255",
+					"b": "155",
+					"frame": ".4"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "595174.2517084838",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "254",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t//\n\tpilihtable(help)\n\tlet mp0 = m4.identity()//mat pinjam\n\tlet mp1 = m4.identity()//mat pinjam\n\tlet vp0 = v4.create()\n\tlet minw = .001\n\to3dv.render = dt=>{\n\t\tui.render?.(dt)\n\t\t\n\t\tlet cx = o3dv.cx2d\n\t\tlet view = o3dv.view\n\t\t\n\t\tm4.identity(mp0)\n\t\tm4.scale(mp0,[w/2,-h/2,1,],mp0,)\n\t\tm4.translate(mp0,[1,-1,1,],mp0,)\n\t\tm4.mul(mp0,view,mp0,)\n\t\t\n\t\tcx.clearRect(-11,-11,w+11,h+11,)\n\t\t\n\t\t//sumbu\n\t\tlet pos00\t= v4.transformMat4([0\t,0\t,0\t,1,],mp0,[],)\n\t\tlet posxaxis\t= v4.transformMat4([1000\t,0\t,0\t,1,],mp0,[],)\n\t\tlet posyaxis\t= v4.transformMat4([0\t,1000\t,0\t,1,],mp0,[],)\n\t\tlet poszaxis\t= v4.transformMat4([0\t,0\t,1000\t,1,],mp0,[],)\n\t\t\n\t\tcx.lineWidth = 2\n\t\tcx.strokeStyle = '#ff0000'\t;cx.beginPath();lukisgaris(pos00,posxaxis,);cx.stroke()\n\t\tcx.strokeStyle = '#00ff00'\t;cx.beginPath();lukisgaris(pos00,posyaxis,);cx.stroke()\n\t\tcx.strokeStyle = '#0000ff'\t;cx.beginPath();lukisgaris(pos00,poszaxis,);cx.stroke()\n\t\t\n\t\t//vert\n\t\tlet posarr = o3dv.posarr\n\t\tif(\n\t\t\t(\n\t\t\t\t(que('.tabledipilih')[0] === vert) ||\n\t\t\t\t(que('.tabledipilih')[0] === ind)\n\t\t\t) &&\n\t\t\tposarr.length\n\t\t){\n\t\t\tfor(let ele of verttbody.children){\n\t\t\t\tif(ele.classList.contains('datakosong')){break}\n\t\t\t\tlet xyz = [\n\t\t\t\t\t+ele.children[1].firstElementChild.value,\n\t\t\t\t\t+ele.children[2].firstElementChild.value,\n\t\t\t\t\t+ele.children[3].firstElementChild.value,\n\t\t\t\t]\n\t\t\t\tlet xyzw = [...xyz,1,]\n\t\t\t\tlet pvert =  v4.transformMat4(xyzw,mp0,[],)\n\t\t\t\tcx.fillStyle = ele.classList.contains('vertdipilih')?\n\t\t\t\t\tru.rgba(\n\t\t\t\t\t\tMath.random()*255,\n\t\t\t\t\t\tMath.random()*255,\n\t\t\t\t\t\tMath.random()*255,\n\t\t\t\t\t\t1,\n\t\t\t\t\t)\n\t\t\t\t:'grey'\n\t\t\t\tlukistitik(pvert,ele.children[0].textContent,)\n\t\t\t}\n\t\t\t\n\t\t\tlet jarakdekat = Number.MAX_SAFE_INTEGER\n\t\t\tlet vertdekat = null//[1111,333,2222,1,]\n\t\t\tlet campos = [0,0,0,1,]\n\t\t\tlet pojok0 = [0,0,0,1,]\n\t\t\tm4.getTranslation(camges,campos,)\n\t\t\t\n\t\t\tfor(let i = 0;i < posarr.length/3;i++){//i vert\n\t\t\t\tlet xyz = [\n\t\t\t\t\tposarr[i*3+0],\n\t\t\t\t\tposarr[i*3+1],\n\t\t\t\t\tposarr[i*3+2],\n\t\t\t\t\t1,\n\t\t\t\t]\n\t\t\t\tlet jarakini = v3.dist(campos,xyz,)\n\t\t\t\tif(jarakini < jarakdekat){\n\t\t\t\t\tvertdekat = xyz\n\t\t\t\t\tjarakdekat = jarakini\n\t\t\t\t\tnotrvdcampos = i\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(!vertdekat){return}\n\t\t\t\n\t\t\tpojok0[0] = campos[0]\n\t\t\tpojok0[1] = vertdekat[1]\n\t\t\tpojok0[2] = campos[2]\n\t\t\t\n\t\t\tv4.transformMat4(vertdekat,mp0,vertdekat,)\n\t\t\tv4.transformMat4(campos,mp0,campos,)\n\t\t\tv4.transformMat4(pojok0,mp0,pojok0,)\n\t\t\t\n\t\t\tcx.lineWidth = 3\n\t\t\tcx.strokeStyle = 'yellow'\n\t\t\tcx.beginPath();lukisgaris(vertdekat,campos,);cx.stroke()\n\t\t\tcx.lineWidth = 1\n\t\t\tcx.strokeStyle = 'grey'\n\t\t\tcx.beginPath();lukisgaris(vertdekat,pojok0,);cx.stroke()\n\t\t\tcx.beginPath();lukisgaris(pojok0,campos,);cx.stroke()\n\t\t\t\n\t\t\tcx.font = '11px Consolas'\n\t\t\tcx.fillStyle = '#ffffff88'\n\t\t\tlet canv2d = o3dv.canv2d\n\t\t\tlet w = canv2d.width\n\t\t\tlet h = canv2d.height\n\t\t\tcx.fillText('Vertex index: '+notrvdcampos,w/2,h/2,)\n\t\t}\n\t}\n\t\n/*========\n\t;{\n\t\tlet f = await fetch('js/rumah.bin')\n\t\tf = await f.arrayBuffer()\n\t\t//freadfile(f)\n\t\treadbin(f)\n\t\tlih(f)\n\t}\n--------*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet persp = o3dv.persp = m4.identity()\n\tlet cam = o3dv.cam = m4.identity()\n\tlet view = o3dv.view = m4.identity()//hasil dari persp*cam \n\t\n    m4.perspective(\n        .9,//rad\n        w/h,\n        .01,      // zNear\n        Number.MAX_SAFE_INTEGER,//999.01,   // zFar\n        persp,\n    );\n\t\n\t//change z to 1-z\n\tm4.invert(persp,persp,)\n\t\tm4.translate(persp,[0,0,1,],persp)\n\t\tm4.scale(persp,[1,1,-1,],persp,)\n\tm4.invert(persp,persp,)\n\t//it wokkkkkk, HOW?? \n\t\n\tlet camdigeser = false\n\tlet camdiputar = false\n\tui.camdigeser = (bool = camdigeser)=>camdigeser = !!bool\n\tui.camdiputar = (bool = camdiputar)=>camdiputar = !!bool\n\tlet camges = ui.camges = m4.identity()\n\tlet rang = 0\n\tlet camreset = ui.camreset = ()=>{\n\t\tm4.identity(camges)\n\t\tm4.rotateY(camges,.4,camges,)\n\t\tm4.scale(camges,Array(3).fill(1700),camges,)\n\t\trang = -.3\n\t}\n\tcamreset()\n\tlet fmouse = ui.fmouse = ()=>{\n\t\t\n\t\tm4.copy(camges,cam,)\n\t\tm4.rotateX(cam,rang,cam,)\n\t\tm4.translate(cam,[0,0,3,],cam,)\n\t\tm4.invert(cam,cam,)\n\t\tm4.mul(persp,cam,view,)\n\t\to3dv.updcam(view)\n\t}\n\taddEventListener('mousemove',e=>{\n\t\tif(camdigeser){\n\t\t\tm4.translate(camges,[\n\t\t\t\te.movementX*.004,\n\t\t\t\t0,\n\t\t\t\te.movementY*.004,\n\t\t\t],camges,)\n\t\t\t\n\t\t\tfmouse()\n\t\t}//else\n\t\tif(camdiputar){\n\t\t\trang += -e.movementY*.01\n\t\t\t\n\t\t\tlet pi = Math.PI\n\t\t\trang = Math.max(Math.min(pi/2,rang,),-pi/2,)\n\t\t\tm4.rotateY(camges,-e.movementX*.01,camges,)\n\t\t\t\n\t\t\tfmouse()\n\t\t}\n\t},)\n\taddEventListener('wheel',e=>{\n\t\tif(camdigeser){\n\t\t\tm4.translate(camges,[\n\t\t\t\t0,\n\t\t\t\t-e.deltaY*.001,\n\t\t\t\t0,\n\t\t\t],camges,)\n\t\t\t\n\t\t\tfmouse()\n\t\t\t\n\t\t}//else\n\t\tif(camdiputar){\n\t\t\tlet s = 1.001**(e.deltaY)\n\t\t\tm4.scale(camges,[s,s,s,],camges,)\n\t\t\t\n\t\t\tfmouse()\n\t\t}\n\t},)\n\tfmouse()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n\t//coba\n/*========\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.me.setvertall([\n\t[0,555,-888,\t0,0,\t0,\t0,0,0,0,\t0x000000ff,],\n\t[0,555,0,\t0,1,\t0,\t1,0,0,0,\t0x000000ff,],\n\t[777,555,0,\t1,1,\t0,\t2,0,0,0,\t0x000000ff,],\n])\n//INGAT! hex dibaca dari kanan ke kiri\ntableshowvert()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.setindall([\n\t0,1,2,\n])\ntableshowind()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\to3dv.te.setposall([\n\t\t[ .10, .00\t,0\t,],\n\t\t[ .00, .20\t,0\t,],\n\t\t[ .00, .00\t,0\t,],\n\t\t[ .10, .20\t,0\t,],\n\t\t[-.20, .20\t,0\t,],\n\t\t\n\t\t[ .00, .00\t,1\t,],\n\t\t[ .40, .00\t,1\t,],\n\t\t[ .00, .40\t,1\t,],\n\t])\n\ttableshowtepos()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "255",
+					"b": "55",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.te.setcondall([\n\t[2,3,4,5,],\n\t[0,1,1,2,],\n])\ntableshowtecond()\n\n========\no3dv.te.setcondall([\n\t[0,1,1,5,],\n\t[2,1,1,3,],\n\t[2,3,1,3,],\n\t[3,4,1,2,],\n\t[4,0,6,1,],\n\t\n\t[5,6,1,4,],\n\t[6,7,1,3,],\n\t[7,5,1,2,],\n])\ntableshowtecond()\n\n--------\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "188",
+					"b": "55",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.te.setcolorall([\n\t0x00ffff77,\n\t0x665500ff,\n\t0x000099bb,\n\t0x000000aa,\n])\ntableshowtecolor()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.setmat2dall([\n\t1,0,0,0,\n\t0,1,0,0,\n\t.38,-.2,1,0,\n\n\t1,0,0,0,\n\t0,1,0,0,\n\t-.5,.4,1,0,\n])\ntableshowmat2d()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\no3dv.setmat3dall([\n\t1,0,0,0,\n\t0,1,0,0,\n\t0,0,1,0,\n\t0,511,200,1,\n\t\n\t1,0,0,0,\n\t0,1,0,0,\n\t0,0,1,0,\n\t0,-1000,700,1,\n\t\n\t1,0,0,0,\n\t0,1,0,0,\n\t0,0,1,0,\n\t1200,0,0,1,\n\t\n])\ntableshowmat3d()\n--------*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tui.javascript_lain?.(aa)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255222",
+					"g": "166",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]
