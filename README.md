@@ -13,4 +13,4 @@ Texture berupa procedural, dibikin di Blender 3.4.1, shader node
 Texture bisa dibikin bergerak, bisa dizoom hingga single floating point menjadi NaN atau mendekati 0. 
   
 Gear yang biasa dipasang di hampir semua kendaraan roda >= 4 menampilkan cara kerja differential saat kendaraan bebelok.  
-IntelCorona untuk test apakah texture bergerak secara benar atau ada glitch.  
+IntelCorona sebagai hiasan, bisa dizoom hanya dengan Numpad + dan -.  
