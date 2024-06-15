@@ -2,7 +2,7 @@
   
 Objek 3d dengan format texture buatanku sendiri, menampilkan transisi warna yang tajam.
   
-## Poly-Landhep v2 - Differential Gear  
+### Poly-Landhep v2 - Differential Gear  
 +IntelCorona
   
 ![tampilan gambar](Poly%20Landhep/v2/image/tampil.png)  
