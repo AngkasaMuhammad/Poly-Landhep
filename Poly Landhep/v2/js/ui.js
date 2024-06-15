@@ -332,13 +332,13 @@ ui.newobj = namadraw=>{//draw
 //mulai
 lih(await Promise.all([
 	(async ()=>{
-		//let fileku = await fetch('3d/PolyLandhep-bidang.bin')
-		let fileku = await fetch('3d/PolyLandhep-gear.bin')
+		let href = ru.que('#meshbin')[0].href
+		let fileku = await fetch(href)//'3d/PolyLandhep-gear.bin'
 		return gltf_bin = await fileku.arrayBuffer()
 	})(),
 	(async ()=>{
-		//let fileku = await fetch('3d/PolyLandhep-bidang.gltf')
-		let fileku = await fetch('3d/PolyLandhep-gear.gltf')
+		let href = ru.que('#meshgltf')[0].href
+		let fileku = await fetch(href)
 		return gltf_json = await fileku.json()
 	})(),
 ]))

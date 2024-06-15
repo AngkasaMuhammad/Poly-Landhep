@@ -232,12 +232,12 @@ b1 = piston1.chi[1].chi[0].matlok
 	
 	//intelcore
 	m3.rotate(minco,.002,minco,)
-/*=======
+
 	ru.key.naik && m3.translate(minco,[0,-.01,],minco,)
 	ru.key.turun && m3.translate(minco,[0,.01,],minco,)
 	ru.key.kiri && m3.translate(minco,[-.01,0,],minco,)
 	ru.key.kanan && m3.translate(minco,[.01,0,],minco,)
---------*/
+
 	let zin = .97
 	let zout = 1.03
 	ru.key.zoomin && m3.scale(minco,[zin,zin,],minco,)

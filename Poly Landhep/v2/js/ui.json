@@ -3,7 +3,7 @@
 		{
 			"text": "\"use strict\"\n\n/*\n--\tsegera\n=>\tdiurus\n\tsudah\n\n-------------\n\n*/\nlet ui = {}\npl.javascript_ui = async aa=>{\n",
 			"visible": true,
-			"time": "291722.7129011597",
+			"time": "299873.3286013172",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -152,7 +152,7 @@
 		{
 			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
 			"visible": true,
-			"time": "276997.95880035835",
+			"time": "285148.5745005158",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -301,7 +301,7 @@
 		{
 			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
 			"visible": true,
-			"time": "200321.78150010112",
+			"time": "208472.39720008906",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -337,7 +337,7 @@
 			]
 		},
 		{
-			"text": "//mulai\nlih(await Promise.all([\n\t(async ()=>{\n\t\t//let fileku = await fetch('3d/PolyLandhep-bidang.bin')\n\t\tlet fileku = await fetch('3d/PolyLandhep-gear.bin')\n\t\treturn gltf_bin = await fileku.arrayBuffer()\n\t})(),\n\t(async ()=>{\n\t\t//let fileku = await fetch('3d/PolyLandhep-bidang.gltf')\n\t\tlet fileku = await fetch('3d/PolyLandhep-gear.gltf')\n\t\treturn gltf_json = await fileku.json()\n\t})(),\n]))\n\nread()\nui.render = null\nawait ui.mulai?.()\n",
+			"text": "//mulai\nlih(await Promise.all([\n\t(async ()=>{\n\t\tlet href = ru.que('#meshbin')[0].href\n\t\tlet fileku = await fetch(href)//'3d/PolyLandhep-gear.bin'\n\t\treturn gltf_bin = await fileku.arrayBuffer()\n\t})(),\n\t(async ()=>{\n\t\tlet href = ru.que('#meshgltf')[0].href\n\t\tlet fileku = await fetch(href)\n\t\treturn gltf_json = await fileku.json()\n\t})(),\n]))\n\nread()\nui.render = null\nawait ui.mulai?.()\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -356,7 +356,7 @@
 		{
 			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
 			"visible": true,
-			"time": "200204.30510010137",
+			"time": "208354.9208000893",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -417,7 +417,7 @@
 		{
 			"text": "\n}\n",
 			"visible": false,
-			"time": "291537.14540113334",
+			"time": "299687.7611012908",
 			"speed": "1",
 			"running": true,
 			"color": [

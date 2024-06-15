@@ -442,7 +442,7 @@
 			]
 		},
 		{
-			"text": "\t//coba mat2d\n\tm2d0 = lain.mat2d[0]\n\tm3.rotate(m2d0,.002,m2d0,)\n\t\n\t//intelcore\n\tm3.rotate(minco,.002,minco,)\n/*=======\n\tru.key.naik && m3.translate(minco,[0,-.01,],minco,)\n\tru.key.turun && m3.translate(minco,[0,.01,],minco,)\n\tru.key.kiri && m3.translate(minco,[-.01,0,],minco,)\n\tru.key.kanan && m3.translate(minco,[.01,0,],minco,)\n--------*/\n\tlet zin = .97\n\tlet zout = 1.03\n\tru.key.zoomin && m3.scale(minco,[zin,zin,],minco,)\n\tru.key.zoomout && m3.scale(minco,[zout,zout,],minco,)\n",
+			"text": "\t//coba mat2d\n\tm2d0 = lain.mat2d[0]\n\tm3.rotate(m2d0,.002,m2d0,)\n\t\n\t//intelcore\n\tm3.rotate(minco,.002,minco,)\n\n\tru.key.naik && m3.translate(minco,[0,-.01,],minco,)\n\tru.key.turun && m3.translate(minco,[0,.01,],minco,)\n\tru.key.kiri && m3.translate(minco,[-.01,0,],minco,)\n\tru.key.kanan && m3.translate(minco,[.01,0,],minco,)\n\n\tlet zin = .97\n\tlet zout = 1.03\n\tru.key.zoomin && m3.scale(minco,[zin,zin,],minco,)\n\tru.key.zoomout && m3.scale(minco,[zout,zout,],minco,)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
