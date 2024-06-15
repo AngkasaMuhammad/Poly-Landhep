@@ -1,0 +1,59 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Poly Landhep
+		</title>
+		<link rel="stylesheet" href="../v1/css/object3dview.css"/>
+		<link rel="stylesheet" href="css/PL.css"/>
+		<link id="meshshader" href="js/meshshader.wgsl"/>
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="menufile">
+					<!--
+					<svg id="open" mousedescr="Open" viewBox="0 0 48 48">
+						<path fill="none" stroke="white" stroke-width="2px" d="M38,12H22l-4-4H8c-2.2,0-4,1.8-4,4v24c0,2.2,1.8,4,4,4h31c1.7,0,3-1.3,3-3V16C42,13.8,40.2,12,38,12z"/>
+						<path fill="none" stroke="white" stroke-width="2px" d="M42.2,18H15.3c-1.9,0-3.6,1.4-3.9,3.3L8,40h31.7c1.9,0,3.6-1.4,3.9-3.3l2.5-14C46.6,20.3,44.7,18,42.2,18z"/>
+					</svg>
+					<svg class="restore" descr="mouserestore" viewBox="-10 -10 522 522">
+						<path fill="white" stroke="none" d="M 340.5 256 c 0 -26.6 -21.6 -48.3 -48.3 -48.3 s -48.3 21.6 -48.3 48.3 s 21.6 48.3 48.3 48.3 S 340.5 282.6 340.5 256 Z M 292.2 37.9 c -120.7 0 -219 98.2 -219 219 H 0 l 97.4 96.6 l 97.4 -97.4 h -72.4 c 0 -94.1 75.8 -169.8 169.8 -169.8 S 462 161.9 462 256 s -75.8 169.8 -169.8 169.8 c -36.6 0 -70.8 -11.7 -98.2 -31.6 l -34.1 35 c 36.6 28.3 83.3 45 133.2 45 c 120.7 0 219 -98.2 219 -219 C 510.3 135.3 412.9 37.9 292.2 37.9 Z"/>
+					</svg>
+					-->
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<h2>Differental Gear<span style="font-size:7px;">+sus intel corona</span></h2>
+				<span style="color:#88ff88;">
+					Hold R : putar kamera, mousewheel zoom<br/>
+					Hold M : geser kamera horizontal, mousewheel vertikal<br/>
+					H : reset kamera<br/>
+				</span>
+				<h4>Jika menemukan Sus Intel Corona</h4>
+				<span style="color:cyan;">
+					Numpad + : Zoom in texture SIC<br/>
+					Numpad - : Zoom out texture SIC<br/>
+				</span>
+				<br/>
+				<div id="scrollberlebih">
+					Mesin
+					<br/><input class="cepatmesin" type="range" min="-1000" max="1000"/>
+					<br/>Differential
+					<br/><input class="cepatdiff" type="range" min="-1000" max="1000"/>
+				</div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="../v1/js/wgpu-matrix.js"></script>
+		<script src="js/rumus.js"></script>
+		<script src="js/PL.js"></script>
+		<script src="js/freadgltf.js"></script>
+		<script src="js/ui.js"></script>
+		<script src="js/objek.js"></script>
+	</body>
+</html>

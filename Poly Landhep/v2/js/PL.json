@@ -1,0 +1,1130 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet pl = {}\n;(async ()=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//let\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet lih = ru.lihat\n\tlet h2 = document.querySelector('h2')\n\tlet canv = pl.canv = document.querySelector('#canv3d')\n\tlet cx = pl.cx = canv.getContext('webgpu')\n\tlet canv2d = pl.canv2d = document.querySelector('#canv2d')\n\tlet cx2d = pl.cx2d = canv2d.getContext('2d')\n\tlet m4 = wgpuMatrix.mat4\n\tlet v3 = wgpuMatrix.vec3\n\tlet w = canv.width\n\tlet h = canv.height\n\t\n\tlet errmsg = '!!__ERROR__!! : '\n\tlih('FILE Baru, POLY LANDHEP v2')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//canvas resize\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet canvres = e=>{\n\t\tlet s = canv.style\n\t\tlet s2d = canv2d.style\n\t\tif(innerWidth/innerHeight > canv.width/canv.height){\n\t\t\ts.height = '100%'\n\t\t\ts.width = ''\n\t\t}else{\n\t\t\ts.height = ''\n\t\t\ts.width = '100%'\n\t\t}\n\t\ts2d.height = s.height\n\t\ts2d.width = s.width\n\t}\n\taddEventListener('resize',canvres,)\n\tcanvres()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//adapter\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet adap\n\tlet dv\n\tlet reqdv = pl.reqdv = async ()=>{\n\t\tadap = await navigator.gpu.requestAdapter()\n\t\tdv = await adap.requestDevice()\n\t\tdv.lost.then(lih)\n\t}\n\tawait reqdv()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//presentationFormat\n//",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\tcx.configure({\n\t\tdevice:dv,\n\t\tformat: presentationFormat,\n\t})\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//meshshader\n\tlet code = await fetch(ru.que('link#meshshader')[0].href)//fetch('js/pl-meshshader.wgsl')\n\tcode = await code.text()\n\tlet meshmod = dv.createShaderModule({\n\t\tlabel:'ini mesh module',\n\t\tcode,\n\t})\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tlet renderPassDescriptor = {\n\t\tlabel: 'our basic canvas meshPass',\n\t\tcolorAttachments: [\n\t\t\t{\n\t\t\t\tclearValue: [.2,.2,.3,.8,],\n\t\t\t\tloadOp: 'clear',\n\t\t\t\tstoreOp: 'store',\n\t\t\t\tview:null,// <- to be filled out when we render\n\t\t\t},\n\t\t],\n\t\tdepthStencilAttachment: {\n\t\t\tdepthClearValue: 0.0,\n\t\t\tdepthLoadOp: 'clear',\n\t\t\tdepthStoreOp: 'store',\n\t\t\tview:null,// <- to be filled out when we render\n\t\t},\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "166",
+					"b": "111",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet meshpipe = dv.createRenderPipeline({\n\t\tlabel: 'ini pipa mesh',\n\t\tlayout: 'auto',\n\t\tvertex: {\n\t\t\tmodule:meshmod,\n\t\t\tentryPoint: 'vs',\n\t\t\tbuffers: [\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//pos\n\tarrayStride:3*4,\n\tattributes: [{\n\t\tshaderLocation:0,\n\t\toffset:0,\n\t\tformat:'float32x3',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//tex\n\tarrayStride:2*4,\n\tattributes: [{\n\t\tshaderLocation:1,\n\t\toffset:0,\n\t\tformat:'float32x2',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//pilih\n\tarrayStride:2*4,\n\tattributes: [{\n\t\tshaderLocation:2,\n\t\toffset:0,\n\t\tformat:'float32x2',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//nor\n\tarrayStride:3*4,\n\tattributes: [{\n\t\tshaderLocation:3,\n\t\toffset:0,\n\t\tformat:'float32x3',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//joi\n\tarrayStride:1*4,\n\tattributes: [{\n\t\tshaderLocation:4,\n\t\toffset:0,\n\t\tformat:'uint8x4',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{//wei\n\tarrayStride:1*4,\n\tattributes: [{\n\t\tshaderLocation:5,\n\t\toffset:0,\n\t\tformat:'unorm8x4',\n\t},],\n},\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\t],\n\t\t},\n\t\tfragment: {\n\t\t\tmodule:meshmod,\n\t\t\tentryPoint: 'fs',\n\t\t\ttargets: [{ format: presentationFormat }],\n\t\t},\n\t\tprimitive: {\n\t\t\tcullMode: 'back',\n\t\t},\n\t\tdepthStencil: {\n\t\t\tdepthWriteEnabled: true,\n\t\t\tdepthCompare: 'greater',\n\t\t\tformat: 'depth24plus',\n\t\t},\n\t})",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "1236130.6231888495",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet cambuf = dv.createBuffer({\n\t\tlabel:'ini matrix camera buffer',\n\t\tsize:1*16*4,\n\t\tusage:\n\t\t\tGPUBufferUsage.UNIFORM|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tcambuf,\n\t\t0,\n\t\tm4.identity(),\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "206",
+					"g": "157",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tlet ulainbuf = dv.createBuffer({\n\t\tlabel:'ini ulain buffer',\n\t\tsize:3*4, //w,h,mclen\n\t\tusage:\n\t\t\tGPUBufferUsage.UNIFORM|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tulainbuf,\n\t\t0,\n\t\tnew Uint32Array([w,h,0,]),\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet layarbuf = dv.createBuffer({\n\t\tlabel:'ini layar buff',\n\t\tsize:w*h*4,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_SRC|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//material\n\tlet mcobuf = 'math curve ouput'\n\tlet mcbuf = 'math curve'\n\tlet matembuf = 'material matrix'\n\tlet matecbuf = 'material color'\n\tlet matebind = 'material bind'\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let drawarr = pl.drawarr = []",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "208772.9067199902",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".17"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "//TES TESS DICOOBAAAAAAA\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "166",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "1236019.0639023674",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".14"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tlet depthtex = dv.createTexture({\n\t\tsize: [w,h,],\n\t\tformat: 'depth24plus',\n\t\tusage: GPUTextureUsage.RENDER_ATTACHMENT,\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "155",
+					"b": "133",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n\tlet tms = 0\n\tlet lukis = async t=>{try{\n\t\tpl.lukis = 'tunggu gpu hung, ini akan menjadi fungsi lukis'\n\t\t\n\t\tlet dt = t-tms\n\t\ttms = t\n\t\tlet encoder = dv.createCommandEncoder({\n\t\t\tlabel: 'encoderrrrrrr',\n\t\t})\n\t\trenderPassDescriptor.colorAttachments[0].view = cx.getCurrentTexture().createView()\n\t\trenderPassDescriptor.depthStencilAttachment.view = depthtex.createView()\n\t\tlet pass = encoder.beginRenderPass(renderPassDescriptor)\n\t\tpass.setPipeline(meshpipe)\n\t\t\n\t\tfor(let dr of drawarr){\n\t\t\tif(!dr.objarr.length){continue}\n\t\t\t\n\t\t\tpass.setBindGroup(1, matebind)\n\t\t\tpass.setBindGroup(0, dr.bind)\n\t\t\tpass.setVertexBuffer(0,dr.pos,)\n\t\t\tpass.setVertexBuffer(1,dr.tex,)\n\t\t\tpass.setVertexBuffer(2,dr.pilih,)\n\t\t\tpass.setVertexBuffer(3,dr.nor,)\n\t\t\tpass.setVertexBuffer(4,dr.joi,)\n\t\t\tpass.setVertexBuffer(5,dr.wei,)\n\t\t\tpass.setIndexBuffer(dr.ind,'uint16',)\n\t\t\tpass.drawIndexed(\n\t\t\t\tdr.ind.size/2,\n\t\t\t\tdr.objarr.length,\n\t\t\t\t0,\n\t\t\t\t0,\n\t\t\t\t0,\n\t\t\t)\n\t\t}\n\t\t\n\t\tpass.end()\n\t\tdv.queue.submit([encoder.finish()])\n\t\tawait dv.queue.onSubmittedWorkDone()\n\t\tpl.render?.(dt)\n\t\trequestAnimationFrame(lukis)\n\t}catch(e){\n\t\tlih(e)\n\t\tpl.lukis = lukis\n\t}}\n\tlet prm//lukis promise\n\trequestAnimationFrame(lukis)\n\tlih('sudah submit')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "1202316.7383958083",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet updcam =\npl.updcam = cam=>dv.queue.writeBuffer(cambuf,0,cam,)\n",
+			"visible": true,
+			"time": "263932.6572999564",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let setmaterial = pl.setmaterial = (\n\tmcoarr,\n\tmcarr,\n\tmatemarr,\n\tmatecarr,\n)=>{\n\nlih('material() 1x panggil, >1x mungkin bug')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tmcobuf = dv.createBuffer({\n\t\tlabel:'ini buffer',\n\t\tsize:mcoarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tmcobuf,\n\t\t0,\n\t\tmcoarr,\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tmcbuf = dv.createBuffer({\n\t\tlabel:'ini buffer',\n\t\tsize:mcarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tmcbuf,\n\t\t0,\n\t\tmcarr,\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tmatembuf = dv.createBuffer({\n\t\tlabel:'ini buffer',\n\t\tsize:matemarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tmatembuf,\n\t\t0,\n\t\tmatemarr,\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tmatecbuf = dv.createBuffer({\n\t\tlabel:'ini buffer',\n\t\tsize:matecarr.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(\n\t\tmatecbuf,\n\t\t0,\n\t\tmatecarr,\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\tdv.queue.writeBuffer(\n\t\tulainbuf,\n\t\t2*4,\n\t\tnew Uint32Array([mcarr.length/4]),\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//bind\n\tmatebind = dv.createBindGroup({\n\t\tlabel: 'material bindddd',\n\t\tlayout: meshpipe.getBindGroupLayout(1),\n\t\tentries: [\n\t\t\t{binding:0,resource:{buffer:cambuf}},\n\t\t\t{binding:1,resource:{buffer:ulainbuf}},\n\t\t\t{binding:2,resource:{buffer:mcobuf}},\n\t\t\t{binding:3,resource:{buffer:mcbuf}},\n\t\t\t{binding:4,resource:{buffer:matembuf}},\n\t\t\t{binding:5,resource:{buffer:matecbuf}},\n\t\t\t{binding:6,resource:{buffer:layarbuf}},\n\t\t],\n\t})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let newdraw = pl.newdraw = (\n\tname,\n\t\t//typed array\n\tposarr,\n\ttexarr,\n\tpiliharr,\n\tnorarr,\n\tjoiarr,\n\tweiarr,\n\tindarr,\n\tmat2darr,\n\tmat3darr,\n\tinvmat3d,\n\tobjarr,//objek node, 1 objek = 1 instance\n\tnmax,//max instance, karena n instance selalu berubah\n)=>{\n\tlet bufini = null\n\tlet arrini = null\n\tlet bindini = null\n\tlet drawini = {name}\n",
+			"visible": true,
+			"time": "179220.23769994674",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "188",
+					"b": "0",
+					"frame": "1"
+				},
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": "2"
+				},
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "3"
+				}
+			]
+		},
+		{
+			"text": "\n//pos\n\tarrini = posarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini pos buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.pos = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tex\n\tarrini = texarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.tex = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//pilih (mathcurveoutput & mat3)\n\tarrini = piliharr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.pilih = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//nor\n\tarrini = norarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.nor = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//joi\n\tarrini = joiarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.joi = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//wei\n\tarrini = weiarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini buffer cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.VERTEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.wei = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//ind\n\tarrini = indarr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini indices cobaan',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.INDEX|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.ind = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//mat2d\n\tarrini = drawini.mat2darr = mat2darr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini mat2d cobaan',\n\t\t//size:arrini.byteLength,\n\t\tsize:nmax*invmat3d.data.size*16,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.mat2dbuf = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//mat3d\n\tarrini = drawini.mat3darr = mat3darr\n\tbufini = dv.createBuffer({\n\t\tlabel:'ini mat3dcobaan',\n\t\t//size:arrini.byteLength,\n\t\tsize:nmax*invmat3d.data.size*16,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(bufini,0,arrini,)\n\tdrawini.mat3dbuf = bufini\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//invmat3d\ndrawini.invmat3d = invmat3d\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//bind\n\tbindini = dv.createBindGroup({\n\t\tlabel: 'iiinnnnii  mesh bindGroup',\n\t\tlayout: meshpipe.getBindGroupLayout(0),\n\t\tentries: [\n\t\t\t{binding:2,resource:{buffer:drawini.mat2dbuf}},\n\t\t\t{binding:3,resource:{buffer:drawini.mat3dbuf}},\n\t\t\t{binding:4,resource:{buffer:invmat3d.data}},\n\t\t\t{binding:5,resource:{buffer:invmat3d.len}},\n\t\t],\n\t})\n\tdrawini.bind = bindini\n\t\n\t//akhir\n\tdrawini.nmax = nmax\n\tdrawini.objarr = objarr\n\tdrawarr.push(drawini)\t\n\treturn drawini\n}\n",
+			"visible": true,
+			"time": "178259.62529993354",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "188",
+					"b": "0",
+					"frame": "1"
+				},
+				{
+					"r": "99",
+					"g": "99",
+					"b": "255",
+					"frame": "2"
+				},
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "3"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let newinvmat3d = pl.newinvmat3d = (\n\tinvmat3darr,\n\tmat2darr,\n)=>{\n\n//invdata\n\tlet arrini = invmat3darr\n\tlet databuf = dv.createBuffer({\n\t\tlabel:'ini inverter',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.STORAGE|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(databuf,0,arrini,)\n\t\n//len\n\tarrini = new Uint32Array([\n\t\tinvmat3darr.length/16,\n\t\tmat2darr.length/12,\n\t])\n\tlet lenbuf = dv.createBuffer({\n\t\tlabel:'ini panjang inverter',\n\t\tsize:arrini.byteLength,\n\t\tusage:\n\t\t\tGPUBufferUsage.UNIFORM|\n\t\t\tGPUBufferUsage.COPY_DST\n\t\t,\n\t})\n\tdv.queue.writeBuffer(lenbuf,0,arrini,)\n\t\n//\n\treturn {data:databuf,len:lenbuf,}\n}\n",
+			"visible": true,
+			"time": "113054.79330006297",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "188",
+					"g": "155",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "5"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let upddrawmat2d = pl.upddrawmat2d = draw=>{\n\tdv.queue.writeBuffer(\n\t\tdraw.mat2dbuf,\n\t\t0,\n\t\tdraw.mat2darr,\n\t)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let upddrawmat3d = pl.upddrawmat3d = draw=>{\n\tdv.queue.writeBuffer(\n\t\tdraw.mat3dbuf,\n\t\t0,\n\t\tdraw.mat3darr,\n/*========\n\t\t0,\n\t\tdraw.objarr.length*draw.invmat3d.data.size/4,\n--------*/\n\t)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "261183.11619976736",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "22",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})().then(aa=>pl.javascript_ui?.(aa))",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

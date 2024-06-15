@@ -1,0 +1,405 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "22",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "let freadgltf = (json,bin,)=>{\n\t// https://www.khronos.org/assets/uploads/developers/presentations/gltf20-reference-guide.pdf\n\t\n\t//baca gltf\n\tlet lih = ru.lihat\n\tlet m3 = wgpuMatrix.mat3\n\tlet m4 = wgpuMatrix.mat4\n\t\n\t//\n\tlet tyararr = []\n\tlet mat3dpisah = {}\n\tlet mat2dpisah = {}\n\tlet fmap0 = aa=>json.nodes[aa].name\n\tlet ffind0 = aa=>aa.name === name\n\tlet name = null\n",
+			"visible": true,
+			"time": "293626.8696004367",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\n\t//material\n\tlet mate = json.materials[0].extras.shadernode\n\tlet colorarr = mate.color\n\tlet matarr = mate.matrix\n\tlet mcarr = mate.mathcurve\n\tlet mcoarr = mate.mathcurveoutput\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//obj masuk prop\nfor(let na in mcarr){\n\tlet o = mcarr[na]\n\t\n\to.namaaa = na\n\to.A = mcarr[o.A]??colorarr[o.A]\n\to.B = mcarr[o.B]??colorarr[o.B]\n\to.matrix = matarr[o.matrix]\n\to.urut = null\n\to.prev = []\n}\nfor(let na in mcoarr.slice()){\n\tlet s = mcoarr[na]\n\tmcoarr[na] = mcarr[s]??colorarr[s]\n}\n/*========\nlih('\\n======================\\nmcarr mcoarr')\nlih(mcarr)\nlih(mcoarr)\n--------*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//jadi array\ncolorarr = Object.values(colorarr)\nmatarr = Object.values(matarr)\nmcarr = Object.values(mcarr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//prev push\nfor(let na in mcarr){\n\tlet o = mcarr[na]\n\to.A?.prev?.push(o)\n\tif(o.A !== o.B){\n\t\to.B?.prev?.push(o)\n\t}\n}\n/*\nlih('\\n======================\\nmcarr')\nlih(mcarr)\n*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//urut\nmcarr[0].urut = 0\nfor(let i = 0;i < mcarr.length;i++){\n\tlet oini = mcarr[i]\n\tlet A = oini.A\n\tlet B = oini.B\n\tif(A && (\n\t\t(A.urut === null) ||\n\t\t(A.urut <= oini.urut)\n\t)){\n\t\tA.urut = oini.urut+1\n\t\tlet iA = mcarr.indexOf(A)\n\t\tmcarr.splice(iA,1,)\n\t\tmcarr.splice(i+1,0,A,)\n\t}\n\tif(B && (\n\t\t(B.urut === null) ||\n\t\t(B.urut <= oini.urut)\n\t)){\n\t\tB.urut = oini.urut+1\n\t\tlet iB = mcarr.indexOf(B)\n\t\tmcarr.splice(iB,1,)\n\t\tmcarr.splice(i+1,0,B,)\n\t}\n\tfor(let oprev of oini.prev){\n\t\tif(\n\t\t\t(oprev.urut === null) ||\n\t\t\t(oprev.urut >= oini.urut)\n\t\t){\n\t\t\toprev.urut = oini.urut-1\n\t\t\tlet iop = mcarr.indexOf(oprev)\n\t\t\tmcarr.splice(iop,1,)\n\t\t\tmcarr.splice(i+1,0,oprev,)\n\t\t}\n\t}\n}\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//bikin mccolorarr\nlet mccolorarr = mcarr.concat(colorarr)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//jadi index\nfor(let i in mcoarr){\n\tmcoarr[i] = mccolorarr.indexOf(mcoarr[i])\n}\nfor(let i in mcarr){\n\tmcarr[i = +i] = [\n\t\tmccolorarr[i].curveid,\n\t\tmatarr.indexOf(mccolorarr[i].matrix),\n\t\tmccolorarr.indexOf(mccolorarr[i].A)-i,\n\t\tmccolorarr.indexOf(mccolorarr[i].B)-i,\n\t]\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//matrix dari 9 ele ke 12 ele\nfor(let m of matarr){\n\tm.splice(9,0,0,)\n\tm.splice(6,0,0,)\n\tm.splice(3,0,0,)\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "166",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//jadi typed array\nlet ucolorarr = []\nfor(let i in colorarr){\n\tlet c = colorarr[i]\n\tucolorarr.push(\n            Math.round(c[3]*0xff)*0x1\n            +Math.round(c[2]*0xff)*0x100\n            +Math.round(c[1]*0xff)*0x10000\n            +Math.round(c[0]*0xff)*0x1000000\n\t)\n}\nucolorarr = new Uint32Array(ucolorarr)\n\nmatarr = new Float32Array(matarr.flat(Infinity))\n\nmcarr = new Uint32Array(mcarr.flat(Infinity))\n\nmcoarr = new Uint32Array(mcoarr)\n/*========\nlih('\\n======================\\n')\nlih(mcoarr)\nlih(mcarr)\nlih(matarr)\nlih(ucolorarr)\n--------*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//set mate\npl.setmaterial(\n\tmcoarr,\n\tmcarr,\n\tmatarr,\n\tucolorarr,\n)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\n\tfor(let acce of json.accessors){\n\t\tlet bvarr = json.bufferViews\n\t\t// https://github.com/KhronosGroup/glTF-Tutorials/blob/main/gltfTutorial/gltfTutorial_005_BuffersBufferViewsAccessors.md\n\t\tlet type = ({\n\t\t\t'5126':Float32Array,\n\t\t\t'5123':Uint16Array,\n\t\t\t'5121':Uint32Array,\n\t\t})[acce.componentType+'']\n\t\tlet bv = bvarr[acce.bufferView]\n\t\tlet tyar = new type(\n\t\t\tbin,\n\t\t\tbv.byteOffset,\n\t\t\tbv.byteLength/type.BYTES_PER_ELEMENT,\n\t\t)\n\t\ttyararr.push(tyar)\n\t}\n\t\n\tfor(let node of json.nodes){\n\t\tif((typeof node.mesh) == 'number'){\n\t\t\tlet skin = json.skins[node.skin]\n\t\t\tlet ibm = skin.inverseBindMatrices\n\t\t\t\n\t\t\tfor(let pri of json.meshes[node.mesh].primitives){\n\t\t\t\t\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//ubah 4 nomalized float ke 1 uint\nlet iwei = pri.attributes.WEIGHTS_0\nlet weibaru = new Uint8Array(tyararr[iwei].length)\nfor(let i in weibaru){\n\tweibaru[i = +i] = tyararr[iwei][i]*255\n}\ntyararr[iwei] = new Uint32Array(weibaru.buffer)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//cek indices, harus multiple of 4\nlet iind = pri.indices\nlet indtyar = tyararr[iind]\nif(indtyar.length%2){\n\tlet arr = Array.from(indtyar)\n\tarr.push(0)\n\ttyararr[iind] = new indtyar.constructor(arr)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tambah mat2d\nlet nmax = node.extras.maxinstance??7 //sementara, nanti dari extras maxinstance\nlet mat2darr = []\nfor(let m of node.extras.geomat){\n\tmat2darr = mat2darr.concat(Array.from(m3.set(...m)))\n}\nlet mat2dnmax = []\nfor(let i = 0;i < nmax;i++){\n\tmat2dnmax = mat2dnmax.concat(mat2darr)\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//tambah mat3d\nlet mat3darr = []\n\n/*========\nfor(let i = 0;i < tyararr[ibm].length*99;i += 16){\n\tmat3darr = mat3darr.concat(Array.from(m4.identity()))\n}\n--------*/\nlet tyar = tyararr[ibm]\nfor(let i = 0;i < tyar.length;i += 16){\n\tlet matini = Array.from(new Float32Array(\n\t\ttyar.buffer,\n\t\ttyar.byteOffset+i*4,\n\t\t16,\n\t))\n\tm4.invert(matini,matini,)\n\tmat3darr = mat3darr.concat(matini)\n}\nlet mat3dnmax = []\nfor(let i = 0;i < nmax;i++){\n\tmat3dnmax = mat3dnmax.concat(mat3darr)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet invmat3d = pl.newinvmat3d(//ini berisi info mat3d & mat2d\n\t\ttyararr[ibm],\n\t\tmat2darr,\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet drawini = pl.newdraw(\n\tskin.name,\n\ttyararr[pri.attributes.POSITION\t],\n\ttyararr[pri.attributes.TEXCOORD_0\t],\n\ttyararr[pri.attributes.TEXCOORD_1\t],\n\ttyararr[pri.attributes.NORMAL\t],\n\ttyararr[pri.attributes.JOINTS_0\t],\n\ttyararr[pri.attributes.WEIGHTS_0\t],\n\ttyararr[pri.indices\t],\n\tnew Float32Array(mat2dnmax),\n\tnew Float32Array(mat3dnmax),\n\tinvmat3d,\n\t[],//berisi obj node\n\tnmax,\n)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\t\t\n\t\n\tlet arr = drawini.mat3darr //Float32Array\n\tlet arr2d = drawini.mat2darr //Float32Array\n\tlet invlen = drawini.invmat3d.data.size/4/16\n\tlet mat2dlen = mat2darr.length/12\n\tlet out = mat3dpisah[skin.name] = []\n\tlet out2d = mat2dpisah[skin.name] = []\n\tlih('inv '+invlen)\n\tlih('arr '+arr.length/16)\n\tfor(let i = 0;i < arr.length;i += invlen*16){\n\t\tlet instout = []\n\t\tfor(let j = 0;j < invlen;j++){\n\t\t\tinstout.push(new Float32Array(arr.buffer,(i+j*16)*4,16,))\n\t\t}\n\t\tout.push(instout)\n\t}\n\t\n\tfor(let i = 0;i < nmax;i++){//sampe sini\n\t\tlet h = [] //hasil\n\t\tfor(let j = 0;j < mat2dlen;j++){\n\t\t\th.push(new Float32Array(arr2d.buffer,(j+i*mat2dlen)*12*4,12,))\n\t\t}\n\t\tout2d.push(h)\n\t}\n\t\n\t\t\t}\n\t\t}\n\t}\n\treturn {mat3dpisah,mat2dpisah,}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "}",
+			"visible": true,
+			"time": "293609.4019004381",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				}
+			]
+		}
+	]
+]

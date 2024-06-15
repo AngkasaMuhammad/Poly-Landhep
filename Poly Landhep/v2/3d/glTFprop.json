@@ -1,0 +1,183 @@
+[
+	[
+		{
+			"text": "import bpy\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "def cekmatrix(node,v0,v1,v2,):\n\tlinks0 = node.inputs[v0].links\n\tlinks1 = node.inputs[v1].links\n\tlinks2 = node.inputs[v2].links\n\tif (\n\t\tlen(links0) == 0 or\n\t\tlen(links1) == 0 or\n\t\tlen(links2) == 0\n\t):\n\t\tprint(node.name+' ada yang kosong. Semua harus terhubung')\n\t\treturn ''\n\t\n\tnode0 = links0[0].from_node\n\tnode1 = links1[0].from_node\n\tnode2 = links2[0].from_node\n\tif (\n\t\tnode0 != node1 or\n\t\tnode0 != node2\n\t):\n\t\tprint(node.name+' socket tidak sama.')\n\t\treturn ''\n\treturn node0.name\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "#for mate in bpy.data.materials:\nmate = bpy.data.materials[0]\nif True:\n\tsn = {\n\t\t'color':{},\n\t\t'matrix':{},\n\t\t'mathcurve':{},\n\t\t'mathcurveoutput':[],\n\t}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tfor inp in mate.node_tree.nodes['colorgate'].inputs:\n\t\tsn['mathcurveoutput'].append(inp.links[0].from_node.name)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\tnodearr = mate.node_tree.nodes \n\tfor node in nodearr:\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t\tif node.type == 'GROUP':\n\t\t\tism = node.node_tree.name == 'matrix'\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\tif node.node_tree.name == 'color':\n\t\t\t\tdeva = node.inputs[0].default_value\n\t\t\t\tsn['color'][node.name] = deva\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\telif ism:\n\t\t\t\tv0 = node.inputs[0].default_value\n\t\t\t\tv1 = node.inputs[1].default_value\n\t\t\t\tv2 = node.inputs[2].default_value\n\t\t\t\tmatku = [\n\t\t\t\t\tv0[0],v0[1],v0[2],\n\t\t\t\t\tv1[0],v1[1],v1[2],\n\t\t\t\t\tv2[0],v2[1],v2[2],\n\t\t\t\t]\n\t\t\t\t\n\t\t\t\tsn['matrix'][node.name] = matku\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t\t\telif node.node_tree.name == 'mathcurve':\n\t\t\t\tmacu = {\n\t\t\t\t\t'A':None,\n\t\t\t\t\t'B':None,\n\t\t\t\t\t'matrix':'',\n\t\t\t\t\t'curveid':0,\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tlinksA = node.inputs['A'].links\n\t\t\t\tlinksB = node.inputs['B'].links\n\t\t\t\tif len(linksA) != 0:\n\t\t\t\t\tmacu['A'] = linksA[0].from_node.name\n\t\t\t\tif len(linksB) != 0:\n\t\t\t\t\tmacu['B'] = linksB[0].from_node.name\n\t\t\t\t\n\t\t\t\tmacu['matrix'] = cekmatrix(node,1,2,3,)\n\t\t\t\tmacu['curveid'] = node.inputs['pilih'].default_value\n\t\t\t\t\n\t\t\t\tsn['mathcurve'][node.name] = macu\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\t#print(sn)\n\tmate['shadernode'] = sn\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n#geonode matrix\nfor obj in bpy.data.objects:\n\tgeomat = []\n\tmod = None\n\tfor mod in obj.modifiers:\n\t\tif mod.type == 'NODES':\n\t\t\tprint(mod.node_group.name)\n\t\t\tbreak\n\tif not(mod):\n\t\tcontinue\n\t\n\t#cari node akhir\n\trantai = []\n\tfor node in mod.node_group.nodes:\n\t\tif node.type == 'GROUP' and node.node_tree.name == 'pilihmat':\n\t\t\tprint('okkkk')\n\t\t\t\n\t\t\tout = node.outputs\n\t\t\tout0 = out['v0']\n\t\t\tout1 = out['v1']\n\t\t\tout2 = out['v2']\n\t\t\tlink0 = out0.links[0].to_node if len(out0.links) else None\n\t\t\tlink1 = out1.links[0].to_node if len(out1.links) else None\n\t\t\tlink2 = out2.links[0].to_node if len(out2.links) else None\n\t\t\tif link0 != link1 or link0 != link2:\n\t\t\t\traise Exception('Node tidak sama, soket harus terhubung ke node yang sama. '+node.name)\n\t\t\t\n\t\t\t#-------------\n\t\t\tif link0 and link0.type == 'GROUP_OUTPUT':\n\t\t\t\trantai.insert(0,node,)\n\t\n\tfor unused in mod.node_group.nodes:#sampe sini, rantai\n\t\tnode = rantai[0] \n\t\tinp = node.inputs\n\t\tinp0 = inp['v0']\n\t\tinp1 = inp['v1']\n\t\tinp2 = inp['v2']\n\t\tlink0 = inp0.links[0].from_node if len(inp0.links) else None\n\t\tlink1 = inp1.links[0].from_node if len(inp1.links) else None\n\t\tlink2 = inp2.links[0].from_node if len(inp2.links) else None\n\t\tif link0 != link1 or link0 != link2:\n\t\t\traise Exception('Node tidak sama, soket harus terhubung ke node yang sama. '+node.name)\n\t\tv3 = inp['v3'].default_value\n\t\tv4 = inp['v4'].default_value\n\t\tv5 = inp['v5'].default_value\n\t\t\n\t\tgeomat.insert(0,[\n\t\t\tv3[0],v3[1],v3[2],\n\t\t\tv4[0],v4[1],v4[2],\n\t\t\tv5[0],v5[1],v5[2],\n\t\t],)\n\t\tif not(link0):\n\t\t\tprint(rantai)\n\t\t\tbreak\n\t\trantai.insert(0,link0,)\n\t\n\tobj['geomat'] = geomat\n\tprint(obj['maxinstance'])\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

@@ -1,0 +1,547 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\n/*\n--\tsegera\n=>\tdiurus\n\tsudah\n\n-------------\n\n*/\nlet ui = {}\npl.javascript_ui = async aa=>{\n",
+			"visible": true,
+			"time": "217024.13449990377",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "188",
+					"g": "88",
+					"b": "122",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": ".21"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let lih = ru.lihat\nlet m4 = wgpuMatrix.mat4\nlet w = pl.canv.width\nlet h = pl.canv.height\n\nlih('ui loadedddddddd')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let gltf_bin\nlet loadgltfbin = ui.loadgltfbin = async ()=>{\n\tlet [fsfh] = await showOpenFilePicker()\n\tlet file = await fsfh.getFile()\n\tgltf_bin = await file.arrayBuffer()\n\tlih(gltf_bin)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let gltf_json\nlet loadgltfjson = ui.loadgltfjson = async ()=>{\n\tlet [fsfh] = await showOpenFilePicker()\n\tlet file = await fsfh.getFile()\n\tgltf_json = JSON.parse(await file.text())\n\tlih(gltf_json)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let read = ()=>mat3dpisah = lih(freadgltf(gltf_json,gltf_bin,))\nlet mat3dpisah = null\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//https://github.com/toji/gl-matrix/blob/master/dist/gl-matrix.js\n//aku edit dikit\n  /**\n   * Creates a matrix from a quaternion rotation, vector translation and vector scale\n   * This is equivalent to (but much faster than):\n   *\n   *     mat4.identity(dest);\n   *     mat4.translate(dest, vec);\n   *     let quatMat = mat4.create();\n   *     quat4.toMat4(quat, quatMat);\n   *     mat4.multiply(dest, quatMat);\n   *     mat4.scale(dest, scale)\n   *\n   * @param {mat4} out mat4 receiving operation result\n   * @param {quat4} q Rotation quaternion\n   * @param {ReadonlyVec3} v Translation vector\n   * @param {ReadonlyVec3} s Scaling vector\n   * @returns {mat4} out\n   */\n\nlet matRTS = (q, v, s,out,)=>{//fromRotationTranslationScale\n    // Quaternion math\n\tout = out??new Float32Array(16)\n    var x = q[0],\n        y = q[1],\n        z = q[2],\n        w = q[3];\n    var x2 = x + x;\n    var y2 = y + y;\n    var z2 = z + z;\n    var xx = x * x2;\n    var xy = x * y2;\n    var xz = x * z2;\n    var yy = y * y2;\n    var yz = y * z2;\n    var zz = z * z2;\n    var wx = w * x2;\n    var wy = w * y2;\n    var wz = w * z2;\n    var sx = s[0];\n    var sy = s[1];\n    var sz = s[2];\n    out[0] = (1 - (yy + zz)) * sx;\n    out[1] = (xy + wz) * sx;\n    out[2] = (xz - wy) * sx;\n    out[3] = 0;\n    out[4] = (xy - wz) * sy;\n    out[5] = (1 - (xx + zz)) * sy;\n    out[6] = (yz + wx) * sy;\n    out[7] = 0;\n    out[8] = (xz + wy) * sz;\n    out[9] = (yz - wx) * sz;\n    out[10] = (1 - (xx + yy)) * sz;\n    out[11] = 0;\n    out[12] = v[0];\n    out[13] = v[1];\n    out[14] = v[2];\n    out[15] = 1;\n    return out;\n  }",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "202299.3803998239",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//camera\n\tlet persp = m4.identity()\n\tlet cam = m4.identity()\n\tlet view = m4.identity()//hasil dari persp*cam \n\t\n    m4.perspective(\n        .9,//rad\n        w/h,\n        .01,      // zNear\n        Number.MAX_SAFE_INTEGER,//999.01,   // zFar\n        persp,\n    );\n\t\n\t//change z to 1-z\n\tm4.invert(persp,persp,)\n\t\tm4.translate(persp,[0,0,1,],persp)\n\t\tm4.scale(persp,[1,1,-1,],persp,)\n\tm4.invert(persp,persp,)\n\t//it wokkkkkk, HOW?? \n\t\n\tlet camges = ui.camges = m4.identity()\n\tlet rang = 0\n\tlet camreset = ()=>{\n\t\tm4.identity(camges)\n\t\tm4.rotateY(camges,.4,camges,)\n\t\tm4.scale(camges,Array(3).fill(3333),camges,)\n\t\trang = -.5\n\t}\n\tcamreset()\n\tlet fcam = ()=>{\n\t\tm4.copy(camges,cam,)\n\t\tm4.rotateX(cam,rang,cam,)\n\t\tm4.translate(cam,[0,0,3,],cam,)\n\t\tm4.invert(cam,cam,)\n\t\tm4.mul(persp,cam,view,)\n\t\tpl.updcam(view)\n\t}\n\tfcam()\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//gerak camera\n\tlet digeser = false\n\taddEventListener('mousedown',e=>{\n\t\tdigeser = true\n\t\tdocument.body.requestPointerLock().then(lih)\n\t},)\n\taddEventListener('mouseup',e=>{\n\t\tdigeser = false\n\t\tdocument.exitPointerLock()\n\t},)\n\taddEventListener('mousemove',e=>{\nif(digeser){\n\tm4.translate(camges,[\n\t\te.movementX/555,\n\t\t0,\n\t\te.movementY/555,\n\t],camges,)\n}else{\n\tm4.rotateY(camges,-e.movementX/99,camges,)\n\trang -= e.movementY/99\n\tlet pi = Math.PI\n\trang = Math.max(-pi/2,rang,)\n\trang = Math.min(pi/2,rang,)\n}\n\n\t\tfcam()\n\t},)\n\taddEventListener('wheel',e=>{\n\nif(digeser){\n\tm4.translate(camges,[\n\t\t0,\n\t\te.deltaY/3333,\n\t\t0,\n\t],camges,)\n}else{\n\tlet s = 2**(e.deltaY/999)\n\tm4.scale(camges,Array(3).fill(s),camges,)\n}\n\n\t\tfcam()\n\t},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "/*========\nlet pisahmat3darr = ui.pisahmat3darr = draw=>{\n\t//lih(draw.mat3darr)\n\tlet arr = draw.mat3darr//Float32Array\n\tlet invlen = draw.invmat3d.data.size/4/16\n\tlet out = []\n\tlih('inv '+invlen)\n\tlih('arr '+arr.length/16)\n\tfor(let i = 0;i < arr.length;i += invlen*16){\n\t\tlet instout = []\n\t\tfor(let j = 0;j < invlen;j++){\n\t\t\tinstout.push(new Float32Array(arr.buffer,(i+j*16)*4,16,))\n\t\t}\n\t\tout.push(instout)\n\t}\n\treturn out\n}\n--------*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "ui.newobj = draw=>{//draw\n\tlet json = gltf_json\n\t//cari armnode\n\tlet list = []\n\tlet out = {}\n\t\n\tfor(let node of json.nodes){\n\t\tif(node.name === draw.name){\n\t\t\tout.node = {src:node,}\n\t\t\tlist.push(out.node)\n\t\t\tbreak\n\t\t}\n\t}\n\t\n\t//sampe sini, joints\n\t//cari joint\n\tlet srcskinjoints = null\n\tfor(let {name,joints,} of json.skins){\n\t\tif(name === draw.name){\n\t\t\tout.skinjoints = (srcskinjoints = joints).slice()\n\t\t\tbreak\n\t\t}\n\t}\n\t\n\twhile(list.length){\n\t\tlet dst = list.shift()\n\t\tlet src = dst.src\n\t\tdst.name = src.name\n\t\tdst.chi = []\n\t\tdst.matglo = m4.identity()\n\t\tdst.matlok = matRTS(\n\t\t\tsrc.rotation??[0,0,0,1,],\n\t\t\tsrc.translation??[0,0,0,],\n\t\t\tsrc.scale??[1,1,1,],\n\t\t)\n\t\tfor(let isrcchi of src.children??[]){\n\t\t\tlet srcchi = json.nodes[isrcchi]\n\t\t\tlet dstchi = {src:srcchi,}\n\t\t\tlist.push(dstchi)\n\t\t\tdst.chi.push(dstchi)\n\t\t}\n\t\t//cari joint\n\t\tfor(let i = 0;i < out.skinjoints.length;i++){\n\t\t\tlet jointname = json.nodes[srcskinjoints[i]].name\n\t\t\tif(jointname === src.name){\n\t\t\t\tout.skinjoints[i] = dst\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t\tdelete dst.src\n\t}\n\t\n\tdraw.objarr.push(out)\n\treturn out.node\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "125623.20310018134",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//mulai\nlih(await Promise.all([\n\t(async ()=>{\n\t\t//let fileku = await fetch('3d/PolyLandhep-bidang.bin')\n\t\tlet fileku = await fetch('3d/PolyLandhep-gear.bin')\n\t\treturn gltf_bin = await fileku.arrayBuffer()\n\t})(),\n\t(async ()=>{\n\t\t//let fileku = await fetch('3d/PolyLandhep-bidang.gltf')\n\t\tlet fileku = await fetch('3d/PolyLandhep-gear.gltf')\n\t\treturn gltf_json = await fileku.json()\n\t})(),\n]))\n\nread()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "/*========\n//coba newdraw()\npl.newdraw(\n\t'tes cobaan',\n//pos\n\tnew Float32Array([\n\t\t 1.0, 0.0,-1.0,\n\t\t-1.0, 0.5,-1.0,\n\t\t-1.0, 0.0, 1.0,\n\t\t 1.0, 0.0, 1.0,\n\t].map(aa=>aa*555)),\n//tex\n\tnew Float32Array([\n\t\t -1.0, 1.0,\n\t\t -1.0,-1.0,\n\t\t  1.0,-1.0,\n\t\t  1.0, 1.0,\n\t]),\n//pilih\n\tnew Float32Array([\n\t\t  1.0, 0.0,\n\t\t  0.0, 0.0,\n\t\t  1.0, 0.0,\n\t\t  1.0, 0.0,\n\t]),\n//nor\n\tnew Float32Array([\n\t\t 0.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 0.0,\n\t]),\n//joi\n\tnew Uint8Array([\n\t\t 0,0,0,0,\n\t\t 0,0,0,0,\n\t\t 1,0,0,0,\n\t\t 1,0,0,0,\n\t]),\n//wei\n\tnew Uint32Array([\n\t\t 0x000000ff,\n\t\t 0x000000ff,\n\t\t 0x000000ff,\n\t\t 0x000000ff,\n\t]),\n//ind\n\tnew Uint16Array([\n\t\t0,1,2,0,2,3,\n\t]),\n//mat2d\n\tnew Float32Array([\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t \n\t]),\n//mat3d\n\tnew Float32Array([\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 1111.0, 0.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 2222.0, 0.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 0.0, 0.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 0.0, 1111.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t-1111.0, 0.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t-1111.0, 0.0, 1111.0, 1.0,\n\t\t\n\t]),\n//invmat3d\n\tpl.newinvmat3d(new Float32Array([\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 0.0, 222.0, 0.0, 1.0,\n\t\t\n\t\t 1.0, 0.0, 0.0, 0.0,\n\t\t 0.0, 1.0, 0.0, 0.0,\n\t\t 0.0, 0.0, 1.0, 0.0,\n\t\t 0.0,-111.0, 0.0, 1.0,\n\t\t\n\t])),\n\tArray(3).fill('tessss'),//n instance\n\t7,//max instance\n)\n--------*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//coba setmaterial\n/*========\npl.setmaterial(\n\tnew Uint32Array([\n\t\t0,2,1,3,1,2,1,4,5,6,7,8,\n\t]),\n\tnew Uint32Array([\n\t\t5,1,1,2,\n\t\t4,0,2,3,\n\t\t99,1,3,4,\n\t]),\n\tnew Float32Array([\n\t\t+1.0,+0.0,+0.0, 0,\n\t\t+0.0,+1.0,+0.2, 0,\n\t\t+0.0,+0.0,+0.1, 0,\n\t\t\n\t\t+1.0,+0.0,-0.3, 0,\n\t\t+0.0,+1.0,+0.4, 0,\n\t\t+0.0,+0.0,+0.01, 0,\n\t\t\n\t]),\n\tnew Uint32Array([\n\t\t0x00ff0055,\n\t\t0xff880077,\n\t\t0x335500aa,\n\t\t0x0011ff99,\n\t]),\n)\n--------*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n/*=======\n//gerak bendera\nlet drawbendera = pl.drawarr[0]\nlet benderaarr = pisahmat3darr(drawbendera)\n//drawbendera.n = 2\nlet mbe0 = benderaarr[0][0]\nlet mbe1 = benderaarr[0][1]\nlet mbe2 = benderaarr[0][2]\nlet ang = 0\n--------*/\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//gerak piston\nlet p0 = ui.newobj(pl.drawarr[2])\nlet p1 = ui.newobj(pl.drawarr[2])\n//p1.matglo\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "125505.72670018159",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\npl.render = dt=>{\n\tp0.matlok[0] += .01\n\t//sampe sini, ini ga gerak, harus gerak\n\t\n\t//hitung mat\n\tfor(let dr of pl.drawarr){\n\t\tfor(let {node} of dr.objarr){\n\t\t\tlet nl = [node]//nodelist\n\t\t\tm4.identity(node.matglo)\n\t\t\twhile(nl.length){\n\t\t\t\nlet nodeini = nl.shift()\nlet glo = nodeini.matglo\nlet lok = nodeini.matlok\nm4.mul(glo,lok,glo,)\nfor(let chiini of nodeini.chi){\n\tnl.push(chiini)\n\tm4.copy(glo,chiini.matglo,)\n}\n\t\t\t\n\t\t\t}\n\t\t}\n\t}\n\t\n\t//kirim\n\tfor(let dr of pl.drawarr){\n\t\tlet name = dr.name\n\t\tlet objarr = dr.objarr\n\t\tlet m3dpis = mat3dpisah[name]\n\t\tfor(let i = 0;i < objarr.length;i++){\n\nlet sj = objarr[i].skinjoints\nlet mp = m3dpis[i]\nfor(let j = 0;j < sj.length;j++){\n\tlet m0 = sj[j].matglo\n\tlet m1 = mp[j]\n\tm4.copy(m0,m1,)\n}\n\n\t\t}\n\t\tpl.upddrawmat3d(dr)\n\t}\n\t\n\treturn 0\n/*========\n\t//bendera\n\tang -= dt*.007\n\tlet ang0 = ang+Math.PI*2/3 *0\n\tlet ang1 = ang+Math.PI*2/3 *1\n\tlet ang2 = ang+Math.PI*2/3 *2\n\tlet mul = .4\n\tm4.identity(mbe0);m4.translate(mbe0,[0,0,Math.sin(ang0)*mul,],mbe0,)\n\tm4.identity(mbe1);m4.translate(mbe1,[0,0,Math.sin(ang1)*mul,],mbe1,)\n\tm4.identity(mbe2);m4.translate(mbe2,[0,0,Math.sin(ang2)*mul,],mbe2,)\n\tpl.upddrawmat3d(drawbendera)\n--------*/\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n}\n",
+			"visible": false,
+			"time": "216838.56699990292",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".11"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".4"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

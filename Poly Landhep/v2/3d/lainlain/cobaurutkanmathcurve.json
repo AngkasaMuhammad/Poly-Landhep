@@ -1,0 +1,72 @@
+[
+	{"name"	:"halo"	,"nextnodeA"	:"nama"	,"nextnodeB"	:"aku"	},
+	{"name"	:"nama"	,"nextnodeA"	:"bagus"	,"nextnodeB"	:null	},
+	{"name"	:"aku"	,"nextnodeA"	:"jos"	,"nextnodeB"	:"gandosss"	},
+	{"name"	:"bagus"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"ituww"	},
+	{"name"	:"keren"	,"nextnodeA"	:null	,"nextnodeB"	:"ituww"	},
+	{"name"	:"jos"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"gandosss"	},
+	{"name"	:"gandosss"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:"qwer"	},
+	{"name"	:"hai"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:null	},
+	{"name"	:"ituww"	,"nextnodeA"	:null	,"nextnodeB"	:"qwer"	},
+	{"name"	:"qwer"	,"nextnodeA"	:null	,"nextnodeB"	:null	},
+	{"name"	:"aaa"	,"nextnodeA"	:null	,"nextnodeB"	:"bbb"	},
+	{"name"	:"bbb"	,"nextnodeA"	:"ccc"	,"nextnodeB"	:"qqq"	},
+	{"name"	:"ccc"	,"nextnodeA"	:"www"	,"nextnodeB"	:null	},
+	{"name"	:"qqq"	,"nextnodeA"	:null	,"nextnodeB"	:"rrr"	},
+	{"name"	:"ttt"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:"rrr"	},
+	{"name"	:"www"	,"nextnodeA"	:"eee"	,"nextnodeB"	:"eee"	},
+	{"name"	:"eee"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:null	},
+	{"name"	:"rrr"	,"nextnodeA"	:null	,"nextnodeB"	:null	},
+]
+
+
+
+[
+	{"name"	:"halo"	,"nextnodeA"	:"nama"	,"nextnodeB"	:"aku"	,"urut":	,"prev"[	]},
+	{"name"	:"nama"	,"nextnodeA"	:"bagus"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"aku"	,"nextnodeA"	:"jos"	,"nextnodeB"	:"gandosss"	,"urut":	,"prev"[	]},
+	{"name"	:"bagus"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"ituww"	,"urut":	,"prev"[	]},
+	{"name"	:"keren"	,"nextnodeA"	:null	,"nextnodeB"	:"ituww"	,"urut":	,"prev"[	]},
+	{"name"	:"jos"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"gandosss"	,"urut":	,"prev"[	]},
+	{"name"	:"gandosss"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:"qwer"	,"urut":	,"prev"[	]},
+	{"name"	:"hai"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"ituww"	,"nextnodeA"	:null	,"nextnodeB"	:"qwer"	,"urut":	,"prev"[	]},
+	{"name"	:"qwer"	,"nextnodeA"	:null	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"aaa"	,"nextnodeA"	:null	,"nextnodeB"	:"bbb"	,"urut":	,"prev"[	]},
+	{"name"	:"bbb"	,"nextnodeA"	:"ccc"	,"nextnodeB"	:"qqq"	,"urut":	,"prev"[	]},
+	{"name"	:"ccc"	,"nextnodeA"	:"www"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"qqq"	,"nextnodeA"	:null	,"nextnodeB"	:"rrr"	,"urut":	,"prev"[	]},
+	{"name"	:"ttt"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:"rrr"	,"urut":	,"prev"[	]},
+	{"name"	:"www"	,"nextnodeA"	:"eee"	,"nextnodeB"	:"eee"	,"urut":	,"prev"[	]},
+	{"name"	:"eee"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"rrr"	,"nextnodeA"	:null	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+]
+
+
+
+[
+	{"name"	:"jos"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"gandosss"	,"urut":	,"prev"[	]},===
+	{"name"	:"gandosss"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:"qwer"	,"urut":	,"prev"[	]},
+	{"name"	:"nama"	,"nextnodeA"	:"bagus"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"aaa"	,"nextnodeA"	:null	,"nextnodeB"	:"bbb"	,"urut":	,"prev"[	]},
+	{"name"	:"qqq"	,"nextnodeA"	:null	,"nextnodeB"	:"rrr"	,"urut":	,"prev"[	]},
+	{"name"	:"www"	,"nextnodeA"	:"eee"	,"nextnodeB"	:"eee"	,"urut":	,"prev"[	]},
+	{"name"	:"halo"	,"nextnodeA"	:"nama"	,"nextnodeB"	:"aku"	,"urut":	,"prev"[	]},
+	{"name"	:"ttt"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:"rrr"	,"urut":	,"prev"[	]},
+	{"name"	:"keren"	,"nextnodeA"	:null	,"nextnodeB"	:"ituww"	,"urut":	,"prev"[	]},
+	{"name"	:"bbb"	,"nextnodeA"	:"ccc"	,"nextnodeB"	:"qqq"	,"urut":	,"prev"[	]},
+	{"name"	:"qwer"	,"nextnodeA"	:null	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"eee"	,"nextnodeA"	:"rrr"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"aku"	,"nextnodeA"	:"jos"	,"nextnodeB"	:"gandosss"	,"urut":	,"prev"[	]},
+	{"name"	:"hai"	,"nextnodeA"	:"ituww"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"rrr"	,"nextnodeA"	:null	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+	{"name"	:"ituww"	,"nextnodeA"	:null	,"nextnodeB"	:"qwer"	,"urut":	,"prev"[	]},
+	{"name"	:"bagus"	,"nextnodeA"	:"hai"	,"nextnodeB"	:"ituww"	,"urut":	,"prev"[	]},
+	{"name"	:"ccc"	,"nextnodeA"	:"www"	,"nextnodeB"	:null	,"urut":	,"prev"[	]},
+]
+
+
+
+[
+]
+

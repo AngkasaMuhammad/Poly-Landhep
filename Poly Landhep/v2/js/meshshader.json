@@ -1,0 +1,160 @@
+[
+	[
+		{
+			"text": "//mesh shader\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//texture -->> Y down\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct masuk{\n\t@location(0) pos:vec3f,\n\t@location(1) tex:vec2f,\n\t@location(2) pilih:vec2f,\n\t@location(3) nor:vec3f,\n\t@location(4) joi:vec4u,\n\t@location(5) wei:vec4f,\n\t@builtin(instance_index) ins:u32,\n}\nstruct hasil{\n\t@builtin(position) posout:vec4f,\n\t@location(0) tex:vec2f,\n\t@location(1) pilihx:f32,\n\t@location(2) matvert0:vec3f,\n\t@location(3) matvert1:vec3f,\n\t@location(4) matvert2:vec3f,\n}\nstruct stmatlen{\n\tinvmat3dlen:u32,\n\tmat2dlen:u32,\n}\nstruct stcam{\n\tcam:mat4x4f,\n}\nstruct stulain{\n\tw:u32,\n\th:u32,\n\tmclen:u32,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@group(0) @binding(2) var<storage> mat2d: array<mat3x3f>;\n@group(0) @binding(3) var<storage> mat3d: array<mat4x4f>;\n@group(0) @binding(4) var<storage> invmat3ddata: array<mat4x4f>;\n@group(0) @binding(5) var<uniform> matlen: stmatlen;//matrix length info per instance\n\n@group(1) @binding(0) var<uniform> unicam: stcam;\n@group(1) @binding(1) var<uniform> ulain: stulain;\n@group(1) @binding(2) var<storage> mco: array<u32>;\n@group(1) @binding(3) var<storage> mc: array<vec4u>;\n@group(1) @binding(4) var<storage> matem: array<mat3x3f>;\n@group(1) @binding(5) var<storage> matec: array<u32>;\n@group(1) @binding(6) var<storage,read_write> layar: array<f32>;\n",
+			"visible": true,
+			"time": "1.00000",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn vs(\n\tdata:masuk,\n) -> hasil {\n\t\n\t//\n\tvar iins = data.ins*matlen.invmat3dlen;\n\tlet i0 = data.joi[0];\n\tlet i1 = data.joi[1];\n\tlet i2 = data.joi[2];\n\tlet i3 = data.joi[3];\n\t\n\tvar pos =\n\t\tunicam.cam*(\n\n(mat3d[iins+i0] *invmat3ddata[i0]) *data.wei[0]\n+(mat3d[iins+i1] *invmat3ddata[i1]) *data.wei[1]\n+(mat3d[iins+i2] *invmat3ddata[i2]) *data.wei[2]\n+(mat3d[iins+i3] *invmat3ddata[i3]) *data.wei[3]\n\n\t\t)*vec4f(data.pos,1.,)\n\t;\n\tvar m = mat2d[\n\t\tu32(round(1.-data.pilih.y))\n\t\t+data.ins *matlen.mat2dlen\n\t];\n/*=========\n\tm = mat3x3f(\n\t\t\t\t\t 3.0, 0.0, 0.0,\n\t\t\t\t\t 0.0, 3.0, 0.0,\n\t\t\t\t\t 0.0,-13.0, 1.0,\n\t\t\t\t);\n--------*/\n\t\n\treturn hasil(\n\t\tpos,\n\t\tdata.tex,\n\t\tdata.pilih.x,\n\t\tm[0],\n\t\tm[1],\n\t\tm[2],\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "99",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst iterlen = 111u;//angkasukasuka\n@fragment fn fs(\n\tparh: hasil //parameter hasil\n) -> @location(0) vec4f {\n\tlet layarku = layar[0];\n\n\tlet pelen = ulain.mclen;//panjang perintah\n\tlet p = parh.tex;\n\tvar ipe = mco[u32(round(parh.pilihx))];\n\tvar colorini = vec4f(.8);\n\t\n\tfor(var a = 0u;a < iterlen;a++){\n\t\tif(pelen <= ipe){\n\t\t\tcolorini = unpack4x8unorm(\n\t\t\t\tmatec[ipe-pelen]\n\t\t\t).abgr;\n\t\t\tbreak;\n\t\t}\n\t\tlet iawal = ipe;\n\t\t//coba\n\t\t\tvar pm =\n/*========\n\t\t\t\t*mat3x3f(\n\t\t\t\t\t 3.0, 0.0, 0.0,\n\t\t\t\t\t 0.0, 3.0, 0.0,\n\t\t\t\t\t 0.0,-13.0, 1.0,\n\t\t\t\t)\n--------*/\n\t\t\t\tmatem[mc[ipe][1]]\n\t\t\t\t*mat3x3f(\n\t\t\t\t\tparh.matvert0,\n\t\t\t\t\tparh.matvert1,\n\t\t\t\t\tparh.matvert2,\n\t\t\t\t)\n\t\t\t\t*vec3f(p,1.,);\n\t\t\tpm /= pm.z;\n\t\t//\n\t\t//di kiri relatif\n\t\tipe += select(\n\t\t\tmc[ipe][2],\n\t\t\tmc[ipe][3],\n\t\t\tbentuk(pm.xy,mc[ipe][0],),\n\t\t);\n\t\tif(iawal == ipe){\n\t\t\tbreak;\n\t\t}\n\t}\n\t\n\t//blipping transparenccccccc\n\tlet w = ulain.w;\n\tlet h = ulain.h;\n\tlet ilayar =\n\t\tu32(parh.posout.x)\n\t\t+u32(parh.posout.y)*w\n\t;\n\t//angka sukasuka\n\tvar blip =\n\t\tsin(layar[ilayar]*2222.3)\n\t\t+layar[ilayar+1u]\n\t\t+sin(\n\t\t\tparh.posout.x\n\t\t\t+parh.posout.y\n\t\t\t*1111.03\n\t\t)\n\t\t+2.41\n\t;\n\tblip = blip%1.;\n\tlayar[ilayar] = blip;\n\tif(colorini.a < blip){\n\t\tdiscard;\n\t}\n\treturn colorini;\n}",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn bentuk(\n\tp:vec2f,\n\tpilih:u32,\n)->bool{\n\tlet x = p.x;\n\tlet y = p.y;\nswitch(pilih){\n\tcase 0u:{\n\t\treturn .0 < y;\n\t}\n\tcase 1u:{\n\t\treturn abs(x) < y;\n\t}\n\tcase 2u:{\n\t\treturn sin(x) < y;\n\t}\n\tcase 3u:{\n\t\treturn 1./cos(x) < y;\n\t}\n\tcase 4u:{\n\t\treturn tan(x) < y;\n\t}\n\tcase 5u:{\n\t\treturn distance(p,vec2f(.0),) < 1.;\n\t}\n\tdefault:{//sukasuka, biasanya ga akan dipiilih\n\t\t//return y*sin(x*x) < x*sin(y*y);\n\t\treturn sin(x)%cos(x) < sin(y);\n\t}\n}}",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

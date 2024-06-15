@@ -1,0 +1,492 @@
+[
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\"use strict\"\n\nui.mulai = async ()=>{\n\tlet lih = ru.lihat\n\tlet m3 = wgpuMatrix.mat3\n\tlet m4 = wgpuMatrix.mat4\n\tlet matide = m4.identity()\n\t\n\tlih('ini objek js')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet lain = ui.newobj('rangkalain')\n\tlet minco = pl.drawarr[0]?.objarr?.[0]?.node?.mat2d?.[2]\n\t//m3.scale(minco,[1,-1,],minco,)\n//zoom jurang\n/*========\n\tm3.copy([\n\t\t2.852884934275289e-37,0,0,0,\n\t\t0,-2.852884934275289e-37,0,0,\n\t\t1.5764747853500625e-39,-0.9090909361839294,1,0,\n\t],minco,)\n--------*/\n//zoom serabut\n\tm3.copy([\n\t\t706.90234375,0,0,0,\n\t\t0,-706.90234375,0,0,\n\t\t1.5764747853500625e-39,-0.9090909361839294,1,0,\n\t],minco,)\n\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet poros0 = ui.newobj('rangkaporos')\n\tlet mpo0 = poros0.matlok\n\tm4.translate(matide,[0,0,40,],mpo0,)\n\tm4.rotateX(mpo0,Math.PI/2,mpo0,)\n\tm4.scale(mpo0,[1,22,1,],mpo0,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet poros1 = ui.newobj('rangkaporos')\n\tlet mpo1 = poros1.matlok\n\tm4.translate(matide,[0,0,62,],mpo1,)\n\tm4.rotateX(mpo1,Math.PI/2,mpo1,)\n\tm4.scale(mpo1,[3,.5,3,],mpo1,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet engkol = ui.newobj\n\t('rangkaengkol')\n\tm4.identity(engkol.matlok)\n\t\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet piston0 = ui.newobj('rangkapiston'); let mpi0 = piston0.matlok; m4.translate(matide,[0,0,9,],mpi0,)\n\tlet piston1 = ui.newobj('rangkapiston'); let mpi1 = piston1.matlok; m4.translate(matide,[0,0,3,],mpi1,)\n\tlet piston2 = ui.newobj('rangkapiston'); let mpi2 = piston2.matlok; m4.translate(matide,[0,0,-3,],mpi2,)\n\tlet piston3 = ui.newobj('rangkapiston'); let mpi3 = piston3.matlok; m4.translate(matide,[0,0,-9,],mpi3,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet mper =\n\tm4.identity()\n\tmper[7] = .5\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear0 = ui.newobj('rangkagear20')\n\tlet mg0 = gear0.matlok\n\tm4.translate(matide,[0,0,67,],mg0,)\n\tm4.rotateX(mg0,Math.PI/2,mg0,)\n\t\n\tm4.translate(mg0,[0,-2,0,],mg0,)\n\tm4.mul(mg0,mper,mg0,)\n\t\n\tm4.translate(mg0,[0,-1.2,0,],mg0,)\n\tm4.scale(mg0,[1,.05,1,],mg0,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear1 = ui.newobj('rangkagear20')\n\tlet mg1 = gear1.matlok\n\tm4.translate(matide,[0,0,67,],mg1,)\n\tm4.rotateZ(mg1,-Math.PI/2,mg1,)\n\t\n\tm4.translate(mg1,[0,-2,0,],mg1,)\n\tm4.mul(mg1,mper,mg1,)\n\t\n\tm4.translate(mg1,[0,-1.2,0,],mg1,)\n\tm4.scale(mg1,[1,.05,1,],mg1,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear2 = ui.newobj('rangkagear16')\n\tlet mg2 = gear2.matlok\n\tm4.translate(matide,[0,0,67,],mg2,)\n\tm4.rotateZ(mg2,Math.PI/2,mg2,)\n\t\n\tm4.translate(mg2,[0,-2,0,],mg2,)\n\tm4.mul(mg2,mper,mg2,)\n\t\n\tm4.translate(mg2,[0,1,0,],mg2,)\n\tm4.scale(mg2,[1,.5,1,],mg2,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear3 = ui.newobj('rangkagear16')\n\tlet mg3 = gear3.matlok\n\tm4.translate(matide,[0,0,67,],mg3,)\n\tm4.rotateZ(mg3,-Math.PI/2,mg3,)\n\t\n\tm4.translate(mg3,[0,-2,0,],mg3,)\n\tm4.mul(mg3,mper,mg3,)\n\t\n\tm4.translate(mg3,[0,1,0,],mg3,)\n\tm4.scale(mg3,[1,.5,1,],mg3,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear4 = ui.newobj('rangkagear16')\n\tlet mg4 = gear4.matlok\n\tm4.translate(matide,[0,0,67,],mg4,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet gear5 = ui.newobj('rangkagear16')\n\tlet mg5 = gear5.matlok\n\tm4.translate(matide,[0,0,67,],mg5,)\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet poros2 = ui.newobj('rangkaporos')\n\tlet mpo2 = poros2.matlok\n\tm4.copy(mg5,mpo2,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet kotak0 = ui.newobj('rangkakotak')\n\tlet mk0 = kotak0.matlok\n\tm4.translate(matide,[0,0,67,],mk0,)\n\t\n\tlet kotak1 = ui.newobj('rangkakotak')\n\tlet mk1 = kotak1.matlok\n\tm4.copy(mk0,mk1,)\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet poros3 = ui.newobj('rangkaporos')\n\tlet mpo3 = poros3.matlok\n\tm4.copy(mg5,mpo3,)\n\tm4.translate(mpo3,[13,0,0,],mpo3,)\n\tm4.rotateZ(mpo3,Math.PI/2,mpo3,)\n\tm4.scale(mpo3,[.7,12,.7,],mpo3,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet poros4 = ui.newobj('rangkaporos')\n\tlet mpo4 = poros4.matlok\n\tm4.copy(mg5,mpo4,)\n\tm4.translate(mpo4,[-13,0,0,],mpo4,)\n\tm4.rotateZ(mpo4,Math.PI/2,mpo4,)\n\tm4.scale(mpo4,[.7,12,.7,],mpo4,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet ban0 = ui.newobj('rangkaban')\n\tlet mba0 = ban0.matlok\n\tm4.translate(matide,[25,0,67,],mba0,)\n\tm4.rotateZ(mba0,Math.PI/2,mba0,)\n\tm4.scale(mba0,[11,11,11,],mba0,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\tlet ban1 = ui.newobj('rangkaban')\n\tlet mba1 = ban1.matlok\n\tm4.translate(matide,[-25,0,67,],mba1,)\n\tm4.rotateZ(mba1,Math.PI/2,mba1,)\n\tm4.scale(mba1,[11,11,11,],mba1,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let rot = 0\nlet difrot = 0\nlet speed = .0006\nlet difspeed = .0004\nlet tunda = 0\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "ui.render = dt=>{\n\tspeed = ru.cla('cepatmesin')[0].value/33333\n\tdifspeed = ru.cla('cepatdiff')[0].value/33333\n\trot += dt*speed\n\tdifrot += dt*difspeed\n\t\n\tlet m2d0\n\t\n\tlet b0\n\tlet b0a\n\tlet b1\n\n\tlet pbatang = 10//panjang batang\n\tlet pengkol = 3//panjang engkol\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//engkol ---- gear1\nb0 = engkol.chi[1].matlok\n\tm4.rotateZ(matide,rot,b0,)\n\t\nb0 = poros0.chi[1].matlok\n\tm4.rotateY(matide,rot,b0,)\n\tm4.copy(b0,poros1.chi[1].matlok,)\n\t\nb0 = gear0.chi[1].matlok\n\tm4.rotateY(matide,rot,b0,)\nb0 = gear1.chi[1].matlok\n\tm4.rotateY(matide,-rot,b0,)\nb0 = kotak0.chi[1].matlok\n\tm4.rotateX(matide,-rot,b0,)\n\tm4.translate(b0,[-2,2.5,0,],b0,)\n\tm4.scale(b0,[3,.5,1.5,],b0,)\n\tb0a = kotak1.chi[1].matlok\n\t\tm4.copy(b0,b0a,)\n\tm4.translate(b0a,[0,-10,0,],b0a,)\nb0 = poros2.chi[1].matlok\n\tm4.rotateX(matide,-rot,b0,)\n\tm4.scale(b0,[.4,2,.4,],b0,)\n\t\n\t//coba mat2d\nm2d0 = engkol.mat2d[0]\n\tm3.invert(m2d0,m2d0,)\n\tm3.rotate(m2d0,.01,m2d0,)\n\tm3.invert(m2d0,m2d0,)\n\tm3.rotate(m2d0,.023,m2d0,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//gear 4 & 5 ---- roda 0 & 1\nb0 = gear4.chi[1].matlok\n\tm4.rotateX(matide,-rot,b0,)\n\tb0a = gear5.chi[1].matlok\n\t\tm4.copy(b0,b0a,)\n\tm4.translate(b0,[0,-2,0,],b0,)\n\tm4.mul(b0,mper,b0,)\n\tm4.translate(b0,[0,1,0,],b0,)\n\tm4.scale(b0,[1,.5,1,],b0,)\n\tm4.rotateX(b0a,rot+Math.PI,b0a,)\n\tm4.invert(b0a,b0a,)\n\tm4.mul(b0a,b0,b0a,)\n\t\n\tm4.rotateY(b0,difrot,b0,)\n\tm4.rotateY(b0a,difrot,b0a,)\nb0 = gear2.chi[1].matlok\nb1 = gear3.chi[1].matlok\n\tm4.rotateY(matide,rot-difrot,b0,)\n\tm4.rotateY(matide,-rot-difrot,b1,)\n\tb0a = m4.copy(b0,poros3.chi[1].matlok,)\n\t\t//m4.invert(b0a,b0a,)\n\tb0a = m4.copy(b1,poros4.chi[1].matlok,)\n\t\tm4.invert(b0a,b0a,)\n\tb0a = m4.copy(b0,ban0.chi[1].matlok,)\n\t\t//m4.invert(b0a,b0a,)\n\tb0a = m4.copy(b1,ban1.chi[1].matlok,)\n\t\tm4.invert(b0a,b0a,)\n\t\n\t//coba mat2d\nm2d0 = ban0.mat2d[1]\n\tm3.rotate(m2d0,.01,m2d0,)\n\tm3.translate(m2d0,[.1,.2,],m2d0,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//piston 0 & 3\nb0 = piston0.chi[1].matlok\nb1 = piston0.chi[1].chi[0].matlok\n\tm4.rotateZ(matide,rot+Math.PI,b0,)\n\tm4.translate(b0,[0,pengkol,0,],b0,)\n\tm4.rotateZ(b0,-rot+Math.PI,b0,)\n\tm4.rotateZ(b0,Math.asin(b0[12]/pbatang),b0,)\n\t\tm4.translate(matide,[0,pbatang,0,],b1,)\n\t\tm4.rotateZ(b1,Math.asin(-b0[12]/pbatang),b1,)\n\tm4.copy(b0,piston3.chi[1].matlok,)\n\tm4.copy(b1,piston3.chi[1].chi[0].matlok,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//piston 1 & 2\nb0 = piston1.chi[1].matlok\nb1 = piston1.chi[1].chi[0].matlok\n\tm4.rotateZ(matide,rot,b0,)\n\tm4.translate(b0,[0,pengkol,0,],b0,)\n\tm4.rotateZ(b0,-rot,b0,)\n\tm4.rotateZ(b0,Math.asin(b0[12]/pbatang),b0,)\n\t\tm4.translate(matide,[0,pbatang,0,],b1,)\n\t\tm4.rotateZ(b1,Math.asin(-b0[12]/pbatang),b1,)\n\tm4.copy(b0,piston2.chi[1].matlok,)\n\tm4.copy(b1,piston2.chi[1].chi[0].matlok,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\t//coba mat2d\n\tm2d0 = lain.mat2d[0]\n\tm3.rotate(m2d0,.002,m2d0,)\n\t\n\t//intelcore\n\tm3.rotate(minco,.002,minco,)\n/*=======\n\tru.key.naik && m3.translate(minco,[0,-.01,],minco,)\n\tru.key.turun && m3.translate(minco,[0,.01,],minco,)\n\tru.key.kiri && m3.translate(minco,[-.01,0,],minco,)\n\tru.key.kanan && m3.translate(minco,[.01,0,],minco,)\n--------*/\n\tlet zin = .97\n\tlet zout = 1.03\n\tru.key.zoomin && m3.scale(minco,[zin,zin,],minco,)\n\tru.key.zoomout && m3.scale(minco,[zout,zout,],minco,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]
