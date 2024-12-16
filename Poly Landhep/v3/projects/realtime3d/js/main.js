@@ -752,7 +752,7 @@ pantaubuf.UPDATE = async ( clid, id, waktu_edit, usage, buffer, source, )=>{
 	if((buffer = b64_tyarr(buffer)) === 'kosong'){
 		return null
 	}
-	if(buffer.byteLength <= bufini.buffer.size){
+	if(buffer.byteLength !== bufini.buffer.size){
 		write(bufini.buffer,buffer,)		//;lih('write')
 		return null
 	}
