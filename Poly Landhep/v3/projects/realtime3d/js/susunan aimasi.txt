@@ -1,0 +1,27 @@
+
+pg	= player group	- 
+p	= player	- text berisi int
+ta	= target buffer	- text berisi int
+o	= byte offset	- text berisi int
+t	= timer	- text berisi int
+m2	= matrix 2x2	- text berisi buffer
+a	= animation	- text berisi int
+d	= data	- text berisi buffer
+s	= byte size per data	- int
+
+:	= berisi
+
+
+pg	: p p p .....
+	: ta ta ta .....
+	: o o o .....
+
+p	: t t t .....
+	: m2 m2 m2 .....
+	: a a a .....
+
+a	: t t t .....
+	: d d d .....
+	: s
+
+

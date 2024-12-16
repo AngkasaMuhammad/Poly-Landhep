@@ -1,0 +1,378 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n} from './ui.js'\n\n\tlet lih = ru.lihat\n\t\n\tlet context = cx3d\n\tlet presentationFormat = navigator.gpu.getPreferredCanvasFormat();\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\tlet adap = await navigator.gpu.requestAdapter()\n\texport let dv = await adap.requestDevice()\n\tcontext.configure({\n\t\tdevice:dv,\n\t\tformat: presentationFormat,\n\t});\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let write = (buf,arr,)=>{\n\tlet data = arr?.buffer ?? arr\n\tlet max = Math.min(buf.size,data.byteLength,)\n\tdv.queue.writeBuffer(buf,0,data,0,max,)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinmodule = async (code)=>{\n\tdv.pushErrorScope('validation')\n\tlet mod = dv.createShaderModule({\n\t\tlabel: 'our hardcoded red triangle shaders',\n\t\tcode,\n\t})\n\tlet info = lih(await dv.popErrorScope())\n\treturn info??mod\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinUNISTObuf = (data,isUNI,)=>{\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'innii UniSto buffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage[isUNI?'UNIFORM':'STORAGE']| GPUBufferUsage.COPY_DST,\n\t});\n\tsetUNISTObuf(buf,data,)\n\treturn buf\n}\nlet setUNISTObuf = (buf,data,)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "99",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinattrinfo = infoarr=>{\n\tlet arrayStride = 0\n\tlet attributes = []\n\tlet loc = 0\n\tfor(let info of infoarr){\n\t\tattributes.push({shaderLocation: loc, offset: arrayStride, format: info,})\n\t\tarrayStride += attrinfo[info]\n\t\tloc++\n\t}\n\t\n\treturn {\n\t\tstepMode:'vertex',\n\t\tarrayStride,\n\t\tattributes,\n\t}\n}\nlet attrinfo = {\n/*========\n//4 byte size\n\t'uint8x4':1,\n\t\n\t'float32':1,\n\t'float32x2':2,\n\t'float32x3':3,\n\t'float32x4':4,\n\t\n\t'sint32':1,\n\t'unorm8x4':1,\n--------*/\n\tuint8x2\t:2\t,\n\tuint8x4\t:4\t,\n\tsint8x2\t:2\t,\n\tsint8x4\t:4\t,\n\tunorm8x2\t:2\t,\n\tunorm8x4\t:4\t,\n\tsnorm8x2\t:2\t,\n\tsnorm8x4\t:4\t,\n\tuint16x2\t:4\t,\n\tuint16x4\t:8\t,\n\tsint16x2\t:4\t,\n\tsint16x4\t:8\t,\n\tunorm16x2\t:4\t,\n\tunorm16x4\t:8\t,\n\tsnorm16x2\t:4\t,\n\tsnorm16x4\t:8\t,\n\t//float16x2\t:4\t,\n\t//float16x4\t:8\t,\n\tfloat32\t:4\t,\n\tfloat32x2\t:8\t,\n\tfloat32x3\t:12\t,\n\tfloat32x4\t:16\t,\n\tuint32\t:4\t,\n\tuint32x2\t:8\t,\n\tuint32x3\t:12\t,\n\tuint32x4\t:16\t,\n\tsint32\t:4\t,\n\tsint32x2\t:8\t,\n\tsint32x3\t:12\t,\n\tsint32x4\t:16\t,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikindeptex = (w,h,)=>dv.createTexture({\n\tlabel:'ini deptex',\n\tsize: [w,h,],\n\tformat: 'depth24plus',\n\tusage: GPUTextureUsage.RENDER_ATTACHMENT,\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinrenderPassDescriptor = (\n\tclearValue,\n\tdeptex,\n)=>({\n\tlabel: 'our basic canvas renderPass',\n\tcolorAttachments: [\n\t\t{\n\t\t\t//view --> muncul saat render\n\t\t\tclearValue, //[0.0, 0.3, 0.5, 1]\n\t\t\tloadOp: 'clear',\n\t\t\tstoreOp: 'store',\n\t\t},\n\t],\n\tdepthStencilAttachment: {\n\t\tview:deptex.createView(),\n\t\tdepthClearValue: .0,\n\t\tdepthLoadOp: 'clear',\n\t\tdepthStoreOp: 'store',\n\t},\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinrenpip = (module,attrinfo,)=>{\n\treturn dv.createRenderPipeline({\n\t\tlabel: 'our hardcoded red triangle pipeline',\n\t\tlayout: 'auto',\n\t\tvertex: {\n\t\t\tmodule,\n\t\t\t//entryPoint:'vs',\n\t\t\tbuffers:[attrinfo],\n/*========\n\t\t\tbuffers:[\n\t\t\t\t{\n\t\t\t\t\tstepMode:'vertex',\n\t\t\t\t\tarrayStride: 3*4,\n\t\t\t\t\tattributes: [\n\t\t\t\t\t\t{shaderLocation: 0, offset: 0, format: 'float32x3'},\n\t\t\t\t\t],\n\t\t\t\t}\n\t\t\t]\n--------*/\n\t\t},\n\t\tfragment: {\n\t\t\tmodule,\n\t\t\t//entryPoint:'fs',\n\t\t\ttargets: [{\n\t\t\t\tformat: presentationFormat,\n\t\t\t\tblend: {\n\t\t\t\t\tcolor: {\n\t\t\t\t\t\tsrcFactor: 'src-alpha',\n\t\t\t\t\t\tdstFactor: 'one-minus-src-alpha',\n\t\t\t\t\t\toperation: 'add',\n\t\t\t\t\t},\n\t\t\t\t\talpha: {\n\t\t\t\t\t\tsrcFactor: 'one',\n\t\t\t\t\t\tdstFactor: 'one-minus-src-alpha',\n\t\t\t\t\t\toperation: 'add',\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t}],\n\t\t},\n\t\tprimitive: {\n\t\t\ttopology: 'triangle-list',\n\t\t\tcullMode: 'back',\n\t\t},\n\t\tdepthStencil: {\n\t\t\tdepthWriteEnabled: true,\n\t\t\tdepthCompare: 'greater',\n\t\t\tformat: 'depth24plus',\n\t\t},\n\t});\n\t\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinINDbuf = (data)=>{\n\t;(data instanceof Uint16Array) || lih(data.constructor.name+', data harus berupa Uint16Array')\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'ini index buffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST,\n\t});\n\tsetINDbuf(buf,data,)\n\treturn buf\n}\nlet setINDbuf = (buf,data,)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinVERTbuf = (data)=>{//data -->> ArrayBuffer\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'innii vertexbuffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage.VERTEX| GPUBufferUsage.COPY_DST,\n\t});\n\tsetVERTbuf(buf,data,)\n\treturn buf\n}\nlet setVERTbuf = (\n\tbuf,data,\n)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinDRAWbuf = (data)=>{//data -->> ArrayBuffer\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'innii drawcount buffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage.INDIRECT| GPUBufferUsage.COPY_DST,\n\t});\n\tsetDRAWbuf(buf,data,)\n\treturn buf\n}\nlet setDRAWbuf = (buf,data,)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinentry = (binding,buffer,)=>({\n\tbinding,\n\tresource:{buffer,},\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bikinbind = (\n\tpipeline,\n\tlayout,\n\tentries,\n)=>\nentries.length?\ndv.createBindGroup({\n\tlabel: 'triangle bind group',\n\tlayout: pipeline.getBindGroupLayout(layout),\n\tentries,\n/*========\n\tentries: [\n\t\t{ binding: 0, resource: { buffer: uniformBuffer }},\n\t],\n--------*/\n}):null\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nexport let bund = (\n\tpipeline,\n\tbindGroup,\n\tvertexBuffer,\n\tindexBuffer,\n\tdrawbuf,\n)=>{\n\tconst bund = dv.createRenderBundleEncoder({\n\t\tcolorFormats: [presentationFormat],\n\t\tdepthStencilFormat: 'depth24plus',\n\t});\n\tbund.setPipeline(pipeline)\n\tif(bindGroup){\n\t\tbund.setBindGroup(0, bindGroup,)\n\t}\n    bund.setVertexBuffer(0, vertexBuffer);\n    bund.setIndexBuffer(indexBuffer, 'uint16')\n\tbund.drawIndexedIndirect(drawbuf,0,)\n\n\treturn bund.finish()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//coba bundle\nexport let render = async(\n\trenderPassDescriptor,\n\tbundarr,\n\tpassdict,\n)=>{\n\t\n\trenderPassDescriptor\n\t.colorAttachments[0]\n\t.view =\n\tcontext.getCurrentTexture().createView()\n\t\n\tconst encoder = dv.createCommandEncoder(ce);\n\tconst pass = encoder.beginRenderPass(renderPassDescriptor);\n\tpass.executeBundles(bundarr)\n\tfor(let i in passdict){\n\t\tlet pipe = passdict[i]\n\t\tlet vertex = pipe.getvertex(pipe)\n\t\tlet index = pipe.getindex(pipe)\n\t\tlet draw = pipe.getdraw(pipe)\n\t\tif(!(vertex && index && draw) || (pipe.gpupipe instanceof GPUValidationError)){\n\t\t\t//ada yg undefined\n\t\t\tcontinue\n\t\t}\n\t\tpass.setPipeline(pipe.gpupipe)\n\t\tpass.setVertexBuffer(0, vertex,)\n\t\tpass.setIndexBuffer(index, 'uint16')\n\t\tif(pipe.bind){\n\t\t\tpass.setBindGroup(0, pipe.bind,)\n\t\t}\n\t\tlet drbuf = draw\n\t\tlet geser = 5*4\n\t\tfor(let idraw = 0;idraw+geser <= drbuf.size;idraw += geser){\n\t\t\tpass.drawIndexedIndirect(drbuf,idraw,)\n\t\t}\n\t}\n\tpass.end();\n\t\n\tconst commandBuffer = encoder.finish();\n\tdv.queue.submit([commandBuffer]);\n\treturn await dv.queue.onSubmittedWorkDone()\n}\nlet ce = { label: 'our encoder' }\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "99",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t---\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

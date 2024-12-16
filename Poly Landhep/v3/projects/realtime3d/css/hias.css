@@ -1,0 +1,30 @@
+input[type="checkbox"]{
+	width:initial;
+}
+
+table input[type="text"],
+table input[type="number"]{
+	background:#00000099;
+	outline:1px solid #ffffff44;
+}
+table input[type="text"]{
+	width:100%;
+}
+#pass{
+	vertical-align:top;
+	white-space: pre;
+}
+#hlmdata table{
+	background:#00000055;
+	margin-bottom:55px;
+}
+#infolist > *{
+	tab-size: 4;
+}
+#infolist:not(.infoupdate) > *{
+	background:#00000066 !important;
+}
+
+.mati{
+	background:#990000ff !important;
+}

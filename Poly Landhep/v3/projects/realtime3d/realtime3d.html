@@ -1,0 +1,214 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Real Time 3d
+		</title>
+		<link rel="stylesheet" href="../../../v1/css/object3dview.css"/>
+		<link rel="stylesheet" href="../../css/hias.css">
+		<link rel="stylesheet" href="css/hias.css">
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="tombolll">
+					<!-- https://www.iconpacks.net/free-icon/view-6444.html -->
+					<svg id="SHhelp" class="nyala" sasaran="#hlm0help" mousedescr="Show/Hide Help" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="SHdata" class="" sasaran="#hlm1data" mousedescr="Show/Hide Data" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="SHinfo" class="nyala" sasaran="#hlm2info" mousedescr="Show/Hide Info" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<div id='hlm0help'>
+					<h2>Realtime 3d</h2>
+					<table class="hlmhelp"><tbody>
+						<tr><th colspan="2">Help	</th>		</tr>
+						<tr><td>Putar kamera	</td><td>: Hold R	</td>	</tr>
+						<tr><td>Zoom	</td><td>: Hold R + mousewheel	</td>	</tr>
+						<tr><td>Geser kamera arah horizontal	</td><td>: Hold M	</td>	</tr>
+						<tr><td>Geser kamera arah vertikal	</td><td>: Hold M + mousewheel	</td>	</tr>
+						<tr><td>Reset kamera	</td><td>: Press H	</td>	</tr>
+					</tbody></table>
+				</div>
+				<div id='hlm1data' class="hidechild">
+					<h3>Data</h3>
+					
+					
+					
+					<!-- client -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="4">Client</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>id</th>
+								<th>supabaseUrl</th>
+								<th>supabaseKey</th>
+							</tr>
+							<tr>
+								<th>
+									<svg id="del" class="hilang" viewBox="-110 -110 722 722" mousedescr="Hapus (double click)">
+										<g>
+											<path fill="white" d="M457.2,73.1H347.3V45.7v-0.2v-0.1c0-6.2-1.3-12.3-3.6-17.7c-3.5-8.2-9.3-15.1-16.5-20c-3.6-2.4-7.7-4.4-11.9-5.7   c-4.3-1.3-8.9-2-13.5-2h-0.1h-0.1h-91.3h-0.2H210c-6.2,0-12.3,1.3-17.7,3.6c-8.2,3.5-15.1,9.3-20,16.5c-2.4,3.6-4.4,7.7-5.7,11.9   c-1.3,4.3-2,8.9-2,13.5v0.1v27.5H54.9c-10.1,0-18.3,8.2-18.3,18.3c0,10.1,8.2,18.3,18.3,18.3h19.4L96,458.3l0,0   c0.4,7.3,2,14.4,4.8,20.7c4.2,9.7,11,18,19.7,23.9c4.3,2.9,9.2,5.2,14.3,6.8c5.1,1.5,10.5,2.3,16,2.3h210.3   c7.4,0,14.6-1.4,21.1-4.1c9.8-4.1,18.1-11,23.9-19.7s9.2-19,9.9-29.9l21.8-348.6h19.4c10.1,0,18.3-8.2,18.3-18.3   C475.5,81.3,467.3,73.1,457.2,73.1z M201.1,45.7v-0.1c0-1.3,0.3-2.4,0.7-3.5c0.7-1.6,1.8-3,3.3-4c0.7-0.5,1.5-0.9,2.3-1.1   c0.8-0.3,1.7-0.4,2.7-0.4h0.1h91.4h0.1c1.3,0,2.4,0.3,3.5,0.7c1.6,0.7,3,1.8,4,3.3c0.5,0.7,0.9,1.5,1.1,2.3   c0.3,0.8,0.4,1.7,0.4,2.7v0.1v27.4H201.1V45.7z M379.5,456c-0.2,3.3-0.9,6.1-2,8.5c-1.6,3.6-3.8,6.2-6.5,8   c-1.3,0.9-2.8,1.6-4.4,2.1c-1.6,0.5-3.4,0.8-5.5,0.8H150.9c-2.7,0-5-0.5-7-1.3c-3.1-1.3-5.6-3.4-7.6-6.3c-2-2.9-3.4-6.8-3.6-11.6   V456l-21.8-346.3h290.3L379.5,456z"></path>
+											<path fill="white" d="M256,146.3c-10.1,0-18.3,8.2-18.3,18.3v256c0,10.1,8.2,18.3,18.3,18.3c10.1,0,18.3-8.2,18.3-18.3v-256   C274.3,154.5,266.1,146.3,256,146.3z"></path>
+											<path fill="white" d="M173,146.3c-10,0.4-17.9,8.8-17.6,18.9l9.1,256c0.4,10.1,8.8,18,18.9,17.6c10.1-0.4,18-8.8,17.6-18.9l-9.1-256   C191.5,153.8,183.1,145.9,173,146.3z"></path>
+											<path fill="white" d="M320,163.9l-9.1,256c-0.4,10.1,7.5,18.6,17.6,18.9c10.1,0.4,18.6-7.5,18.9-17.6l9.1-256c0.4-10.1-7.5-18.6-17.6-18.9   C328.8,145.9,320.4,153.8,320,163.9z"></path>
+										</g>
+									</svg>
+									<svg id="newcl" mousedescr="Tambah client" viewBox="-50 -50 100 100">
+										<path fill="none" stroke="white" stroke-width="6px" d="
+											M -30 -30
+											L -30 30
+											L 30 30
+											L 30 -30
+											Z
+											M -20 0 L 20 0
+											M 0 -20 L 0 20
+										"></path>
+									</svg>
+								</th>
+								<th></th>
+								<th><input id="supaurl" type="text" value="https://gwpezptjslssarivlqro.supabase.co"/></th>
+								<th><input id="supakey" type="text" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3cGV6cHRqc2xzc2FyaXZscXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0OTc4NzYsImV4cCI6MjA0ODA3Mzg3Nn0.MddHNM2aeBTNdys19AW544maLh-7ipzsQz8Yzl7h6AA"/></th>
+							</tr>
+						</thead>
+						<tbody id="cl"></tbody>
+					</table>
+					
+					
+					
+					<!-- buffer -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="6">Buffer</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>client id</th>
+								<th>id</th>
+								<th>data</th>
+								<th>usage</th>
+								<th>source</th>
+							</tr>
+							<tr>
+								<th>
+									<svg id="newbuf" mousedescr="Tambah buffer" viewBox="-50 -50 100 100">
+										<path fill="none" stroke="white" stroke-width="6px" d="
+											M -30 -30
+											L -30 30
+											L 30 30
+											L 30 -30
+											Z
+											M -20 0 L 20 0
+											M 0 -20 L 0 20
+										"></path>
+									</svg>
+								</th>
+								<th><input id="bufclid" type="number" min="0" value="0"/></th>
+								<th></th>
+								<th></th>
+								<th><select id="bufusage"/>
+									<option value="vertex"	>vertex	</option>
+									<option value="index"	>index	</option>
+									<option value="uniform"	>uniform	</option>
+									<option value="storage"	>storage	</option>
+									<option value="draw"	>draw	</option>
+								</select></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="buf"></tbody>
+					</table>
+					
+					
+					
+					<!-- pass -->
+					<table>
+						<thead>
+							<tr>
+								<th colspan="10">Pass</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>client id</th>
+								<th>id</th>
+								<th>attrarr</th>
+								<th>bindarr</th>
+								<th>draw</th>
+								<th>index</th>
+								<th>vertex</th>
+								<th>wgsl</th>
+								<th>passorder</th>
+							</tr>
+							<tr>
+								<th>
+									<svg id="newpass" mousedescr="Tambah pass" viewBox="-50 -50 100 100">
+										<path fill="none" stroke="white" stroke-width="6px" d="
+											M -30 -30
+											L -30 30
+											L 30 30
+											L 30 -30
+											Z
+											M -20 0 L 20 0
+											M 0 -20 L 0 20
+										"></path>
+									</svg>
+								</th>
+								<th><input id="passclid" type="number" min="0" value="0"/></th>
+								<th></th>
+								<th><input id="attrarr" type="text"/></th>
+								<th><input id="bindarr" type="text"/></th>
+								<th><!--<input id="draw" type="number" min="0" value="0"/>--></th>
+								<th><!--<input id="index" type="number" min="0" value="0"/>--></th>
+								<th><!--<input id="vertex" type="number" min="0" value="0"/>--></th>
+								<th><button id="filewgsl">{kosong}</button></th>
+								<th><!--<input id="order" type="number" min="0" value="0"/>--></th>
+							</tr>
+						</thead>
+						<tbody id="pass"></tbody>
+					</table>
+				</div>
+				<div id='hlm2info'>
+					<h3>Info</h3>
+					<div id="infolist" class="infoupdate" style="background:#00000055;"></div>
+				</div>
+				<div id="scrollberlebih"></div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="../../../v1/js/wgpu-matrix.js"></script>
+		<script src="../../js/rumus.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+		<script type="module">
+
+import {main} from './js/main.js'
+main()
+
+		</script>
+	</body>
+</html>
