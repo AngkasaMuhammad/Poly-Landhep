@@ -65,7 +65,7 @@
 		{
 			"text": "\nexport let main = async()=>{ try{\n\tlih('teess, ini main js')\n\t\n\trequestAnimationFrame(loop)\n/*========\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://hmbtdoeieiezztgpexpw.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtYnRkb2VpZWllenp0Z3BleHB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2Nzg0NjUsImV4cCI6MjA0NzI1NDQ2NX0.q1lwtj-oqhSXBPdvYRNpOxGQ4HJ-VX6g_jJws4eX_0A',\n\t)\n\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://gwpezptjslssarivlqro.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3cGV6cHRqc2xzc2FyaXZscXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0OTc4NzYsImV4cCI6MjA0ODA3Mzg3Nn0.MddHNM2aeBTNdys19AW544maLh-7ipzsQz8Yzl7h6AA',\n\t)\n--------*/\n\n\t\n}catch(err){\n\tlih(err)\n} }\n",
 			"visible": true,
-			"time": "559300.2574061194",
+			"time": "559314.0258061126",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -912,7 +912,7 @@
 			]
 		},
 		{
-			"text": "\npantaubuf.UPDATE = async ( clid, id, waktu_edit, usage, buffer, source, )=>{\n\tlet bufini = bufdict[`${clid} ${id}`]\n\t\n\tbufini.waktu_edit = waktu_edit\n\tbufini.source = source\n\tuiupdbuf(clid,id,)\n\t\n\tif(source !== 'database'){\n\t\treturn null\n\t}\n\tif((buffer = b64_tyarr(buffer)) === 'kosong'){\n\t\treturn null\n\t}\n\tif(buffer.byteLength !== bufini.buffer.size){\n\t\twrite(bufini.buffer,buffer,)\t\t//;lih('write')\n\t\treturn null\n\t}\n\tbufini.buffer.destroy()\t\t//;lih('ganti buffer size')\n\tbufini.buffer = usfubuf[usage](buffer,usage === 'uniform',)\n\t\n\tfor(let pass of bufini.passarr){\n\t\tpass.bind = 'kosong'\n\t}\n}\n",
+			"text": "\npantaubuf.UPDATE = async ( clid, id, waktu_edit, usage, buffer, source, )=>{\n\tlet bufini = bufdict[`${clid} ${id}`]\n\t\n\tbufini.waktu_edit = waktu_edit\n\tbufini.source = source\n\tuiupdbuf(clid,id,)\n\t\n\tif(source !== 'database'){\n\t\treturn null\n\t}\n\tif((buffer = b64_tyarr(buffer)) === 'kosong'){\n\t\treturn null\n\t}\n\tif(buffer.byteLength === bufini.buffer.size){\n\t\twrite(bufini.buffer,buffer,)\t\t//;lih('write')\n\t\treturn null\n\t}\n\tbufini.buffer.destroy()\t\t//;lih('ganti buffer size')\n\tbufini.buffer = usfubuf[usage](buffer,usage === 'uniform',)\n\t\n\tfor(let pass of bufini.passarr){\n\t\tpass.bind = 'kosong'\n\t}\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -1083,7 +1083,7 @@
 		{
 			"text": "\nlet urutkanpass = false\nlet passurut = []\nlet renderpassdict = async ()=>{\n\tnow[0] = Math.round(performance.now())\n\t\n\t//cek bind update\n\tfor(let passid in passdict){\n\t\tlet pass = passdict[passid]\n\t\tif(pass.bind === 'kosong'){ pass.bind = bikinbind(pass.gpupipe,0,pass.entries,) }\n\t}\n\t\n\tif(urutkanpass){\n\t\turutkanpass = false\n\t\t//sampe sini, nanti\n\t\tpassurut = Object\n\t\t.values(passdict)\n\t\t.sort((a,b,)=>a.order-b.order)\n\t}\n\t\n\tfor(let k in bufdict){\n\t\tlet buf = bufdict[k]\n\t\t\n\t\tif(buf.fsfh && buf.realtime){\n\t\t\tbuffile(k)\n\t\t}\n\t\t\n\t\tf_source[buf.source]?.(k)\n\t}\n\t\n\t//render\n\tawait render(rpd,[],passurut,)\n}\n",
 			"visible": true,
-			"time": "191495.44576512068",
+			"time": "191496.43808223619",
 			"speed": "0.0720720720720713",
 			"running": true,
 			"color": [
@@ -1157,7 +1157,7 @@
 		{
 			"text": "\n/*=============\n\n\n\n\n\n\n\n\n\n\n----------------*/\n",
 			"visible": true,
-			"time": "541580.7440066076",
+			"time": "541594.5124066008",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -1186,7 +1186,7 @@
 		{
 			"text": "\nwindow.coba = async()=>{ //=-=-=-=-=-=-=-=-\n",
 			"visible": true,
-			"time": "967302.9155950237",
+			"time": "967327.8475625844",
 			"speed": "1.810810810810811",
 			"running": true,
 			"color": [
@@ -1501,7 +1501,7 @@
 		{
 			"text": "\n\t} /*-=+-=+-=+-=+-=+-=+-=+-=+\n",
 			"visible": true,
-			"time": "2724996.5549860825",
+			"time": "2725066.8854617383",
 			"speed": "5.10810810810811",
 			"running": true,
 			"color": [
@@ -1536,7 +1536,7 @@
 		{
 			"text": "\n/*\n-=-===-=-=-==--=-=-=--==--==--=\n\n\n\n\n\n\n\n\n\n\n\n-=-===-=-=-==--=-=-=--==--==--=\n*/\n",
 			"visible": true,
-			"time": "559349.1356061186",
+			"time": "559362.9040061118",
 			"speed": "1",
 			"running": true,
 			"color": [
