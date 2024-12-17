@@ -191,10 +191,53 @@
 						</thead>
 						<tbody id="pass"></tbody>
 					</table>
+					
+					
+					
+					<!-- ani player -->
+					<table style="display:none;">
+						<thead>
+							<tr>
+								<th colspan="7">Animation Player (munkin gga dipake, akku maucoba pake wgsl)</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th>client id</th>
+								<th>id</th>
+								<th>transform</th>
+								<th>target</th>
+								<th>byte offset</th>
+								<!-- dari html -->
+								<th>controller</th>
+							</tr>
+							<tr>
+								<th>
+									<svg id="newanip" mousedescr="Tambah animation player" viewBox="-50 -50 100 100">
+										<path fill="none" stroke="white" stroke-width="6px" d="
+											M -30 -30
+											L -30 30
+											L 30 30
+											L 30 -30
+											Z
+											M -20 0 L 20 0
+											M 0 -20 L 0 20
+										"></path>
+									</svg>
+								</th>
+								<th><input id="anipclid" type="number" min="0" value="0"/></th>
+								<th></th>
+								<th><input id="aniptransform" type="text"/></th>
+								<th><input id="aniptarget" type="text"/></th>
+								<th><input id="anipbyteoffset" type="text"/></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody id="pass"></tbody>
+					</table>
 				</div>
 				<div id='hlm2info'>
 					<h3>Info</h3>
-					<div id="infolist" class="infoupdate" style="background:#00000055;"></div>
+					<div id="infolist" style="background:#00000055;"></div> <!-- class="infoupdate"  -->
 				</div>
 				<div id="scrollberlebih"></div>
 			</div>

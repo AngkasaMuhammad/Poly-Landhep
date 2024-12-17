@@ -21,9 +21,11 @@ table input[type="text"]{
 #infolist > *{
 	tab-size: 4;
 }
+/*
 #infolist:not(.infoupdate) > *{
 	background:#00000066 !important;
 }
+*/
 
 .mati{
 	background:#990000ff !important;

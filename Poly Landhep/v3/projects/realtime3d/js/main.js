@@ -32,6 +32,7 @@ import {
 	bikinmodule,
 	bikinentry,
 	write,
+	pantau_gpudevice,
 } from './pl.js'
 
 
@@ -84,6 +85,10 @@ bikinrenderPassDescriptor(
 )
 
 loadcam()
+
+pantau_gpudevice.push(e=>{
+	tambahinfo(e.error.message,'#ff00ffff','gpudeviceinfo',)
+})
 
 export let main = async()=>{ try{
 	lih('teess, ini main js')
@@ -661,6 +666,17 @@ pantaupass.INSERT = async ( clid, payload, )=>{
 		let i = 0
 		for(let bufid of pisahstr(newdata.bindarr)){
 			let buf = bufdict[`${clid} ${bufid}`]
+			if(!buf){
+				adaerror = {message:
+`buffer id: ${bufid} tidak ditemukan. 
+	di table Pass
+	di kolom bindarr
+	di client id ${clid}
+	di id ${id}
+`
+				}
+				continue
+			}
 			let buffer = buf.buffer
 			let entry = bikinentry(i,buffer,)
 			entry.resource = buf
@@ -671,7 +687,7 @@ pantaupass.INSERT = async ( clid, payload, )=>{
 		}
 	}
 	
-	let bind = adaerror?mod:bikinbind(gpupipe,0,entries,)
+	let bind = adaerror?null:bikinbind(gpupipe,0,entries,)
 	
 	let vertex = `${clid} ${newdata.vertex}`
 	let index = `${clid} ${newdata.index}`
@@ -680,6 +696,7 @@ pantaupass.INSERT = async ( clid, payload, )=>{
 	pass.waktu_edit	= waktu_edit
 	pass.attrinfo	= attrinfo
 	pass.entries	= entries
+	pass.entries_ui = newdata.bindarr
 	
 	pass.gpupipe	= gpupipe
 	pass.vertex	= vertex
@@ -713,8 +730,17 @@ let passgetindex = pass=>cekpassget(pass,'index',)
 let passgetdraw = pass=>cekpassget(pass,'draw',)
 
 let cekpassget = (pass,usage,)=>{
-	let buf = bufdict[pass[usage]]
-	buf??tambahinfo(`buffer id: ${pass[usage].split(' ')[1]} tidak ditemukan`,'red','errorbufid',)
+	let k = pass[usage]
+	let buf = bufdict[k]
+	let [clid,id,] = k.split(' ')
+	buf??tambahinfo(
+`buffer id: ${id} tidak ditemukan
+	di table Pass
+	di kolom ${usage}
+	di client id ${clid}
+	di id ${id}
+`
+	,'red','errorbufid',)
 	return buf?.buffer
 }
 

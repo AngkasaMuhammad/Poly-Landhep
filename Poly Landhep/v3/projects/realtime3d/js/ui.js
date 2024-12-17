@@ -315,6 +315,7 @@ export let uiinspass = (clid,id,)=>{
 			td.textContent = str//pass.attrinfo.attributes.reduce((a,b,)=>a+'\n'+b.format,undefined,)
 		tr.appendChild(td)
 		td = document.createElement('td')
+			td.textContent = pass.entries_ui
 		tr.appendChild(td)
 		td = document.createElement('td')
 			inp = document.createElement('input')
@@ -385,7 +386,8 @@ let svghapus = f=>{//copy gambar tongsampah
 	attr(del,'mousedescr','Hapus (double click)',)
 	return del
 }
-let infolistcla = que('#infolist')[0].classList
+let infolist = que('#infolist')[0]
+let infolistcla = infolist.classList
 export let tambahinfo = (i,warna,infokey,)=>{
 	let cek = Math.random()
 	let adaele
@@ -393,9 +395,14 @@ export let tambahinfo = (i,warna,infokey,)=>{
 		adaele	= que(`#infolist [infokey="${infokey}"`)[0]
 	}
 	if(adaele){
-		infolistcla.add('infoupdate')
+		//infolistcla.add('infoupdate')
 		adaele.style.background = `rgba(66,66,66,${Math.random()})`
-		adaele.textContent = i
+		let t = Date.now()
+		if(4 < t-attr(adaele,'timestamp',)){// biar ga spam info
+			adaele.textContent = ''
+		}
+		attr(adaele,'timestamp',t,)
+		adaele.textContent += i+'\n'
 		return 0
 	}
 	let div = document.createElement('div')
@@ -404,6 +411,7 @@ export let tambahinfo = (i,warna,infokey,)=>{
 		//div.classList.add('bukainfo')
 		div.addEventListener('click',f_info,)
 		attr(div,'infokey',infokey,)
+		attr(div,'timestamp',Date.now(),)
 	let inli = que('#infolist')[0]
 	inli.appendChild(div)
 	//;(11 <= inli.childElementCount) && inli.removeChild(inli.firstElementChild)
@@ -414,7 +422,13 @@ let f_info = e=>{
 	}
 }
 
-setInterval(()=>infolistcla.remove('infoupdate'),1111,)
+//setInterval(()=>infolistcla.remove('infoupdate'),1111,)
+setInterval(()=>{
+	for(let ele of infolist.children){
+		ele.style.background = ''
+		//sampe sini
+	}
+},1111,)
 addEventListener('load',()=>tambahinfo(
 `Selamat datang di Realtime 3d, silakan -->> DOUBLECLICK <<-- info ini (expand & collapse)
 

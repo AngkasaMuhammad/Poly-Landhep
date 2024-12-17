@@ -1,7 +1,7 @@
 [
 	[
 		{
-			"text": "'use strict'\n\nimport {\n\tvec3 as v3,\n\tmat4 as m4,\n} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'\n\n\n\nimport {\n\tlihat as lih,\n\tsleep,\n\ttyarr_b64,\n\tb64_tyarr,\n\tpisahstr,\n\t//getWordByIndex,\n} from './utilku.js'\n\n\n\nimport {\n\trender,\n\tbikinrenderPassDescriptor,\n\tbikindeptex,\n\tbikinDRAWbuf,\n\tbikinbind,\n\tbikinINDbuf,\n\tbikinVERTbuf,\n\tbikinrenpip,\n\tbikinUNISTObuf,\n\tbikinattrinfo,\n\tbikinmodule,\n\tbikinentry,\n\twrite,\n} from './pl.js'\n\n\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n\ttambahinfo,\n\t\n\tuicl,\n\t\n\tuiinsbuf,\n\tuiupdbuf,\n\tuidelbuf,\n\t\n\tuiinspass,\n\tuiupdpass,\n\tuidelpass,\n} from './ui.js'\n\n\n\nimport {\n\tloadcam,\n\tfview,\n} from './camera.js'\n",
+			"text": "'use strict'\n\nimport {\n\tvec3 as v3,\n\tmat4 as m4,\n} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'\n\n\n\nimport {\n\tlihat as lih,\n\tsleep,\n\ttyarr_b64,\n\tb64_tyarr,\n\tpisahstr,\n\t//getWordByIndex,\n} from './utilku.js'\n\n\n\nimport {\n\trender,\n\tbikinrenderPassDescriptor,\n\tbikindeptex,\n\tbikinDRAWbuf,\n\tbikinbind,\n\tbikinINDbuf,\n\tbikinVERTbuf,\n\tbikinrenpip,\n\tbikinUNISTObuf,\n\tbikinattrinfo,\n\tbikinmodule,\n\tbikinentry,\n\twrite,\n\tpantau_gpudevice,\n} from './pl.js'\n\n\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n\ttambahinfo,\n\t\n\tuicl,\n\t\n\tuiinsbuf,\n\tuiupdbuf,\n\tuidelbuf,\n\t\n\tuiinspass,\n\tuiupdpass,\n\tuidelpass,\n} from './ui.js'\n\n\n\nimport {\n\tloadcam,\n\tfview,\n} from './camera.js'\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -29,6 +29,21 @@
 					"frame": "0"
 				}
 			]
+		},
+		{
+			"text": "\npantau_gpudevice.push(e=>{\n\ttambahinfo(e.error.message,'#ff00ffff','gpudeviceinfo',)\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
 		}
 	],
 	[
@@ -50,7 +65,7 @@
 		{
 			"text": "\nexport let main = async()=>{ try{\n\tlih('teess, ini main js')\n\t\n\trequestAnimationFrame(loop)\n/*========\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://hmbtdoeieiezztgpexpw.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtYnRkb2VpZWllenp0Z3BleHB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2Nzg0NjUsImV4cCI6MjA0NzI1NDQ2NX0.q1lwtj-oqhSXBPdvYRNpOxGQ4HJ-VX6g_jJws4eX_0A',\n\t)\n\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://gwpezptjslssarivlqro.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3cGV6cHRqc2xzc2FyaXZscXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0OTc4NzYsImV4cCI6MjA0ODA3Mzg3Nn0.MddHNM2aeBTNdys19AW544maLh-7ipzsQz8Yzl7h6AA',\n\t)\n--------*/\n\n\t\n}catch(err){\n\tlih(err)\n} }\n",
 			"visible": true,
-			"time": "542415.3234070031",
+			"time": "559300.2574061194",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -275,7 +290,7 @@
 		},
 		{
 			"text": "\nlet getanimParr = async clid=>{ //animP\n\tlet payload = await cldict[clid]\n\t.from('animplayer_list')\n\t.select('*')\n\t\n\tlet o = {\n\t\teventType:'INSERT',\n\t}\n\tfor(let rowini of payload.data){\n\t\to.new = rowini\n\t\trowanimP(clid,o,)\n\t}\n\t\n\treturn payload\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -290,7 +305,7 @@
 		},
 		{
 			"text": "\nlet bikinanimParr = async (clid,inparr,)=>{\n\tlet outarr = []\n\n\tfor(let row of inparr){\n\t\toutarr.push({\n\t\t\twaktu_edit\t:Date.now(),\n\t\t\ttransformer\t:row[0],\n\t\t\ttarget\t:row[1],\n\t\t\tbyteoffset\t:row[2],\n\t\t})\n\t}\n\t\n\treturn await cldict[clid]\n\t.from('animplayer_list')\n\t.insert(outarr)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -305,7 +320,7 @@
 		},
 		{
 			"text": "\nlet updanimP = async (clid,id,col,val,)=>{\n\treturn await cldict[clid]\n\t.from('animplayer_list')\n\t.update({\n\t\twaktu_edit:Date.now(),\n\t\t[col]:val,\n\t})\n\t.eq('id',id,)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -335,7 +350,7 @@
 		},
 		{
 			"text": "\nlet getanimMarr = async clid=>{ //animM\n\tlet payload = await cldict[clid]\n\t.from('animmat2_list')\n\t.select('*')\n\t\n\tlet o = {\n\t\teventType:'INSERT',\n\t}\n\tfor(let rowini of payload.data){\n\t\to.new = rowini\n\t\trowanimM(clid,o,)\n\t}\n\t\n\treturn payload\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -350,7 +365,7 @@
 		},
 		{
 			"text": "\nlet bikinanimMarr = async (clid,inparr,)=>{\n\tlet outarr = []\n\n\tfor(let row of inparr){\n\t\toutarr.push({\n\t\t\twaktu_edit\t:Date.now(),\n\t\t\ttime\t:row[0],\n\t\t\tmat\t:row[1],\n\t\t\tdatasrc\t:row[2],\n\t\t})\n\t}\n\t\n\treturn await cldict[clid]\n\t.from('animmat2_list')\n\t.insert(outarr)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -365,7 +380,7 @@
 		},
 		{
 			"text": "\nlet updanimM = async (clid,id,col,val,)=>{\n\treturn await cldict[clid]\n\t.from('animmat2_list')\n\t.update({\n\t\twaktu_edit:Date.now(),\n\t\t[col]:val,\n\t})\n\t.eq('id',id,)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -395,7 +410,7 @@
 		},
 		{
 			"text": "\nlet getanimDarr = async clid=>{ //animD\n\tlet payload = await cldict[clid]\n\t.from('animdata_list')\n\t.select('*')\n\t\n\tlet o = {\n\t\teventType:'INSERT',\n\t}\n\tfor(let rowini of payload.data){\n\t\to.new = rowini\n\t\trowanimD(clid,o,)\n\t}\n\t\n\treturn payload\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -410,7 +425,7 @@
 		},
 		{
 			"text": "\nlet bikinanimDarr = async (clid,inparr,)=>{\n\tlet outarr = []\n\n\tfor(let row of inparr){\n\t\toutarr.push({\n\t\t\twaktu_edit\t:Date.now(),\n\t\t\ttime\t:row[0],\n\t\t\tdata\t:row[1],\n\t\t\tsize\t:row[2],\n\t\t})\n\t}\n\t\n\treturn await cldict[clid]\n\t.from('animdata_list')\n\t.insert(outarr)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -425,7 +440,7 @@
 		},
 		{
 			"text": "\nlet updanimD = async (clid,id,col,val,)=>{\n\treturn await cldict[clid]\n\t.from('animdata_list')\n\t.update({\n\t\twaktu_edit:Date.now(),\n\t\t[col]:val,\n\t})\n\t.eq('id',id,)\n\t.select()\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -487,7 +502,7 @@
 		},
 		{
 			"text": "\nlet f_pantaubufarr = (clid,payload,)=>{\n\t//lih('ada updateee')\n\t//lih(payload)\n\tif(payload.errors){ return errors }\n\trowbuf(clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -502,7 +517,7 @@
 		},
 		{
 			"text": "\nlet rowbuf = (clid,payload,)=>{\n\tlet newdata = payload.new\n\tpantaubuf[payload.eventType](\n\t\tclid,\n\t\tnewdata?.id ?? payload.old.id,\n\t\tnew Date(+newdata?.waktu_edit),\n\t\tnewdata?.usage,\n\t\tnewdata?.buffer,\n\t\tnewdata?.source,\n\t)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -517,7 +532,7 @@
 		},
 		{
 			"text": "\nlet pantaupassarr = clid=>\n\tsubdict[clid].pass = cldict[clid]\n\t.channel('pantau pass')\n\t.on(\n\t'postgres_changes',\n\t{\n\t\tevent:'*',\n\t\tschema:'public',\n\t\ttable:'pass_list'\n\t},\n\tpa=>f_pantaupassarr(clid,pa,),\n\t).subscribe()\n\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -532,7 +547,7 @@
 		},
 		{
 			"text": "\nlet f_pantaupassarr = (clid,payload,)=>{\n\t//lih('ada updateee')\n\t//lih(payload)\n\tif(payload.errors){ return errors }\n\trowpass(clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -562,7 +577,7 @@
 		},
 		{
 			"text": "\nlet pantauanimParr = clid=>\n\tsubdict[clid].animP = cldict[clid]\n\t.channel('pantau animP')\n\t.on(\n\t'postgres_changes',\n\t{\n\t\tevent:'*',\n\t\tschema:'public',\n\t\ttable:'animplayer_list'\n\t},\n\tpa=>f_pantauanimParr(clid,pa,),\n\t).subscribe()\n\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -577,7 +592,7 @@
 		},
 		{
 			"text": "\nlet f_pantauanimParr = (clid,payload,)=>{\n\t//lih('ada updateee')\n\t//lih(payload)\n\tif(payload.errors){ return errors }\n\trowanimP(clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -592,7 +607,7 @@
 		},
 		{
 			"text": "\nlet rowanimP = (clid,payload,)=>{\n\tpantauanimP[payload.eventType](clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -607,7 +622,7 @@
 		},
 		{
 			"text": "\nlet pantauanimMarr = clid=>\n\tsubdict[clid].animM = cldict[clid]\n\t.channel('pantau animM')\n\t.on(\n\t'postgres_changes',\n\t{\n\t\tevent:'*',\n\t\tschema:'public',\n\t\ttable:'animmat2_list'\n\t},\n\tpa=>f_pantauanimMarr(clid,pa,),\n\t).subscribe()\n\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -622,7 +637,7 @@
 		},
 		{
 			"text": "\nlet f_pantauanimMarr = (clid,payload,)=>{\n\t//lih('ada updateee')\n\t//lih(payload)\n\tif(payload.errors){ return errors }\n\trowanimM(clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -637,7 +652,7 @@
 		},
 		{
 			"text": "\nlet rowanimM = (clid,payload,)=>{\n\tpantauanimM[payload.eventType](clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -652,7 +667,7 @@
 		},
 		{
 			"text": "\nlet pantauanimDarr = clid=>\n\tsubdict[clid].animD = cldict[clid]\n\t.channel('pantau animD')\n\t.on(\n\t'postgres_changes',\n\t{\n\t\tevent:'*',\n\t\tschema:'public',\n\t\ttable:'animdata_list'\n\t},\n\tpa=>f_pantauanimDarr(clid,pa,),\n\t).subscribe()\n\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -667,7 +682,7 @@
 		},
 		{
 			"text": "\nlet f_pantauanimDarr = (clid,payload,)=>{\n\t//lih('ada updateee')\n\t//lih(payload)\n\tif(payload.errors){ return errors }\n\trowanimD(clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -682,7 +697,7 @@
 		},
 		{
 			"text": "\nlet rowanimD = (clid,payload,)=>{\n\tpantauanimD[payload.eventType](clid,payload,)\n}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -714,7 +729,7 @@
 		},
 		{
 			"text": "\nlet usfubuf = { //usage_function buffer\n\tvertex:bikinVERTbuf,\n\tindex:bikinINDbuf,\n\tuniform:bikinUNISTObuf,\n\tstorage:bikinUNISTObuf,\n\tdraw:bikinDRAWbuf,\n}\nlet pantaubuf = {}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -729,7 +744,7 @@
 		},
 		{
 			"text": "\nlet pantaupass = {}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -744,7 +759,7 @@
 		},
 		{
 			"text": "\nlet pantauanimP = {}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -759,7 +774,7 @@
 		},
 		{
 			"text": "\nlet pantauanimM = {}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -774,7 +789,7 @@
 		},
 		{
 			"text": "\nlet pantauanimD = {}\n",
-			"visible": false,
+			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
@@ -820,7 +835,7 @@
 			]
 		},
 		{
-			"text": "\npantaupass.INSERT = async ( clid, payload, )=>{\n\tlet newdata = payload.new\n\tlet adaerror = null\n\t\n\tlet mod = await bikinmodule(newdata.wgsl);\t\tif(mod instanceof GPUValidationError){ adaerror = mod }\n\tlet attrarr = newdata.attrarr\n\tlet attrinfo = bikinattrinfo(pisahstr(attrarr))\n\t\n\tlet id = newdata.id\n\tlet waktu_edit = new Date(+newdata.waktu_edit)\n\t\n\tlet gpupipe = adaerror?mod:bikinrenpip(mod,attrinfo,)\n\tlet entries = []\n\tlet pass = passdict[`${clid} ${id}`] = {}\n\t\n\tif(!adaerror){\n\t\tlet i = 0\n\t\tfor(let bufid of pisahstr(newdata.bindarr)){\n\t\t\tlet buf = bufdict[`${clid} ${bufid}`]\n\t\t\tlet buffer = buf.buffer\n\t\t\tlet entry = bikinentry(i,buffer,)\n\t\t\tentry.resource = buf\n\t\t\tbuf.passarr.push(pass)\n\t\t\tentries.push(entry)\n\t\t\t\n\t\t\ti++\n\t\t}\n\t}\n\t\n\tlet bind = adaerror?mod:bikinbind(gpupipe,0,entries,)\n\t\n\tlet vertex = `${clid} ${newdata.vertex}`\n\tlet index = `${clid} ${newdata.index}`\n\tlet draw = `${clid} ${newdata.draw}`\n\n\tpass.waktu_edit\t= waktu_edit\n\tpass.attrinfo\t= attrinfo\n\tpass.entries\t= entries\n\t\n\tpass.gpupipe\t= gpupipe\n\tpass.vertex\t= vertex\n\tpass.index\t= index\n\tpass.bind\t= bind\n\tpass.draw\t= draw\n\tpass.order\t= newdata.passorder\n\t\n\tpass.getvertex = passgetvertex\n\tpass.getindex = passgetindex\n\tpass.getdraw = passgetdraw\n\t\n\turutkanpass = true\n\tuiinspass(clid,id,)\n\t;adaerror && tambahinfo(adaerror.message,'orange',)\n}\n/*=-=-=-=-=-=-=-=-\n\n\n\n\n\n\n\n\n\n\n=-=-=-=-=-=-=-=-*/\nlet passgetvertex = pass=>cekpassget(pass,'vertex',)\nlet passgetindex = pass=>cekpassget(pass,'index',)\nlet passgetdraw = pass=>cekpassget(pass,'draw',)\n\nlet cekpassget = (pass,usage,)=>{\n\tlet buf = bufdict[pass[usage]]\n\tbuf??tambahinfo(`buffer id: ${pass[usage].split(' ')[1]} tidak ditemukan`,'red','errorbufid',)\n\treturn buf?.buffer\n}\n",
+			"text": "\npantaupass.INSERT = async ( clid, payload, )=>{\n\tlet newdata = payload.new\n\tlet adaerror = null\n\t\n\tlet mod = await bikinmodule(newdata.wgsl);\t\tif(mod instanceof GPUValidationError){ adaerror = mod }\n\tlet attrarr = newdata.attrarr\n\tlet attrinfo = bikinattrinfo(pisahstr(attrarr))\n\t\n\tlet id = newdata.id\n\tlet waktu_edit = new Date(+newdata.waktu_edit)\n\t\n\tlet gpupipe = adaerror?mod:bikinrenpip(mod,attrinfo,)\n\tlet entries = []\n\tlet pass = passdict[`${clid} ${id}`] = {}\n\t\n\tif(!adaerror){\n\t\tlet i = 0\n\t\tfor(let bufid of pisahstr(newdata.bindarr)){\n\t\t\tlet buf = bufdict[`${clid} ${bufid}`]\n\t\t\tif(!buf){\n\t\t\t\tadaerror = {message:\n`buffer id: ${bufid} tidak ditemukan. \n\tdi table Pass\n\tdi kolom bindarr\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t\t\t\t}\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tlet buffer = buf.buffer\n\t\t\tlet entry = bikinentry(i,buffer,)\n\t\t\tentry.resource = buf\n\t\t\tbuf.passarr.push(pass)\n\t\t\tentries.push(entry)\n\t\t\t\n\t\t\ti++\n\t\t}\n\t}\n\t\n\tlet bind = adaerror?null:bikinbind(gpupipe,0,entries,)\n\t\n\tlet vertex = `${clid} ${newdata.vertex}`\n\tlet index = `${clid} ${newdata.index}`\n\tlet draw = `${clid} ${newdata.draw}`\n\n\tpass.waktu_edit\t= waktu_edit\n\tpass.attrinfo\t= attrinfo\n\tpass.entries\t= entries\n\tpass.entries_ui = newdata.bindarr\n\t\n\tpass.gpupipe\t= gpupipe\n\tpass.vertex\t= vertex\n\tpass.index\t= index\n\tpass.bind\t= bind\n\tpass.draw\t= draw\n\tpass.order\t= newdata.passorder\n\t\n\tpass.getvertex = passgetvertex\n\tpass.getindex = passgetindex\n\tpass.getdraw = passgetdraw\n\t\n\turutkanpass = true\n\tuiinspass(clid,id,)\n\t;adaerror && tambahinfo(adaerror.message,'orange',)\n}\n/*=-=-=-=-=-=-=-=-\n\n\n\n\n\n\n\n\n\n\n=-=-=-=-=-=-=-=-*/\nlet passgetvertex = pass=>cekpassget(pass,'vertex',)\nlet passgetindex = pass=>cekpassget(pass,'index',)\nlet passgetdraw = pass=>cekpassget(pass,'draw',)\n\nlet cekpassget = (pass,usage,)=>{\n\tlet k = pass[usage]\n\tlet buf = bufdict[k]\n\tlet [clid,id,] = k.split(' ')\n\tbuf??tambahinfo(\n`buffer id: ${id} tidak ditemukan\n\tdi table Pass\n\tdi kolom ${usage}\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t,'red','errorbufid',)\n\treturn buf?.buffer\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1.00000",
@@ -1068,7 +1083,7 @@
 		{
 			"text": "\nlet urutkanpass = false\nlet passurut = []\nlet renderpassdict = async ()=>{\n\tnow[0] = Math.round(performance.now())\n\t\n\t//cek bind update\n\tfor(let passid in passdict){\n\t\tlet pass = passdict[passid]\n\t\tif(pass.bind === 'kosong'){ pass.bind = bikinbind(pass.gpupipe,0,pass.entries,) }\n\t}\n\t\n\tif(urutkanpass){\n\t\turutkanpass = false\n\t\t//sampe sini, nanti\n\t\tpassurut = Object\n\t\t.values(passdict)\n\t\t.sort((a,b,)=>a.order-b.order)\n\t}\n\t\n\tfor(let k in bufdict){\n\t\tlet buf = bufdict[k]\n\t\t\n\t\tif(buf.fsfh && buf.realtime){\n\t\t\tbuffile(k)\n\t\t}\n\t\t\n\t\tf_source[buf.source]?.(k)\n\t}\n\t\n\t//render\n\tawait render(rpd,[],passurut,)\n}\n",
 			"visible": true,
-			"time": "190278.51358513423",
+			"time": "191495.44576512068",
 			"speed": "0.0720720720720713",
 			"running": true,
 			"color": [
@@ -1142,7 +1157,7 @@
 		{
 			"text": "\n/*=============\n\n\n\n\n\n\n\n\n\n\n----------------*/\n",
 			"visible": true,
-			"time": "524695.8100074913",
+			"time": "541580.7440066076",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -1171,7 +1186,7 @@
 		{
 			"text": "\nwindow.coba = async()=>{ //=-=-=-=-=-=-=-=-\n",
 			"visible": true,
-			"time": "936727.4945687754",
+			"time": "967302.9155950237",
 			"speed": "1.810810810810811",
 			"running": true,
 			"color": [
@@ -1486,7 +1501,7 @@
 		{
 			"text": "\n\t} /*-=+-=+-=+-=+-=+-=+-=+-=+\n",
 			"visible": true,
-			"time": "2638746.486718556",
+			"time": "2724996.5549860825",
 			"speed": "5.10810810810811",
 			"running": true,
 			"color": [
@@ -1521,7 +1536,7 @@
 		{
 			"text": "\n/*\n-=-===-=-=-==--=-=-=--==--==--=\n\n\n\n\n\n\n\n\n\n\n\n-=-===-=-=-==--=-=-=--==--==--=\n*/\n",
 			"visible": true,
-			"time": "542464.2016070022",
+			"time": "559349.1356061186",
 			"speed": "1",
 			"running": true,
 			"color": [

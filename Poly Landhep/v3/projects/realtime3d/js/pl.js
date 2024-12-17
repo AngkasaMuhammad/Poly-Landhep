@@ -25,6 +25,13 @@ export let write = (buf,arr,)=>{
 	dv.queue.writeBuffer(buf,0,data,0,max,)
 }
 
+export let pantau_gpudevice = []
+dv.addEventListener('uncapturederror',e=>{
+	for(let f of pantau_gpudevice){
+		f(e)
+	}
+})
+
 export let bikinmodule = async (code)=>{
 	dv.pushErrorScope('validation')
 	let mod = dv.createShaderModule({

@@ -61,6 +61,21 @@
 					"frame": "0"
 				}
 			]
+		},
+		{
+			"text": "\nexport let pantau_gpudevice = []\ndv.addEventListener('uncapturederror',e=>{\n\tfor(let f of pantau_gpudevice){\n\t\tf(e)\n\t}\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
 		}
 	],
 	[
