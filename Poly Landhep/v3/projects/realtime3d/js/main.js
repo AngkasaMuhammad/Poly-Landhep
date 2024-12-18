@@ -658,10 +658,20 @@ pantaupass.INSERT = async ( clid, payload, )=>{
 	let id = newdata.id
 	let waktu_edit = new Date(+newdata.waktu_edit)
 	
-	let gpupipe = adaerror?mod:bikinrenpip(mod,attrinfo,)
 	let entries = []
 	let pass = passdict[`${clid} ${id}`] = {}
 	
+	for(let info of attrinfo.formaterrorarr){
+		adaerror = adaerror ?? {message:''}
+		adaerror.message +=
+`format: ${info} tidak valid.
+	di table Pass
+	di kolom attrarr
+	di client id ${clid}
+	di id ${id}
+`
+	}
+	let gpupipe = adaerror?null:bikinrenpip(mod,attrinfo,)
 	if(!adaerror){
 		let i = 0
 		for(let bufid of pisahstr(newdata.bindarr)){

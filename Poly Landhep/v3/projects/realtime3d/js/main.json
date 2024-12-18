@@ -65,7 +65,7 @@
 		{
 			"text": "\nexport let main = async()=>{ try{\n\tlih('teess, ini main js')\n\t\n\trequestAnimationFrame(loop)\n/*========\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://hmbtdoeieiezztgpexpw.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtYnRkb2VpZWllenp0Z3BleHB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE2Nzg0NjUsImV4cCI6MjA0NzI1NDQ2NX0.q1lwtj-oqhSXBPdvYRNpOxGQ4HJ-VX6g_jJws4eX_0A',\n\t)\n\n\tlet cl = window.cl = await bikinclinfo(\n\t\t'https://gwpezptjslssarivlqro.supabase.co',\n\t\t'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3cGV6cHRqc2xzc2FyaXZscXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0OTc4NzYsImV4cCI6MjA0ODA3Mzg3Nn0.MddHNM2aeBTNdys19AW544maLh-7ipzsQz8Yzl7h6AA',\n\t)\n--------*/\n\n\t\n}catch(err){\n\tlih(err)\n} }\n",
 			"visible": true,
-			"time": "559314.0258061126",
+			"time": "561631.0063058792",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -835,7 +835,7 @@
 			]
 		},
 		{
-			"text": "\npantaupass.INSERT = async ( clid, payload, )=>{\n\tlet newdata = payload.new\n\tlet adaerror = null\n\t\n\tlet mod = await bikinmodule(newdata.wgsl);\t\tif(mod instanceof GPUValidationError){ adaerror = mod }\n\tlet attrarr = newdata.attrarr\n\tlet attrinfo = bikinattrinfo(pisahstr(attrarr))\n\t\n\tlet id = newdata.id\n\tlet waktu_edit = new Date(+newdata.waktu_edit)\n\t\n\tlet gpupipe = adaerror?mod:bikinrenpip(mod,attrinfo,)\n\tlet entries = []\n\tlet pass = passdict[`${clid} ${id}`] = {}\n\t\n\tif(!adaerror){\n\t\tlet i = 0\n\t\tfor(let bufid of pisahstr(newdata.bindarr)){\n\t\t\tlet buf = bufdict[`${clid} ${bufid}`]\n\t\t\tif(!buf){\n\t\t\t\tadaerror = {message:\n`buffer id: ${bufid} tidak ditemukan. \n\tdi table Pass\n\tdi kolom bindarr\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t\t\t\t}\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tlet buffer = buf.buffer\n\t\t\tlet entry = bikinentry(i,buffer,)\n\t\t\tentry.resource = buf\n\t\t\tbuf.passarr.push(pass)\n\t\t\tentries.push(entry)\n\t\t\t\n\t\t\ti++\n\t\t}\n\t}\n\t\n\tlet bind = adaerror?null:bikinbind(gpupipe,0,entries,)\n\t\n\tlet vertex = `${clid} ${newdata.vertex}`\n\tlet index = `${clid} ${newdata.index}`\n\tlet draw = `${clid} ${newdata.draw}`\n\n\tpass.waktu_edit\t= waktu_edit\n\tpass.attrinfo\t= attrinfo\n\tpass.entries\t= entries\n\tpass.entries_ui = newdata.bindarr\n\t\n\tpass.gpupipe\t= gpupipe\n\tpass.vertex\t= vertex\n\tpass.index\t= index\n\tpass.bind\t= bind\n\tpass.draw\t= draw\n\tpass.order\t= newdata.passorder\n\t\n\tpass.getvertex = passgetvertex\n\tpass.getindex = passgetindex\n\tpass.getdraw = passgetdraw\n\t\n\turutkanpass = true\n\tuiinspass(clid,id,)\n\t;adaerror && tambahinfo(adaerror.message,'orange',)\n}\n/*=-=-=-=-=-=-=-=-\n\n\n\n\n\n\n\n\n\n\n=-=-=-=-=-=-=-=-*/\nlet passgetvertex = pass=>cekpassget(pass,'vertex',)\nlet passgetindex = pass=>cekpassget(pass,'index',)\nlet passgetdraw = pass=>cekpassget(pass,'draw',)\n\nlet cekpassget = (pass,usage,)=>{\n\tlet k = pass[usage]\n\tlet buf = bufdict[k]\n\tlet [clid,id,] = k.split(' ')\n\tbuf??tambahinfo(\n`buffer id: ${id} tidak ditemukan\n\tdi table Pass\n\tdi kolom ${usage}\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t,'red','errorbufid',)\n\treturn buf?.buffer\n}\n",
+			"text": "\npantaupass.INSERT = async ( clid, payload, )=>{\n\tlet newdata = payload.new\n\tlet adaerror = null\n\t\n\tlet mod = await bikinmodule(newdata.wgsl);\t\tif(mod instanceof GPUValidationError){ adaerror = mod }\n\tlet attrarr = newdata.attrarr\n\tlet attrinfo = bikinattrinfo(pisahstr(attrarr))\n\t\n\tlet id = newdata.id\n\tlet waktu_edit = new Date(+newdata.waktu_edit)\n\t\n\tlet entries = []\n\tlet pass = passdict[`${clid} ${id}`] = {}\n\t\n\tfor(let info of attrinfo.formaterrorarr){\n\t\tadaerror = adaerror ?? {message:''}\n\t\tadaerror.message +=\n`format: ${info} tidak valid.\n\tdi table Pass\n\tdi kolom attrarr\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t}\n\tlet gpupipe = adaerror?null:bikinrenpip(mod,attrinfo,)\n\tif(!adaerror){\n\t\tlet i = 0\n\t\tfor(let bufid of pisahstr(newdata.bindarr)){\n\t\t\tlet buf = bufdict[`${clid} ${bufid}`]\n\t\t\tif(!buf){\n\t\t\t\tadaerror = {message:\n`buffer id: ${bufid} tidak ditemukan. \n\tdi table Pass\n\tdi kolom bindarr\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t\t\t\t}\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tlet buffer = buf.buffer\n\t\t\tlet entry = bikinentry(i,buffer,)\n\t\t\tentry.resource = buf\n\t\t\tbuf.passarr.push(pass)\n\t\t\tentries.push(entry)\n\t\t\t\n\t\t\ti++\n\t\t}\n\t}\n\t\n\tlet bind = adaerror?null:bikinbind(gpupipe,0,entries,)\n\t\n\tlet vertex = `${clid} ${newdata.vertex}`\n\tlet index = `${clid} ${newdata.index}`\n\tlet draw = `${clid} ${newdata.draw}`\n\n\tpass.waktu_edit\t= waktu_edit\n\tpass.attrinfo\t= attrinfo\n\tpass.entries\t= entries\n\tpass.entries_ui = newdata.bindarr\n\t\n\tpass.gpupipe\t= gpupipe\n\tpass.vertex\t= vertex\n\tpass.index\t= index\n\tpass.bind\t= bind\n\tpass.draw\t= draw\n\tpass.order\t= newdata.passorder\n\t\n\tpass.getvertex = passgetvertex\n\tpass.getindex = passgetindex\n\tpass.getdraw = passgetdraw\n\t\n\turutkanpass = true\n\tuiinspass(clid,id,)\n\t;adaerror && tambahinfo(adaerror.message,'orange',)\n}\n/*=-=-=-=-=-=-=-=-\n\n\n\n\n\n\n\n\n\n\n=-=-=-=-=-=-=-=-*/\nlet passgetvertex = pass=>cekpassget(pass,'vertex',)\nlet passgetindex = pass=>cekpassget(pass,'index',)\nlet passgetdraw = pass=>cekpassget(pass,'draw',)\n\nlet cekpassget = (pass,usage,)=>{\n\tlet k = pass[usage]\n\tlet buf = bufdict[k]\n\tlet [clid,id,] = k.split(' ')\n\tbuf??tambahinfo(\n`buffer id: ${id} tidak ditemukan\n\tdi table Pass\n\tdi kolom ${usage}\n\tdi client id ${clid}\n\tdi id ${id}\n`\n\t,'red','errorbufid',)\n\treturn buf?.buffer\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1.00000",
@@ -1083,7 +1083,7 @@
 		{
 			"text": "\nlet urutkanpass = false\nlet passurut = []\nlet renderpassdict = async ()=>{\n\tnow[0] = Math.round(performance.now())\n\t\n\t//cek bind update\n\tfor(let passid in passdict){\n\t\tlet pass = passdict[passid]\n\t\tif(pass.bind === 'kosong'){ pass.bind = bikinbind(pass.gpupipe,0,pass.entries,) }\n\t}\n\t\n\tif(urutkanpass){\n\t\turutkanpass = false\n\t\t//sampe sini, nanti\n\t\tpassurut = Object\n\t\t.values(passdict)\n\t\t.sort((a,b,)=>a.order-b.order)\n\t}\n\t\n\tfor(let k in bufdict){\n\t\tlet buf = bufdict[k]\n\t\t\n\t\tif(buf.fsfh && buf.realtime){\n\t\t\tbuffile(k)\n\t\t}\n\t\t\n\t\tf_source[buf.source]?.(k)\n\t}\n\t\n\t//render\n\tawait render(rpd,[],passurut,)\n}\n",
 			"visible": true,
-			"time": "191496.43808223619",
+			"time": "191663.42766773878",
 			"speed": "0.0720720720720713",
 			"running": true,
 			"color": [
@@ -1157,7 +1157,7 @@
 		{
 			"text": "\n/*=============\n\n\n\n\n\n\n\n\n\n\n----------------*/\n",
 			"visible": true,
-			"time": "541594.5124066008",
+			"time": "543911.4929063674",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -1186,7 +1186,7 @@
 		{
 			"text": "\nwindow.coba = async()=>{ //=-=-=-=-=-=-=-=-\n",
 			"visible": true,
-			"time": "967327.8475625844",
+			"time": "971523.4609000757",
 			"speed": "1.810810810810811",
 			"running": true,
 			"color": [
@@ -1501,7 +1501,7 @@
 		{
 			"text": "\n\t} /*-=+-=+-=+-=+-=+-=+-=+-=+\n",
 			"visible": true,
-			"time": "2725066.8854617383",
+			"time": "2736902.272340371",
 			"speed": "5.10810810810811",
 			"running": true,
 			"color": [
@@ -1536,7 +1536,7 @@
 		{
 			"text": "\n/*\n-=-===-=-=-==--=-=-=--==--==--=\n\n\n\n\n\n\n\n\n\n\n\n-=-===-=-=-==--=-=-=--==--==--=\n*/\n",
 			"visible": true,
-			"time": "559362.9040061118",
+			"time": "561679.8845058784",
 			"speed": "1",
 			"running": true,
 			"color": [

@@ -57,9 +57,13 @@ let setUNISTObuf = (buf,data,)=>
 export let bikinattrinfo = infoarr=>{
 	let arrayStride = 0
 	let attributes = []
+	let formaterrorarr = []
 	let loc = 0
 	for(let info of infoarr){
 		attributes.push({shaderLocation: loc, offset: arrayStride, format: info,})
+		if(attrinfo[info] === undefined){
+			formaterrorarr.push(info)
+		}
 		arrayStride += attrinfo[info]
 		loc++
 	}
@@ -68,6 +72,7 @@ export let bikinattrinfo = infoarr=>{
 		stepMode:'vertex',
 		arrayStride,
 		attributes,
+		formaterrorarr,
 	}
 }
 let attrinfo = {
@@ -99,8 +104,8 @@ let attrinfo = {
 	unorm16x4	:8	,
 	snorm16x2	:4	,
 	snorm16x4	:8	,
-	//float16x2	:4	,
-	//float16x4	:8	,
+	float16x2	:4	,
+	float16x4	:8	,
 	float32	:4	,
 	float32x2	:8	,
 	float32x3	:12	,
@@ -298,7 +303,11 @@ export let render = async(
 		let vertex = pipe.getvertex(pipe)
 		let index = pipe.getindex(pipe)
 		let draw = pipe.getdraw(pipe)
-		if(!(vertex && index && draw) || (pipe.gpupipe instanceof GPUValidationError)){
+		if(
+			!(vertex && index && draw)
+			|| !pipe.gpupipe
+			|| (pipe.gpupipe instanceof GPUValidationError)
+		){
 			//ada yg undefined
 			continue
 		}
