@@ -201,7 +201,7 @@ export let bikinrenpip = (module,attrinfo,)=>{
 }
 
 export let bikinINDbuf = (data)=>{
-	;(data instanceof Uint16Array) || lih(data.constructor.name+', data harus berupa Uint16Array')
+	//;(data instanceof Uint16Array) || lih(data.constructor.name+', data harus berupa Uint16Array')
 	let buf = dv.createBuffer({
 		label: 'ini index buffer',
 		size: data.byteLength,

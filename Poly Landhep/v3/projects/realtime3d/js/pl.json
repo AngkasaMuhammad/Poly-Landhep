@@ -202,7 +202,7 @@
 			]
 		},
 		{
-			"text": "\nexport let bikinINDbuf = (data)=>{\n\t;(data instanceof Uint16Array) || lih(data.constructor.name+', data harus berupa Uint16Array')\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'ini index buffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST,\n\t});\n\tsetINDbuf(buf,data,)\n\treturn buf\n}\nlet setINDbuf = (buf,data,)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
+			"text": "\nexport let bikinINDbuf = (data)=>{\n\t//;(data instanceof Uint16Array) || lih(data.constructor.name+', data harus berupa Uint16Array')\n\tlet buf = dv.createBuffer({\n\t\tlabel: 'ini index buffer',\n\t\tsize: data.byteLength,\n\t\tusage: GPUBufferUsage.INDEX | GPUBufferUsage.COPY_DST,\n\t});\n\tsetINDbuf(buf,data,)\n\treturn buf\n}\nlet setINDbuf = (buf,data,)=>\n\tdv.queue.writeBuffer(buf, 0, data,)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
