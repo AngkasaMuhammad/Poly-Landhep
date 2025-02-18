@@ -1,0 +1,38 @@
+[
+	{
+		"duration": null,
+		"loop": true,
+		"offset": 0,
+		"src": "suara angin",
+		"volume": 2,
+		"when": 0
+	},
+	{
+		"duration": null,
+		"loop": true,
+		"offset": 0,
+		"src": "suara angin1",
+		"volume": 1,
+		"when": 0
+	},
+	
+	
+	
+	
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara palestina0"	,"volume": 1	,"when": 2	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara aman damai"	,"volume": 1.5	,"when": 9	},
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara jet0"	,"volume": 0.5	,"when": 13	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar0"	,"volume": 0.7	,"when": 18	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar2"	,"volume": 1	,"when": 18	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar2"	,"volume": 1.5	,"when": 18.5	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara jet1"	,"volume": 0.035	,"when": 16	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar1"	,"volume": 0.5	,"when": 19	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar0"	,"volume": 1	,"when": 19.5	},
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara diam tidur"	,"volume": 2	,"when": 26	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara click"	,"volume": 2	,"when": 34	},
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara secuil"	,"volume": 1	,"when": 36	}
+]

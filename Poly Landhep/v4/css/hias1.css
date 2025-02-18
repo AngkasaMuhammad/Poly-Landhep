@@ -1,0 +1,121 @@
+html{
+	font-size:13px;
+	font-family:consolas;
+}
+
+input[type="checkbox"]{
+	width:initial;
+}
+tr:hover{
+	outline: 2px solid #ffffff66;
+}
+
+#buffer{
+    width: max-content;
+}
+#buffer .subjudultengah > *{
+	padding-inline: 9px;
+}
+
+table input[type="text"],
+table input[type="password"],
+table input[type="number"],
+table input[type="checkbox"],
+#buffer textarea,
+#buffer button,
+#buffer select{
+	background:#00550066 !important;
+}
+
+#buffer input:hover,
+#buffer select:hover,
+#buffer button:hover,
+#buffer textarea:hover{
+	outline:2px solid orange;
+}
+table input[type="text"],
+table input[type="password"]{
+	width:100%;
+}
+#buffer textarea{
+	resize: none;
+	text-wrap: unset;
+	overflow:hidden;
+	tab-size: 4;
+}
+#buffer td,th{
+	padding:0px;
+	vertical-align:top;
+}
+#buffer td{
+	border-left: 3px solid #00000000 !important;
+	border-top: 3px solid #00000000 !important;
+	
+}
+#buffer td *,
+#buffer th *{
+	font-size:inherit;
+	padding:0px;
+}
+#buffer td *{
+	border:none;
+}
+#buffer td:not(.rowdata,.rowcontroller) *{
+	display:block;
+}
+#buffer td.rowcontroller *,
+#buffer td.rowdata *{
+	vertical-align:middle;
+	margin:0px;
+}
+#buffer td.rowcontroller input,
+#buffer td.rowkey input{
+	padding:2px;
+}
+
+#seek,
+.seek,
+svg#speed,
+svg.speed{
+	cursor:w-resize;
+}
+
+.speed{
+	text-align:center;
+}
+#pass{
+	vertical-align:top;
+	white-space: pre;
+}
+#hlmdata table{
+	background:#000000aa;
+	margin-bottom:55px;
+}
+#infolist > *{
+	tab-size: 4;
+}
+#infolist > .bukainfo {
+	white-space: pre;
+	outline-offset: -3px;
+	overflow: auto;
+}
+#infolist > .baru{
+	outline: 3px dashed #ffffff66;
+	outline-offset: -5px;
+	font-weight: bold;
+}
+#moutex{
+	white-space:pre;
+	tab-size:4;
+}
+#pesanselesai{
+	animasi???
+}
+/*
+#infolist:not(.infoupdate) > *{
+	background:#00000066 !important;
+}
+*/
+.mati{
+	background:#990000ff !important;
+}

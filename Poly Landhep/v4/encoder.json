@@ -1,0 +1,42 @@
+[
+	{
+		"descriptor":{ "label":"this is kotak encoder" },
+		"renderpasses":[
+			
+			
+			
+			
+			
+			{
+				"descriptor":{
+					"label": "our basic canvas renderPass",
+					"colorAttachments": [
+						{"clearValue": [0.3,0.7,0.9,1],"loadOp": "clear","storeOp": "store","view":"(context)"}
+					],
+					"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+				},
+				"methods":[
+					["set_pipeline"	,"kotakpipe"	],
+					["set_vertex_buffer"	,0,"kotakv"	],
+					["set_vertex_buffer"	,1,"kotakinst"	],
+					["set_index_buffer"	,"kotaki","uint16"	],
+					["set_bind_group"	,0,"kotakbind"	],
+					["draw_indexed_indirect"	,"kotakindr",0	],
+					
+					
+					
+					["set_pipeline"	,"tanahpipe"	],
+					["set_vertex_buffer"	,0,"tanahv"	],
+					["set_index_buffer"	,"tanahi","uint16"	],
+					["set_bind_group"	,0,"tanahbind"	],
+					["draw_indexed_indirect"	,"tanahindr",0	]
+				]
+			}
+			
+			
+			
+			
+			
+		]
+	}
+]

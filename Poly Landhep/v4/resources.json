@@ -1,0 +1,236 @@
+{
+	"create":{
+		
+		
+		
+		
+		
+		"deptex":{
+			"type":"gpu_texture",
+			"descriptor":{"label":"this is depth texture","size":"(canvas)","format":"depth24plus","usage": 16},
+			"data":null
+		},
+		"deptexview":{
+			"type":"gpu_texture_view",
+			"descriptor":{"label":"this is depth tex view"},
+			"data":"deptex"
+		},
+		"miscreso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"(misc)" }
+		},
+		
+		
+		
+		
+		
+		"kotakv"	:{ "type":"gpu_buffer"	,"descriptor":"3d/output/vertex descr.json"	,"data":"3d/output/vertex.bin"	},
+		"kotaki"	:{ "type":"gpu_buffer"	,"descriptor":"3d/output/index descr.json"	,"data":"3d/output/index.bin"	},
+		"kotakindr"	:{ "type":"gpu_buffer"	,"descriptor":"3d/output/indirect descr.json"	,"data":"3d/output/indirect.bin"	},
+		"kotakinst"	:{ "type":"gpu_buffer"	,"descriptor":"3d/output/instance descr.json"	,"data":"3d/output/instance.bin"	},
+		"kotakpipe":{
+			"type":"gpu_render_pipe",
+			"descriptor":{
+				"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+				"fragment": {
+					"targets": [
+						{
+							"format":"(preferred_canvas_format)",
+							"blend": {
+								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+							}
+						}
+					],
+					"module": "kotakmod"
+				},
+				"label": "our hardcoded red triangle pipeline",
+				"layout": "auto",
+				"primitive": {"cullMode": "none","topology": "triangle-list"},
+				"vertex": {
+					"buffers": [
+						"3d/output/attribute descr.json",
+						"3d/output/att inst descr.json"
+					],
+					"module": "kotakmod"
+				}
+			}
+		},
+		"kotakmod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module","code":"3d/output/wgsl_coba.wgsl"}
+		},
+		"kotakbind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"miscreso" }
+				],
+				"entries_gakepake": [
+					{ "binding":0, "resource":"miscreso" },
+					{ "binding":1, "resource":"gambarview" }
+				],
+				"label": "bind group for objects",
+				"layout": {"layout": 0,"pipe": "kotakpipe"}
+			}
+		},
+		"gambar":{
+			"type":"gpu_texture_gakepake",
+			"descriptor":{"label":"this is gambar (src,dst,render,bind,)","size":"(image_data)","format":"rgba8unorm","usage": 23},
+			"data":"3d/output/Clutch.png"
+		},
+		"gambarview":{
+			"type":"gpu_texture_view_gakepake",
+			"descriptor":{"label":"this is gambar view"},
+			"data":"gambar"
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		"tanahv"	:{ "type":"gpu_buffer"	,"descriptor":"3d/tanah/vertex descr.json"	,"data":"3d/tanah/vertex.bin"	},
+		"tanahi"	:{ "type":"gpu_buffer"	,"descriptor":"3d/tanah/index descr.json"	,"data":"3d/tanah/index.bin"	},
+		"tanahindr"	:{ "type":"gpu_buffer"	,"descriptor":"3d/tanah/indirect descr.json"	,"data":"3d/tanah/indirect.bin"	},
+		"tanahinst"	:{ "type":"gpu_buffer"	,"descriptor":"3d/tanah/instance descr.json"	,"data":"3d/tanah/instance.bin"	},
+		"tanahpipe":{
+			"type":"gpu_render_pipe",
+			"descriptor":{
+				"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+				"fragment": {
+					"targets": [
+						{
+							"format":"(preferred_canvas_format)",
+							"blend": {
+								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+							}
+						}
+					],
+					"module": "tanahmod"
+				},
+				"label": "our pipeline",
+				"layout": "auto",
+				"primitive": {"cullMode": "none","topology": "triangle-list"},
+				"vertex": {
+					"buffers": [
+						"3d/tanah/attribute descr.json"
+					],
+					"module": "tanahmod"
+				}
+			}
+		},
+		"tanahmod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module","code":"3d/tanah/wgsl_tanah.wgsl"}
+		},
+		"tanahbind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"miscreso" }
+				],
+				"label": "bind group for objects",
+				"layout": {"layout": 0,"pipe": "tanahpipe"}
+			}
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		"suara angin":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"https://cdn.freesound.org/previews/473/473597_1648170-lq.mp3",
+			"_attribution":"room-tone house 6 bft 1 min 190526_0007.wav by klankbeeld -- https://freesound.org/s/473597/ -- License: Attribution 4.0"
+		},
+		"suara angin1":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"https://cdn.freesound.org/previews/626/626951_1648170-lq.mp3",
+			"_attribution":"Calm Sunday morning Down-Town 906AM 200203_0169.wav by klankbeeld -- https://freesound.org/s/626951/ -- License: Attribution 4.0"
+		},
+		"suara palestina0":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"sound/palestina0.m4a"
+		},
+		"suara diam tidur":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"sound/diam tidur.m4a"
+		},
+		"suara secuil":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"sound/secuil.m4a"
+		},
+		"suara aman damai":{
+			"type":"audio_buffer",
+			"descriptor":{},
+			"data":"sound/aman damai.m4a"
+		},
+		"suara jet0":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/721/721250_5829168-lq.mp3"	,"_attribution":"Jet Flyby by Roshambo40 -- https://freesound.org/s/721250/ -- License: Creative Commons 0"	},
+		"suara jet1":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/189/189446_71257-lq.mp3"	,"_attribution":"Jet Plane Flyby.flac by qubodup -- https://freesound.org/s/189446/ -- License: Creative Commons 0"	},
+		"suara duar0":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/199/199741_1143716-lq.mp3"	,"_attribution":"expl11.mp3 by WaveAdventurer -- https://freesound.org/s/199741/ -- License: Attribution NonCommercial 4.0"	},
+		"suara duar1":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/398/398283_2351866-lq.mp3"	,"_attribution":"Explosion by FlashTrauma -- https://freesound.org/s/398283/ -- License: Creative Commons 0"	},
+		"suara duar2":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/718/718133_3228185-lq.mp3"	,"_attribution":"Double Distant Firework Explosion by TB0Y298 -- https://freesound.org/s/718133/ -- License: Attribution 4.0"	},
+		"suara click":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/106/106793_321967-lq.mp3"	,"_attribution":"02246 key type shot strike typewriter.wav by Robinhood76 -- https://freesound.org/s/106793/ -- License: Attribution NonCommercial 4.0"	}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}
