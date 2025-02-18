@@ -175,10 +175,10 @@ setInterval(()=>{
 	}
 },1111,)
 addEventListener('load',()=>tambahinfo(
-`Selamat datang di Realtime 3d, silakan -->> DOUBLECLICK <<-- info ini (expand & collapse)
+`Selamat datang di Kemana Semua Orang, silakan -->> DOUBLECLICK <<-- info ini (expand & collapse)
 
 --------------------------
-""
+"Kemana Semua Orang"
 
 Saat ini aku mau tunjukkan:
 - Play Pause Seek Speed
