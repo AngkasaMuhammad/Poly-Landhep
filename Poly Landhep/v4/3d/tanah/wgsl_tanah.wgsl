@@ -1,12 +1,18 @@
 
 
 struct stmisc{
-	view:mat4x4f,
+	persp:mat4x4f,
+	pivot:mat4x4f,
+	cam:mat4x4f,
+	invcam:mat4x4f,
+	view:mat4x4f, // = persp*invcam
 	now:u32,
 	seek:f32,
-	//+2 pads
+	freecam:u32,
+	//+1 pads
 }
 @group(0) @binding(0) var<uniform> misc:stmisc;
+@group(0) @binding(1) var<storage> anicam:mat4x4f;
 
 var<private> posarr = array(
 	vec4f(-1.,1.,.5,1.,),
@@ -22,7 +28,13 @@ var<private> posarr = array(
 	
 	@builtin(vertex_index) vid:u32,
 )-> vout{
-	let m0 = misc.view;
+	var m0:mat4x4f;
+	if(misc.freecam == 1u){
+		m0 = misc.view;
+	}else{
+		m0 = misc.persp*anicam;
+	}
+	
 	let seek = misc.seek;
 	var aniposlok = vec4f(.0);
 	var aniposview = vec4f(.0);
@@ -60,6 +72,7 @@ struct vout{
 	out:vout,
 	//@builtin(front_facing) depan:bool,
 )-> @location(0) vec4f{
+	//let mmmm = anicam;
 	let x = out.pos.x;
 	let z = out.pos.z;
 	/*
