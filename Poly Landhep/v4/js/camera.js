@@ -7,6 +7,7 @@ import {
 	canv2d,
 	cx3d,
 	cx2d,
+	fcamlocked,
 } from './ui.js'
 
 
@@ -30,6 +31,7 @@ let h = canv3d.height
 //camera
 let persp = camera.persp = m4.identity()
 let cam = camera.cam = m4.identity()
+let invcam = camera.invcam = m4.identity()
 let view = camera.matview = m4.identity()//hasil dari persp*cam 
 
 export let loadcam = async aa=>{
@@ -37,6 +39,10 @@ export let loadcam = async aa=>{
 
 	//keyboard
 	fkey.push((key,namakey,berubah,)=>{
+		//jika putar kamera = true
+		if(fcamlocked()){return}
+		
+		//
 		if((namakey === 'm') && key.m && berubah){
 			digeser = true
 			document.body.requestPointerLock({unadjustedMovement:true,})
@@ -99,9 +105,15 @@ export let loadcam = async aa=>{
 		m4.copy(camges,cam,)
 		m4.rotateX(cam,rang,cam,)
 		m4.translate(cam,[0,0,3,],cam,)
-		m4.invert(cam,cam,)
-		m4.mul(persp,cam,view,)
-		camera.fview?.(view)
+		m4.invert(cam,invcam,)
+		m4.mul(persp,invcam,view,)
+		camera.fview?.(
+			persp,
+			camges,// pivot
+			cam,
+			invcam,
+			view,
+		)
 	}
 	fcam()
 	
@@ -148,3 +160,4 @@ export let fview = f=>
 (typeof f === 'function')
 ?(camera.fview = f)
 :camera.fview
+

@@ -64,9 +64,10 @@
 			"type":"gpu_bind_group",
 			"descriptor":{
 				"entries": [
-					{ "binding":0, "resource":"miscreso" }
+					{ "binding":0, "resource":"miscreso" },
+					{ "binding":1, "resource":"cam reso" }
 				],
-				"entries_gakepake": [
+				"entries_gakepakeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee": [
 					{ "binding":0, "resource":"miscreso" },
 					{ "binding":1, "resource":"gambarview" }
 				],
@@ -148,11 +149,89 @@
 			"type":"gpu_bind_group",
 			"descriptor":{
 				"entries": [
-					{ "binding":0, "resource":"miscreso" }
+					{ "binding":0, "resource":"miscreso" },
+					{ "binding":1, "resource":"cam reso" }
 				],
 				"label": "bind group for objects",
 				"layout": {"layout": 0,"pipe": "tanahpipe"}
 			}
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		"camv"	:{	"type":"gpu_buffer",	"descriptor":"3d/pompa/cam/vertex descr.json"	,"data":"3d/pompa/cam/vertex.bin"	},
+		"camindr"	:{	"type":"gpu_buffer",	"descriptor":"3d/pompa/cam/indirect descr.json"	,"data":"3d/pompa/cam/indirect.bin"	},
+		"cam output"	:{	"type":"gpu_buffer",	"descriptor":"3d/pompa/cam/cam output descr.json"	,"data":"3d/pompa/cam/cam output.bin"	},
+		"cam ani"	:{	"type":"gpu_buffer",	"descriptor":"3d/axiscam/animation/axiscam.json"	,"data":"3d/axiscam/animation/axiscam.bin"	},
+		"cam ani indr"	:{	"type":"gpu_buffer",	"descriptor":"3d/axiscam/animation/axiscam indirect.json"	,"data":"3d/axiscam/animation/axiscam indirect.bin"	},
+		"cam reso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"cam output" }
+		},
+		"cammod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module","code":"3d/pompa/cam/shader.wgsl"}
+		},
+		"cambind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"cam reso" },
+					{ "binding":1, "resource":"miscreso" }
+				],
+				"label": "bind group for objects",
+				"layout": {"layout": 0,"pipe": "campipe"}
+			}
+		},
+		
+		"campipe":{
+			"type":"gpu_render_pipe",
+			"descriptor":{
+				"depthStencil": {	"depthCompare": "always",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+				"fragment": {
+					"targets": [
+						{
+							"format":"(preferred_canvas_format)",
+							"blend": {
+								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+							}
+						}
+					],
+					"module": "cammod"
+				},
+				"label": "our pipeline",
+				"layout": "auto",
+				"primitive": {"cullMode": "none","topology": "point-list"},
+				"vertex": {
+					"buffers": [
+						"3d/pompa/cam/attribute descr.json",
+						"3d/pompa/cam/attribute descr nextvertex.json"
+					],
+					"module": "cammod"
+				}
+			}
+		},
+		"sampe sini, cam data":{
+			"type":"kosong",
+			"descriptor":{}
 		},
 		
 		

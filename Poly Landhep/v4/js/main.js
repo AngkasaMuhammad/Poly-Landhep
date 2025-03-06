@@ -1,9 +1,14 @@
 'use strict'
 
+/*
 import {
 	vec3 as v3,
 	mat4 as m4,
 } from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'
+*/
+let v3 = wgpuMatrix.vec3
+let m4 = wgpuMatrix.mat4
+
 
 
 
@@ -41,19 +46,21 @@ let presentationFormat = navigator.gpu.getPreferredCanvasFormat()
 
 let aucx = new AudioContext()
 let suara = null
- export let getsuara = ()=>suara
+export let getsuara = ()=>suara
 
 
 
-let resosrclink = new URL('resources.json',location.href,)
+let urlparam = new URLSearchParams(location.search)
+
+let resosrclink = new URL(urlparam.get('resource') ?? 'resources.json',location.href,) //
 let resosrc = fetch(resosrclink)
 .then(r=>r.json())
 
-let encosrclink = new URL('encoder.json',location.href,)
+let encosrclink = new URL(urlparam.get('encoder') ?? 'encoder.json',location.href,) //
 let encosrc = fetch(encosrclink)
 .then(r=>r.json())
 
-let contsrclink = new URL('controller.json',location.href,)
+let contsrclink = new URL(urlparam.get('controller') ?? 'controller.json',location.href,) //
 let contsrc = fetch(contsrclink)
 .then(r=>r.json())
 
@@ -185,16 +192,42 @@ if(loop){
 addEventListener('mousedown',e=>aucx.resume(),)
 
 let misc = new ArrayBuffer((
+	+16 //perspective
+	+16 //camera pivot
+	+16 //camera
+	+16 //camera inverse
 	+16 //camera view
 	+1 //time now
 	+1 //seek
 	+2 // (pad)
 )*4)
-let view = new Float32Array(misc,( 0 )*4,16,)
-let now = new Uint32Array(misc,( 0+16 )*4,1,)
-let seek = new Float32Array(misc,( 0+16+1 )*4,1)
-fview(camera_view=>{
-	m4.copy(camera_view,view,)
+let miof = 0 //misc offset
+let fmiof = off=>{ //offset
+	let cur = miof
+	miof += off
+	return cur
+}
+
+let persp = new Float32Array(misc,( fmiof(16) )*4,16,)
+let pivot = new Float32Array(misc,( fmiof(16) )*4,16,)
+let cam = new Float32Array(misc,( fmiof(16) )*4,16,)
+let invcam = new Float32Array(misc,( fmiof(16) )*4,16,)
+let view = new Float32Array(misc,( fmiof(16) )*4,16,)
+let now = new Uint32Array(misc,( fmiof(1) )*4,1,)
+let seek = new Float32Array(misc,( fmiof(1) )*4,1)
+export let freecam = new Uint32Array(misc,( fmiof(1) )*4,1)
+fview((
+	_persp,
+	_pivot,
+	_cam,
+	_invcam,
+	_view,
+)=>{
+	m4.copy(_persp,persp,)
+	m4.copy(_pivot,pivot,)
+	m4.copy(_cam,cam,)
+	m4.copy(_invcam,invcam,)
+	m4.copy(_view,view,)
 })
 let miscbuf
 
@@ -300,7 +333,7 @@ create_gpu_object.set(
 	await lih(type)
 	
 	//sampe sini, audio_buffer
-	const response = await fetch(data);
+	const response = await fetch(new URL(data,resosrclink,));
 	const arrayBuffer = await response.arrayBuffer();
 	let aubuf = await aucx.decodeAudioData(arrayBuffer);
 	
@@ -337,7 +370,7 @@ create_gpu_object.set(
 	descr.vertex.buffers = await Promise.all(
 		descr.vertex.buffers
 		.map(link=>
-			fetch(link)
+			fetch(new URL(link,resosrclink,))
 			.then(res=>res.json())
 		)
 	)
@@ -378,9 +411,11 @@ create_gpu_object.set(
 	await lih(type)
 	await lih(type)
 	
-	if(bbf.has(descr.buffer)){
-		descr.buffer = bbf.get(descr.buffer)
-	}
+	
+	descr.buffer = 
+	bbf.has(descr.buffer)
+	?bbf.get(descr.buffer)
+	:await reso.get(descr.buffer)
 	
 	return descr
 },)
@@ -456,6 +491,27 @@ async met=>{
 	met[0] = await reso.get(met[0])
 	return {
 		'method':'drawIndexedIndirect',
+		'param':met,
+	}
+},)
+
+
+mepa.set(
+'draw',
+async met=>{
+	return {
+		'method':'draw',
+		'param':met,
+	}
+},)
+
+
+mepa.set(
+'draw_indirect',
+async met=>{
+	met[0] = await reso.get(met[0])
+	return {
+		'method':'drawIndirect',
 		'param':met,
 	}
 },)

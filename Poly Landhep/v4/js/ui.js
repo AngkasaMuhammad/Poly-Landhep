@@ -13,6 +13,7 @@ import {
 } from './utilku.js'
 import {
 	getsuara,
+	freecam, //dari misc
 } from './main.js'
 
 
@@ -24,8 +25,14 @@ let fSH = e=>{
 	let c = que(attr(cur,'sasaran',))[0].classList
 	let s = 'hidechild'
 	c.contains(s)?c.remove(s):c.add(s)
+	return c.contains(s)
 }
-que('#SHhelp')[0].addEventListener('click',fSH,)
+let fSHHelp = e=>{
+	camlocked = fSH(e)
+	freecam[0] = +!camlocked
+}
+
+que('#SHhelp')[0].addEventListener('click',fSHHelp,)
 que('#SHcontroller')[0].addEventListener('click',fSH,)
 que('#SHinfo')[0].addEventListener('click',fSH,)
 
@@ -164,6 +171,9 @@ let f_info = e=>{
 		div.classList.toggle('bukainfo')
 	}
 }
+let camlocked = true
+export let fcamlocked = ()=>camlocked
+
 clearinfo.addEventListener('click',e=>{
 	infolist.textContent = ''
 },)
@@ -175,11 +185,9 @@ setInterval(()=>{
 	}
 },1111,)
 addEventListener('load',()=>tambahinfo(
-`Selamat datang di Kemana Semua Orang, silakan -->> DOUBLECLICK <<-- info ini (expand & collapse)
+`Selamat datang di Poly Landhep v4, silakan -->> DOUBLECLICK <<-- info ini (expand & collapse)
 
 --------------------------
-"Kemana Semua Orang"
-
 Saat ini aku mau tunjukkan:
 - Play Pause Seek Speed
 	Diharapkan suara & animasi bisa synchronized.

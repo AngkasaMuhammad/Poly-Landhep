@@ -16,6 +16,27 @@
 					"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
 				},
 				"methods":[
+					["set_pipeline"	,"campipe"	],
+					["set_vertex_buffer"	,0,"cam ani"	],
+					["set_vertex_buffer"	,1,"cam ani",68	],
+					["set_bind_group"	,0,"cambind"	],
+					["draw_indirect"	,"cam ani indr",0]
+				]
+			},
+			
+			
+			
+			
+			
+			{
+				"descriptor":{
+					"label": "our basic canvas renderPass",
+					"colorAttachments": [
+						{"clearValue": [0.3,0.7,0.9,1],"loadOp": "clear","storeOp": "store","view":"(context)"}
+					],
+					"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+				},
+				"methods":[
 					["set_pipeline"	,"kotakpipe"	],
 					["set_vertex_buffer"	,0,"kotakv"	],
 					["set_vertex_buffer"	,1,"kotakinst"	],

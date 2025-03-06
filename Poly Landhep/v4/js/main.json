@@ -1,9 +1,9 @@
 [
 	[
 		{
-			"text": "'use strict'\n\nimport {\n\tvec3 as v3,\n\tmat4 as m4,\n} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'\n\n\n\nimport {\n\tlihat as lih,\n\tsleep,\n\ttyarr_b64,\n\tb64_tyarr,\n\tpisahstr,\n\t//getWordByIndex,\n} from './utilku.js'\n\n\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n\ttambahinfo,\n\t\n\tuiloop,\n} from './ui.js'\n\n\n\nimport {\n\tloadcam,\n\tfview,\n} from './camera.js'\n\n",
+			"text": "'use strict'\n\n/*\nimport {\n\tvec3 as v3,\n\tmat4 as m4,\n} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'\n*/\nlet v3 = wgpuMatrix.vec3\nlet m4 = wgpuMatrix.mat4\n\n\n\n\nimport {\n\tlihat as lih,\n\tsleep,\n\ttyarr_b64,\n\tb64_tyarr,\n\tpisahstr,\n\t//getWordByIndex,\n} from './utilku.js'\n\n\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n\ttambahinfo,\n\t\n\tuiloop,\n} from './ui.js'\n\n\n\nimport {\n\tloadcam,\n\tfview,\n} from './camera.js'\n\n",
 			"visible": true,
-			"time": "149514.02705189164",
+			"time": "211677.78165175207",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -28,7 +28,7 @@
 			]
 		},
 		{
-			"text": "\nlet context = cx3d\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n export let getsuara = ()=>suara\n\n\n\nlet resosrclink = new URL('resources.json',location.href,)\nlet resosrc = fetch(resosrclink)\n.then(r=>r.json())\n\nlet encosrclink = new URL('encoder.json',location.href,)\nlet encosrc = fetch(encosrclink)\n.then(r=>r.json())\n\nlet contsrclink = new URL('controller.json',location.href,)\nlet contsrc = fetch(contsrclink)\n.then(r=>r.json())\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice())\n\nlet reso = new Map()\nlet encoarr\nlet cont\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n",
+			"text": "\nlet context = cx3d\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\nexport let getsuara = ()=>suara\n\n\n\nlet urlparam = new URLSearchParams(location.search)\n\nlet resosrclink = new URL(urlparam.get('resource') ?? 'resources.json',location.href,) //\nlet resosrc = fetch(resosrclink)\n.then(r=>r.json())\n\nlet encosrclink = new URL(urlparam.get('encoder') ?? 'encoder.json',location.href,) //\nlet encosrc = fetch(encosrclink)\n.then(r=>r.json())\n\nlet contsrclink = new URL(urlparam.get('controller') ?? 'controller.json',location.href,) //\nlet contsrc = fetch(contsrclink)\n.then(r=>r.json())\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice())\n\nlet reso = new Map()\nlet encoarr\nlet cont\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -75,7 +75,7 @@
 			]
 		},
 		{
-			"text": "\nlet misc = new ArrayBuffer((\n\t+16 //camera view\n\t+1 //time now\n\t+1 //seek\n\t+2 // (pad)\n)*4)\nlet view = new Float32Array(misc,( 0 )*4,16,)\nlet now = new Uint32Array(misc,( 0+16 )*4,1,)\nlet seek = new Float32Array(misc,( 0+16+1 )*4,1)\nfview(camera_view=>{\n\tm4.copy(camera_view,view,)\n})\nlet miscbuf\n",
+			"text": "\nlet misc = new ArrayBuffer((\n\t+16 //perspective\n\t+16 //camera pivot\n\t+16 //camera\n\t+16 //camera inverse\n\t+16 //camera view\n\t+1 //time now\n\t+1 //seek\n\t+2 // (pad)\n)*4)\nlet miof = 0 //misc offset\nlet fmiof = off=>{ //offset\n\tlet cur = miof\n\tmiof += off\n\treturn cur\n}\n\nlet persp = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet pivot = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet cam = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet invcam = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet view = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet now = new Uint32Array(misc,( fmiof(1) )*4,1,)\nlet seek = new Float32Array(misc,( fmiof(1) )*4,1)\nexport let freecam = new Uint32Array(misc,( fmiof(1) )*4,1)\nfview((\n\t_persp,\n\t_pivot,\n\t_cam,\n\t_invcam,\n\t_view,\n)=>{\n\tm4.copy(_persp,persp,)\n\tm4.copy(_pivot,pivot,)\n\tm4.copy(_cam,cam,)\n\tm4.copy(_invcam,invcam,)\n\tm4.copy(_view,view,)\n})\nlet miscbuf\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -184,7 +184,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'audio_buffer',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n\t//sampe sini, audio_buffer\n\tconst response = await fetch(data);\n\tconst arrayBuffer = await response.arrayBuffer();\n\tlet aubuf = await aucx.decodeAudioData(arrayBuffer);\n\t\n\treturn aubuf\n},)\n",
+			"text": "\ncreate_gpu_object.set(\n'audio_buffer',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n\t//sampe sini, audio_buffer\n\tconst response = await fetch(new URL(data,resosrclink,));\n\tconst arrayBuffer = await response.arrayBuffer();\n\tlet aubuf = await aucx.decodeAudioData(arrayBuffer);\n\t\n\treturn aubuf\n},)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -199,7 +199,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_render_pipe',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n//fragment module\n\tdescr.fragment.module =\n\tawait reso\n\t.get(descr.fragment.module)\n\t\n//vertex module\n\tdescr.vertex.module =\n\tawait reso\n\t.get(descr.vertex.module)\n\t\n//format\n\tfor(let target of descr.fragment.targets){\n\t\tif(pf.has(target.format)){\n\t\t\ttarget.format = pf.get(target.format)\n\t\t}\n\t}\n\t\n//buffer\n\tdescr.vertex.buffers = await Promise.all(\n\t\tdescr.vertex.buffers\n\t\t.map(link=>\n\t\t\tfetch(link)\n\t\t\t.then(res=>res.json())\n\t\t)\n\t)\n\t\n\t\n\treturn await dv.createRenderPipelineAsync(descr)\n},)\n\n\n\nlet pf = new Map() //pipe format\npf.set(\n\t'(preferred_canvas_format)',\n\tnavigator.gpu.getPreferredCanvasFormat(),\n)\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_render_pipe',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n//fragment module\n\tdescr.fragment.module =\n\tawait reso\n\t.get(descr.fragment.module)\n\t\n//vertex module\n\tdescr.vertex.module =\n\tawait reso\n\t.get(descr.vertex.module)\n\t\n//format\n\tfor(let target of descr.fragment.targets){\n\t\tif(pf.has(target.format)){\n\t\t\ttarget.format = pf.get(target.format)\n\t\t}\n\t}\n\t\n//buffer\n\tdescr.vertex.buffers = await Promise.all(\n\t\tdescr.vertex.buffers\n\t\t.map(link=>\n\t\t\tfetch(new URL(link,resosrclink,))\n\t\t\t.then(res=>res.json())\n\t\t)\n\t)\n\t\n\t\n\treturn await dv.createRenderPipelineAsync(descr)\n},)\n\n\n\nlet pf = new Map() //pipe format\npf.set(\n\t'(preferred_canvas_format)',\n\tnavigator.gpu.getPreferredCanvasFormat(),\n)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -229,7 +229,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_buffer_binding',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n\tif(bbf.has(descr.buffer)){\n\t\tdescr.buffer = bbf.get(descr.buffer)\n\t}\n\t\n\treturn descr\n},)\n\n\n\nlet bbf //buffer binding format\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_buffer_binding',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n})=>{\n\tawait lih(type)\n\tawait lih(type)\n\t\n\t\n\tdescr.buffer = \n\tbbf.has(descr.buffer)\n\t?bbf.get(descr.buffer)\n\t:await reso.get(descr.buffer)\n\t\n\treturn descr\n},)\n\n\n\nlet bbf //buffer binding format\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -364,13 +364,43 @@
 					"frame": "0"
 				}
 			]
+		},
+		{
+			"text": "\nmepa.set(\n'draw',\nasync met=>{\n\treturn {\n\t\t'method':'draw',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'draw_indirect',\nasync met=>{\n\tmet[0] = await reso.get(met[0])\n\treturn {\n\t\t'method':'drawIndirect',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
 		}
 	],
 	[
 		{
 			"text": "\nexport let main = async ()=>{\n",
 			"visible": true,
-			"time": "1131933.8467652015",
+			"time": "1605722.4629089755",
 			"speed": "7.621621621621619",
 			"running": true,
 			"color": [
@@ -538,7 +568,7 @@
 		{
 			"text": "\n}\n",
 			"visible": true,
-			"time": "149333.86240053803",
+			"time": "211497.61700039846",
 			"speed": "1",
 			"running": true,
 			"color": [
