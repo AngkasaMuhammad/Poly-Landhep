@@ -1,0 +1,10 @@
+
+//vector vec3f( vector a ){ return a; };
+
+vector sel(
+	vector f,
+	vector t,
+	int cond
+){
+	return f;
+}

@@ -1,0 +1,235 @@
+[
+	[
+		{
+			"text": "[\n\t{\n\t\t\"descriptor\":{ \"label\":\"this is encoderrrrr\" },\n\t\t\"renderpasses\":[\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "{\n\t\"descriptor\":{\n\t\t\"label\": \"camera renderPass\",\n\t\t\"colorAttachments\": [\n\t\t\t{\"clearValue\": [0.3,0.7,0.9,1],\"loadOp\": \"clear\",\"storeOp\": \"store\",\"view\":\"(context)\"}\n\t\t],\n\t\t\"depthStencilAttachment\": {\"depthClearValue\": 0,\"depthLoadOp\": \"clear\",\"depthStoreOp\": \"store\",\"view\":\"deptexview\"}\n\t},\n\t\"methods\":[\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"campipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"cam ani\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"cam ani\",68\t],\n\t[\"set_bind_group\"\t,0,\"cambind\"\t],\n\t[\"draw_indirect\"\t,\"cam ani indr\",0]\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "222",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t]\n},\n\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n{\n\t\"descriptor\":{\n\t\t\"label\": \"mesh renderPass\",\n\t\t\"colorAttachments\": [\n\t\t\t{\"clearValue\": [0.3,0.7,0.9,1],\"loadOp\": \"clear\",\"storeOp\": \"store\",\"view\":\"(context)\"}\n\t\t],\n\t\t\"depthStencilAttachment\": {\"depthClearValue\": 0,\"depthLoadOp\": \"clear\",\"depthStoreOp\": \"store\",\"view\":\"deptexview\"}\n\t},\n\t\"methods\":[\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"pompapipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"pompav\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"pompainst\"\t],\n\t[\"set_index_buffer\"\t,\"pompai\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"pompabind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"pompaindr\",0\t],\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"pipapipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"pipav\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"pipainst\"\t],\n\t[\"set_index_buffer\"\t,\"pipai\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"pipabind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"pipaindr\",0\t],\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"impellerpipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"impellerv\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"impellerinst\"\t],\n\t[\"set_index_buffer\"\t,\"impelleri\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"impellerbind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"impellerindr\",0\t],\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "222",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"bataspipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"batasv\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"batasinst\"\t],\n\t[\"set_index_buffer\"\t,\"batasi\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"batasbind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"batasindr\",0\t],\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"kleppipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"klepv\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"klepinst\"\t],\n\t[\"set_index_buffer\"\t,\"klepi\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"klepbind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"klepindr\",0\t],\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t[\"set_pipeline\"\t,\"tutup pompapipe\"\t],\n\t[\"set_vertex_buffer\"\t,0,\"tutup pompav\"\t],\n\t[\"set_vertex_buffer\"\t,1,\"tutup pompainst\"\t],\n\t[\"set_index_buffer\"\t,\"tutup pompai\",\"uint16\"\t],\n\t[\"set_bind_group\"\t,0,\"tutup pompabind\"\t],\n\t[\"draw_indexed_indirect\"\t,\"tutup pompaindr\",0\t]\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t]\n}\n\t\t\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n\t\t\t\n\t\t]\n\t}\n]\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

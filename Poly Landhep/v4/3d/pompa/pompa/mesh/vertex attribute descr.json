@@ -1,0 +1,24 @@
+{
+	"arrayStride": 24,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "nor",
+			"shaderLocation": 0,
+			"format": "unorm8x4",
+			"offset": 0
+		},
+		{
+			"_name": "pos",
+			"shaderLocation": 1,
+			"format": "float32x3",
+			"offset": 4
+		},
+		{
+			"_name": "tex",
+			"shaderLocation": 2,
+			"format": "float32x2",
+			"offset": 16
+		}
+	]
+}

@@ -1,0 +1,13 @@
+[
+	{	"duration": 7.4	,"loop": false	,"offset": 0	,"src": "suara wggg"	,"volume": 1	,"when": 1	},
+	{	"duration": 4.2	,"loop": false	,"offset": 0	,"src": "suara wggg1"	,"volume": 1	,"when": 2	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara wggg2"	,"volume": 0.5	,"when": 3.5	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara wggg3"	,"volume": 0.3	,"when": 2.7	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara wggg5"	,"volume": 0.5	,"when": 3.7	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara penjelasan pompa"	,"volume": 1	,"when": 5.9	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara maturnuwun"	,"volume": 1	,"when": 61.4	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara tak"	,"volume": 0.4	,"when": 4.6	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara tak"	,"volume": 0.4	,"when": 4.8	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar"	,"volume": 1.3	,"when": 5.2	},
+	{	"duration": null	,"loop": true	,"offset": 0	,"src": "suara air"	,"volume": 0.3	,"when": 0	}
+]

@@ -1,0 +1,82 @@
+[
+	{
+		"descriptor":{ "label":"this is encoderrrrr" },
+		"renderpasses":[
+{
+	"descriptor":{
+		"label": "camera renderPass",
+		"colorAttachments": [
+			{"clearValue": [0.3,0.7,0.9,1],"loadOp": "clear","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+
+	["set_pipeline"	,"campipe"	],
+	["set_vertex_buffer"	,0,"cam ani"	],
+	["set_vertex_buffer"	,1,"cam ani",68	],
+	["set_bind_group"	,0,"cambind"	],
+	["draw_indirect"	,"cam ani indr",0]
+
+	]
+},
+	
+{
+	"descriptor":{
+		"label": "mesh renderPass",
+		"colorAttachments": [
+			{"clearValue": [0.3,0.7,0.9,1],"loadOp": "clear","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+
+	["set_pipeline"	,"pompapipe"	],
+	["set_vertex_buffer"	,0,"pompav"	],
+	["set_vertex_buffer"	,1,"pompainst"	],
+	["set_index_buffer"	,"pompai","uint16"	],
+	["set_bind_group"	,0,"pompabind"	],
+	["draw_indexed_indirect"	,"pompaindr",0	],
+
+	["set_pipeline"	,"pipapipe"	],
+	["set_vertex_buffer"	,0,"pipav"	],
+	["set_vertex_buffer"	,1,"pipainst"	],
+	["set_index_buffer"	,"pipai","uint16"	],
+	["set_bind_group"	,0,"pipabind"	],
+	["draw_indexed_indirect"	,"pipaindr",0	],
+
+	["set_pipeline"	,"impellerpipe"	],
+	["set_vertex_buffer"	,0,"impellerv"	],
+	["set_vertex_buffer"	,1,"impellerinst"	],
+	["set_index_buffer"	,"impelleri","uint16"	],
+	["set_bind_group"	,0,"impellerbind"	],
+	["draw_indexed_indirect"	,"impellerindr",0	],
+
+	["set_pipeline"	,"bataspipe"	],
+	["set_vertex_buffer"	,0,"batasv"	],
+	["set_vertex_buffer"	,1,"batasinst"	],
+	["set_index_buffer"	,"batasi","uint16"	],
+	["set_bind_group"	,0,"batasbind"	],
+	["draw_indexed_indirect"	,"batasindr",0	],
+
+	["set_pipeline"	,"kleppipe"	],
+	["set_vertex_buffer"	,0,"klepv"	],
+	["set_vertex_buffer"	,1,"klepinst"	],
+	["set_index_buffer"	,"klepi","uint16"	],
+	["set_bind_group"	,0,"klepbind"	],
+	["draw_indexed_indirect"	,"klepindr",0	],
+
+	["set_pipeline"	,"tutup pompapipe"	],
+	["set_vertex_buffer"	,0,"tutup pompav"	],
+	["set_vertex_buffer"	,1,"tutup pompainst"	],
+	["set_index_buffer"	,"tutup pompai","uint16"	],
+	["set_bind_group"	,0,"tutup pompabind"	],
+	["draw_indexed_indirect"	,"tutup pompaindr",0	]
+
+	]
+}
+			
+			
+		]
+	}
+]

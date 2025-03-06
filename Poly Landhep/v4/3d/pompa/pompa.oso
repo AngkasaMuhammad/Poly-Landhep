@@ -1,0 +1,68 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.7.0
+# options: -o C:\Users\ANky\AppData\Local\Temp\tmpb18xjwie.oso -ID:\Aku\blender-4.3.0-windows-x64\4.3\scripts\addons_core\cycles\shader
+shader basic_shader
+param	vector	p	0 0 0		%read{2,8} %write{2147483647,-1}
+oparam	vector	o	0 0 0		%read{2147483647,-1} %write{6,14} %initexpr
+const	string	$const1	"fwarna0"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"c1"		%read{1,1} %write{2147483647,-1}
+const	float	$const3	2.5		%read{3,3} %write{2147483647,-1}
+const	int	$const4	2		%read{2,8} %write{2147483647,-1}
+temp	float	$tmp1	%read{3,3} %write{2,2}
+temp	int	$tmp2	%read{4,4} %write{3,3}
+const	string	$const5	"kuning"		%read{5,5} %write{2147483647,-1}
+const	vector	$const6	0.5 0.5 0		%read{6,6} %write{2147483647,-1}
+const	string	$const7	"c0"		%read{7,7} %write{2147483647,-1}
+temp	float	$tmp3	%read{9,9} %write{8,8}
+const	float	$const8	-2		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp4	%read{10,10} %write{9,9}
+const	string	$const9	"hitam"		%read{11,11} %write{2147483647,-1}
+const	float	$const10	0		%read{12,12} %write{2147483647,-1}
+const	string	$const11	"biru"		%read{13,13} %write{2147483647,-1}
+const	vector	$const12	0 0 0.200000003		%read{14,14} %write{2147483647,-1}
+code o
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:35
+# ){}
+	functioncall	$const1 17 	%filename{"D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl"} %line{35} %argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:26
+# }
+	functioncall	$const2 17 	%line{26} %argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:20
+# 	?kuning()
+	compref		$tmp1 p $const4 	%line{20} %argrw{"wrr"}
+	lt		$tmp2 $const3 $tmp1 	%argrw{"wrr"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:21
+# 	:c0(p)
+	if		$tmp2 7 16 	%line{21} %argrw{"r"}
+	functioncall	$const5 7 	%argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:6
+# 
+	assign		o $const6 	%line{6} %argrw{"wr"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:22
+# 	;
+	functioncall	$const7 16 	%line{22} %argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:14
+# 	?hitam()
+	compref		$tmp3 p $const4 	%line{14} %argrw{"wrr"}
+	lt		$tmp4 $tmp3 $const8 	%argrw{"wrr"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:15
+# 	:biru()
+	if		$tmp4 13 15 	%line{15} %argrw{"r"}
+	functioncall	$const9 13 	%argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:5
+# vector kuning(){ return vector(.5,.5,.0); }
+	assign		o $const10 	%line{5} %argrw{"wr"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:16
+# 	;
+	functioncall	$const11 15 	%line{16} %argrw{"r"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:4
+# vector hitam(){ return .0; }
+	assign		o $const12 	%line{4} %argrw{"wr"}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:17
+# }
+	return	%line{17}
+# D:\\Aku\\Firebase\\cobaaapublic\\cobafolder\\WebGPU\\Poly Landhep\\v4\\3d\\pompa\\pompa.osl:23
+# }
+	return	%line{23}
+code ___main___
+	end

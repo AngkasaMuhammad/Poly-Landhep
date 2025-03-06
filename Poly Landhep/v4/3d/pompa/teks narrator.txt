@@ -1,0 +1,29 @@
+Kembali bersama WowGGGearing
+
+Bismillah, salam....
+
+Di web ini aku mau bahas "cara kerja pompa hisap non otomatis"
+
+ada impeller
+ada lubang pemancing
+dan ada klep
+
+Impeller hanya mampu menghisap jika terendam air
+jadi air dimasukkan secara manual lewat lubang pemancing
+maka pompa mampu menghisap air sumur ke atas
+
+Saat pompa dimatikan, klep terdorong oleh air dari atas lalu menutup
+	tapi tidak rapat
+Klep jenis ini tidak bisa menutup rapat karena
+	tidak ada per .
+Jadi dibutuhkan yang namanya foot klep, dipasang di ujung pipa paling bawah
+	dan air tidak akan mundur
+
+
+
+
+
+Sekian penjelasan singkat,
+kita tidak cuma....
+
+salam....

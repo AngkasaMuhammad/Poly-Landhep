@@ -1,0 +1,35 @@
+//#include "libku.osl"
+
+vector biru(){ return vector(.0,.0,.2); }
+vector hitam(){ return .0; }
+vector kuning(){ return vector(.5,.5,.0); }
+
+
+
+
+
+
+vector c0(vector p){
+	return (p.z < -2.)
+	?hitam()
+	:biru()
+	;
+}
+vector c1(vector p){
+	return (2.5 < p.z)
+	?kuning()
+	:c0(p)
+	;
+}
+vector fwarna0(vector p){
+	return c1(p);
+}
+
+
+
+
+
+shader basic_shader(
+	vector p = .0,
+	output vector o = fwarna0(p)
+){}

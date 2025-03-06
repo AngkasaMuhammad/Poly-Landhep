@@ -1,0 +1,42 @@
+{
+	"wgsl pompa _atas": {
+		"x": 6,
+		"y": -150,
+		"width": 429,
+		"height": 337,
+		"zindex": 352,
+		"data": "/*\nvar<private> biru = vec3f(.0,.0,.4);\nvar<private> biru1 = vec3f(.0,.0,.3);\nvar<private> hitam = vec3f(.0);\nvar<private> kuning = vec3f(.5,.5,.0);\n*/\n\nfn biru()->vec3f{ return vec3f(.0,.0,.4); }\nfn biru1()->vec3f{ return vec3f(.0,.0,.3); }\nfn hitam()->vec3f{ return vec3f(.0); }\nfn kuning()->vec3f{ return vec3f(.5,.5,.0); }\n\nfn fwarna0(\n\ttex:vec2f,\n)->vec3f{\n\tif(.9 < tex.y){\n\t\treturn kuning();\n\t}else\n\t\tif(tex.y < .1){\n\t\t\treturn hitam();\n\t\t}else\n\t\t\tif(tex.x < .8){\n\t\t\t\treturn biru();\n\t\t\t}else{\n\t\t\t\treturn biru1();\n\t\t\t}\n}\n\n\n\nfn anipos(\n\tp:vec3f,\n\tseek:f32,\n)->vec3f{\n\t"
+	},
+	"wgsl pompa _bawah": {
+		"x": 12,
+		"y": 213,
+		"width": 451,
+		"height": 268,
+		"zindex": 523,
+		"data": "{\n\treturn p;\n}\n}\n\n\n\nstruct stmisc{\n\tpersp:mat4x4f,\n\tpivot:mat4x4f,\n\tcam:mat4x4f,\n\tinvcam:mat4x4f,\n\tview:mat4x4f, // = persp*invcam\n\tnow:u32,\n\tseek:f32,\n\tfreecam:u32,\n\t//+1 pads\n}\n@group(0) @binding(0) var<uniform> misc:stmisc;\n@group(0) @binding(1) var<storage> anicam:mat4x4f;\n\n\n\n@vertex fn vvvv(\n\t@location(0) nor:vec4f,\n\t@location(1) pos:vec3f,\n\t@location(2) tex:vec2f,\n)-> vout{\n\tlet p = vec4f(anipos(pos,misc.seek,),1.,);\n\tvar cam:mat4x4f;\n\tif(bool(misc.freecam)){\n\t\tcam = misc.view;\n\t}else{\n\t\tcam = misc.persp*anicam;\n\t}\n\treturn vout(\n\t\tcam*p,\n\t\tp,\n\t\tnor,\n\t\ttex,\n\t);\n}\n\n\nstruct vout{\n\t@builtin(position) posout:vec4f,\n\t@location(0) pos:vec4f,\n\t@location(1) nor:vec4f,\n\t@location(2) tex:vec2f,\n}\n\n\n@fragment fn fff(\n\to:vout,\n)-> @location(0) vec4f{\n\tlet p = o.pos;\n\t\n\tlet warna0 = fwarna0(o.tex.xy);//fwarna0(p.xyz);\n\t\n\tlet arah = vec3f(.2,.3,.2,);\n\tlet wb = vec4f(.1,.1,.1,.6,); //warna belakang\n\tlet wd = vec4f(.9,.9,.9,.1,); //warna depan\n\tlet berat = dot(\n\t\to.nor.xyz,\n\t\tnormalize(arah),\n\t);\n\tlet wbaru = select(wb,wd,.5 < berat,); //warna baru\n\t\n\treturn vec4f(\n\t\tmix(warna0,wbaru.xyz,wbaru.w,),\n\t\t1.,\n\t);\n}\n"
+	},
+	"gerak0": {
+		"x": -68,
+		"y": 634,
+		"width": 429,
+		"height": 297,
+		"zindex": 458,
+		"data": "\nif(\n  5.1 < seek &&\n  seek < 6.4\n){\n\t\n\treturn vec3f(\n\t\tp.x+(sin(seek*(99.77+p.x+p.y))*2.-1.),\n\t\tp.y+(sin(seek*(111.77+p.y+p.z))*2.-1.),\n\t\tp.z+(sin(seek*(136.77+p.z+p.x))*2.-1.),\n\t);\n}else\n"
+	},
+	"gerak1": {
+		"x": 383,
+		"y": 647,
+		"width": 380,
+		"height": 363,
+		"zindex": 464,
+		"data": "\nif(\n  6.7 < seek &&\n  seek < 9.\n){\n\tlet seek1 = seek*22.;\n\tlet s = sin(seek1);\n\tlet c = cos(seek1);\n\tlet y = sin(seek*7.)*3.;\n\tlet pv4 = mat4x4f(\n\t\tc,0.0,-s,0.0,\n\t\t0.0,1.0,0.0,0.0,\n\t\ts,0.0,c,0.0,\n\t\t0.0,y,0.0,1.0,\n\t) *vec4f(p,1.,);\n\treturn pv4.xyz;\n}else\n"
+	},
+	"gerak2": {
+		"x": 806,
+		"y": 646,
+		"width": 372,
+		"height": 365,
+		"zindex": 494,
+		"data": "\nif(\n  18. < seek &&\n  seek < 60.\n){\n\treturn vec3f(.0);\n}else\n"
+	}
+}
