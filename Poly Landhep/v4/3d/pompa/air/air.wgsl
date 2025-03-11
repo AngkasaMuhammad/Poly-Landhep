@@ -1,6 +1,9 @@
 
 
 
+
+
+
 fn anipos(
 	p:vec3f,
 	seek:f32,
@@ -25,6 +28,72 @@ if(
 
 
 
+fn anialpha(
+	o:vout,
+)->f32{
+	let p = o.pos;
+	let at = o.at;
+	let seek = misc.seek;
+return select(.0,.99,
+
+
+
+//pipa
+(p.z < 2.1 &&(
+	//naik
+	(32. < seek && seek < 38. &&
+		at < seek-33.
+	) ||
+	
+	//turun
+	(38. < seek && seek < 60. &&
+		at < 38.-33.-(seek-38.)*.2
+	) ||
+	
+	//stop
+	(57. < seek &&
+		at < 1.2
+	) ||
+	
+bool(0))) ||
+
+
+
+//pancing
+(2.1 < p.z && p.z < 2.3 &&(
+	//masuk
+	(
+		3.-(seek-30.)*3. < p.y &&
+		p.y < 3.-(seek-31.)*3.
+	) ||
+	
+bool(0))) ||
+
+
+
+//tampung
+(2.3 < p.z &&(
+	//naik
+	(seek < 48. &&
+		p.y < -.4+(seek-31.3)*1.4
+	) ||
+	
+	//turun
+	(48. < seek &&
+		p.y < 1.-(seek-48.)*.5
+	) ||
+	
+bool(0))) ||
+
+
+
+bool(0));
+}
+
+
+
+
+
 struct stmisc{
 	persp:mat4x4f,
 	pivot:mat4x4f,
@@ -42,8 +111,9 @@ struct stmisc{
 
 
 @vertex fn vvvv(
-	@location(0) nor:vec4f,
-	@location(1) pos:vec3f,
+	@location(0) at:f32, //air time
+	@location(1) nor:vec4f,
+	@location(2) pos:vec3f,
 )-> vout{
 	let p = vec4f(anipos(pos,misc.seek,),1.,);
 	var cam:mat4x4f;
@@ -56,6 +126,7 @@ struct stmisc{
 		cam*p,
 		p,
 		nor,
+		at,
 	);
 }
 
@@ -64,6 +135,7 @@ struct vout{
 	@builtin(position) posout:vec4f,
 	@location(0) pos:vec4f,
 	@location(1) nor:vec4f,
+	@location(2) at:f32,
 }
 
 
@@ -71,13 +143,8 @@ struct vout{
 	o:vout,
 )-> @location(0) vec4f{
 	let seek = misc.seek;
-	let cout = select(
-		vec3f(.5,.5,.5,),
-		vec3f(.9,.0,.0,),
-		o.pos.y < -10.01,
-	)
-	;
-	
+	let cout = vec3f(.0,.0,.9,);
+	/*
 	let arah = vec3f(.2,.3,.2,);
 	let wb = vec4f(.2,.2,.2,.8,); //warna belakang
 	let wd = vec4f(.9,.9,.9,.3,); //warna depan
@@ -86,19 +153,9 @@ struct vout{
 		normalize(arah),
 	);
 	let wbaru = select(wb,wd,.5 < berat,); //warna baru
-	
+	*/
 	return vec4f(
-		mix(cout,wbaru.xyz,wbaru.w,),
-		select(1.,.2,
-			(
-				-10.01 < o.pos.y &&
-				18. < seek &&
-				seek < 60.
-			) ||
-			(
-				o.pos.y < -10.01 &&
-				seek < 54.
-			)
-		,),
+		cout,//mix(cout,wbaru.xyz,wbaru.w,),
+		anialpha(o),
 	);
 }

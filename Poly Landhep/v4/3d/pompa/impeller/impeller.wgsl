@@ -16,6 +16,17 @@ if(
 		p.z+(sin(seek*(136.77+p.z+p.x))*2.-1.),
 	);
 }else
+if(
+  24. < seek &&
+  seek < 38.
+){
+	let s = .03;
+	return vec3f(
+		p.x+(sin(seek*(99.77+p.x+p.y))*s),
+		p.y+(sin(seek*(111.77+p.y+p.z))*s),
+		p.z+(sin(seek*(136.77+p.z+p.x))*s),
+	);
+}else
 {
 	return p;
 }
@@ -41,6 +52,7 @@ struct stmisc{
 }
 @group(0) @binding(0) var<uniform> misc:stmisc;
 @group(0) @binding(1) var<storage> anicam:mat4x4f;
+@group(0) @binding(2) var<storage> aniobj:mat4x4f;
 
 
 
@@ -56,7 +68,7 @@ struct stmisc{
 		cam = misc.persp*anicam;
 	}
 	return vout(
-		cam*p,
+		cam*aniobj*p,
 		p,
 		nor,
 	);

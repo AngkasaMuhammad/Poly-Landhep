@@ -38,6 +38,7 @@ struct stmisc{
 }
 @group(0) @binding(0) var<uniform> misc:stmisc;
 @group(0) @binding(1) var<storage> anicam:mat4x4f;
+@group(0) @binding(2) var<storage> aniobj:mat4x4f;
 
 
 
@@ -53,7 +54,7 @@ struct stmisc{
 		cam = misc.persp*anicam;
 	}
 	return vout(
-		cam*p,
+		cam*aniobj*p,
 		p,
 		nor,
 	);
@@ -70,10 +71,10 @@ struct vout{
 @fragment fn fff(
 	o:vout,
 )-> @location(0) vec4f{
-	let cout = vec3f(.2,);
+	let cout = vec3f(.0,);
 	
 	let arah = vec3f(.2,.3,.2,);
-	let wb = vec4f(.2,.2,.2,.8,); //warna belakang
+	let wb = vec4f(.1,.1,.1,.8,); //warna belakang
 	let wd = vec4f(.9,.9,.9,.3,); //warna depan
 	let berat = dot(
 		o.nor.xyz,

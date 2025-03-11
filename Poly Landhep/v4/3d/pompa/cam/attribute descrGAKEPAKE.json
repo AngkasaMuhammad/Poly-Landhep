@@ -1,0 +1,36 @@
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 0,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 1,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 2,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 3,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 4,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+}

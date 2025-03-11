@@ -68,6 +68,29 @@ if(
 ){
 	return vec3f(.0);
 }else
+
+if(
+  72. < seek
+){
+	 
+	let seek1 = seek*1.;
+	let s = sin(seek1);
+	let c = cos(seek1);
+	let y = sin(seek*3.)*.4;
+	let pv4 = mat4x4f(
+		c,0.0,-s,0.0,
+		0.0,1.0,0.0,0.0,
+		s,0.0,c,0.0,
+		0.0,y,0.0,1.0,
+	) *vec4f(p,1.,);
+	
+	return pv4.xyz
+	+vec3f(
+		sin(seek*(99.77+p.x+p.y))*.1,
+		sin(seek*(111.77+p.y+p.z))*.1,
+		sin(seek*(136.77+p.z+p.x))*.1,
+	);
+}else
 {
 	return p;
 }
