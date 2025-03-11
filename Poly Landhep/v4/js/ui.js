@@ -53,7 +53,7 @@ let pause = e=>getsuara().pause()
 let seekdown = e=>e.currentTarget.requestPointerLock({unadjustedMovement: true,})
 let seekmove = e=>{
 	if(document.pointerLockElement !== e.currentTarget){ return }
-	getsuara().setCurTime(Math.max(0,getsuara().getCurTime()+ +e.movementX/44),)
+	getsuara().setCurTime(Math.max(0,getsuara().getCurTime()+ +e.movementX/44*getsuara().speed),)
 }
 let seekup = e=>document.exitPointerLock()
 //let speed = e=>getsuara().setspeed(+e.currentTarget.value)

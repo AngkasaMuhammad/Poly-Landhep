@@ -41,6 +41,20 @@ import {
 } from './camera.js'
 
 
+let valtype = val=>{
+    if (val === null) {
+        return 'null'; // Special case: typeof null is "object", so handle it explicitly.
+    }
+    if (Array.isArray(val)) {
+        return 'array'; // Arrays are technically objects, but we want to distinguish them.
+    }
+    const type = typeof val;
+    if (type === 'object') {
+        return 'object'; // Handle plain objects.
+    }
+    return type; // Return the type for primitives like 'number', 'string', 'boolean', etc.
+}
+
 let context = cx3d
 let presentationFormat = navigator.gpu.getPreferredCanvasFormat()
 
@@ -236,21 +250,34 @@ let create_gpu_object = new Map()
 create_gpu_object.set(
 'gpu_buffer',async ({
 	type,
-	descriptor:descr,
-	data,
+	descriptor:descr, //d_
+	data, //da_
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
+	//let d_obj
+	let d_key = (valtype(descr) === 'string') && (reso.get(descr) !== undefined)
+	let d_link = (valtype(descr) === 'string') && (reso.get(descr) === undefined)
+	//let da_null
+	let da_link = data !== null
+	
+	d_key && (descr = await reso.get(descr))
+	d_link && (descr = fetch(new URL(descr,resosrclink,)))
+	d_link && (descr = (await descr).json())
+	da_link && (data = fetch(new URL(data,resosrclink,)))
+	da_link && (data = (await data).arrayBuffer())
+	
+/*========
 	descr = fetch(new URL(descr,resosrclink,))
-	data = fetch(new URL(data,resosrclink,))
+	data = (data === null)?null:fetch(new URL(data,resosrclink,))
 	
 	descr = (await descr).json()
-	data = (await data).arrayBuffer()
+	data = (await data)?.arrayBuffer?.()??null
+---------*/
 	
 	let buf = dv.createBuffer(await descr)
-	
-	dv.queue.writeBuffer(buf,0,await data,)
+	da_link && dv.queue.writeBuffer(buf,0,await data,)
 	return buf
 },)
 
@@ -260,8 +287,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	let ibm = null //image bitmap
 	if(data !== null){
@@ -308,8 +335,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	let view = (await reso.get(data)).createView(descr)
 	return view
@@ -329,8 +356,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	//sampe sini, audio_buffer
 	const response = await fetch(new URL(data,resosrclink,));
@@ -346,8 +373,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 //fragment module
 	descr.fragment.module =
@@ -369,9 +396,13 @@ create_gpu_object.set(
 //buffer
 	descr.vertex.buffers = await Promise.all(
 		descr.vertex.buffers
-		.map(link=>
-			fetch(new URL(link,resosrclink,))
+		.map(str=>
+			(valtype(str) === 'string')
+			?
+			fetch(new URL(str,resosrclink,))
 			.then(res=>res.json())
+			:
+			str
 		)
 	)
 	
@@ -393,8 +424,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	descr.code = fetch(new URL(descr.code,resosrclink,))
 	descr.code = (await descr.code).text()
@@ -408,8 +439,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	
 	descr.buffer = 
@@ -430,8 +461,8 @@ create_gpu_object.set(
 	descriptor:descr,
 	data,
 })=>{
-	await lih(type)
-	await lih(type)
+	await 0 //lih(type)
+	await 0 //lih(type)
 	
 	for(let entry of descr.entries){
 		entry.resource = await reso.get(entry.resource)
