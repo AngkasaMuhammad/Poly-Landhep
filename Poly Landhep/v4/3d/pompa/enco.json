@@ -11,13 +11,37 @@
 		"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
 	},
 	"methods":[
-
-	["set_pipeline"	,"campipe"	],
+	
+	["set_pipeline"	,"ANIpipe"	],
+	
+	
+	
 	["set_vertex_buffer"	,0,"cam ani"	],
 	["set_vertex_buffer"	,1,"cam ani",68	],
-	["set_bind_group"	,0,"cambind"	],
-	["draw_indirect"	,"cam ani indr",0]
-
+	["set_vertex_buffer"	,2,"cam ani",136	],
+	["set_bind_group"	,0,"cam anibind"	],
+	["draw_indirect"	,"cam ani indr",0],
+	
+	["set_vertex_buffer"	,0,"klep ani"	],
+	["set_vertex_buffer"	,1,"klep ani",68	],
+	["set_vertex_buffer"	,2,"klep ani",136	],
+	["set_bind_group"	,0,"klep anibind"	],
+	["draw_indirect"	,"klep ani indr",0],
+	
+	["set_vertex_buffer"	,0,"impeller ani"	],
+	["set_vertex_buffer"	,1,"impeller ani",68	],
+	["set_vertex_buffer"	,2,"impeller ani",136	],
+	["set_bind_group"	,0,"impeller anibind"	],
+	["draw_indirect"	,"impeller ani indr",0],
+	
+	["set_vertex_buffer"	,0,"tutup pompa ani"	],
+	["set_vertex_buffer"	,1,"tutup pompa ani",68	],
+	["set_vertex_buffer"	,2,"tutup pompa ani",136	],
+	["set_bind_group"	,0,"tutup pompa anibind"	],
+	["draw_indirect"	,"tutup pompa ani indr",0]
+	
+	
+	
 	]
 },
 	
@@ -37,13 +61,6 @@
 	["set_index_buffer"	,"pompai","uint16"	],
 	["set_bind_group"	,0,"pompabind"	],
 	["draw_indexed_indirect"	,"pompaindr",0	],
-
-	["set_pipeline"	,"pipapipe"	],
-	["set_vertex_buffer"	,0,"pipav"	],
-	["set_vertex_buffer"	,1,"pipainst"	],
-	["set_index_buffer"	,"pipai","uint16"	],
-	["set_bind_group"	,0,"pipabind"	],
-	["draw_indexed_indirect"	,"pipaindr",0	],
 
 	["set_pipeline"	,"impellerpipe"	],
 	["set_vertex_buffer"	,0,"impellerv"	],
@@ -71,7 +88,21 @@
 	["set_vertex_buffer"	,1,"tutup pompainst"	],
 	["set_index_buffer"	,"tutup pompai","uint16"	],
 	["set_bind_group"	,0,"tutup pompabind"	],
-	["draw_indexed_indirect"	,"tutup pompaindr",0	]
+	["draw_indexed_indirect"	,"tutup pompaindr",0	],
+
+	["set_pipeline"	,"airpipe"	],
+	["set_vertex_buffer"	,0,"airv"	],
+	["set_vertex_buffer"	,1,"airinst"	],
+	["set_index_buffer"	,"airi","uint16"	],
+	["set_bind_group"	,0,"airbind"	],
+	["draw_indexed_indirect"	,"airindr",0	],
+
+	["set_pipeline"	,"pipapipe"	],
+	["set_vertex_buffer"	,0,"pipav"	],
+	["set_vertex_buffer"	,1,"pipainst"	],
+	["set_index_buffer"	,"pipai","uint16"	],
+	["set_bind_group"	,0,"pipabind"	],
+	["draw_indexed_indirect"	,"pipaindr",0	]
 
 	]
 }

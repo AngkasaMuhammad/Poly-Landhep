@@ -1,9 +1,4 @@
 {"create":{
-
-
-
-
-
 		"deptex":{
 			"type":"gpu_texture",
 			"descriptor":{"label":"this is depth texture","size":"(canvas)","format":"depth24plus","usage": 16},
@@ -17,38 +12,94 @@
 		"miscreso":{
 			"type":"gpu_buffer_binding",
 			"descriptor":{ "buffer":"(misc)" }
-		},
+		}
+,
 		
-		
-		
-		
-		
-		
-		"camindr"	:{	"type":"gpu_buffer",	"descriptor":"cam/indirect descr.json"	,"data":"cam/indirect.bin"	},
-		"cam output"	:{	"type":"gpu_buffer",	"descriptor":"cam/cam output descr.json"	,"data":"cam/cam output.bin"	},
-		"cam ani"	:{	"type":"gpu_buffer",	"descriptor":"cam/animation/cam.json"	,"data":"cam/animation/cam.bin"	},
-		"cam ani indr"	:{	"type":"gpu_buffer",	"descriptor":"cam/animation/cam indirect.json"	,"data":"cam/animation/cam indirect.bin"	},
-		"cam reso":{
+		"cam output"	:{	"type":"gpu_buffer",	"descriptor":{"label": "cam sto","size": 64,"usage": 140}	,"data":null},
+		"cam ani"	:{	"type":"gpu_buffer",	"descriptor":"cam/animation/cam.json"	,"data":"cam/animation/cam.bin"	,"_keterangan":"per object"	},
+		"cam ani indr"	:{	"type":"gpu_buffer",	"descriptor":"cam/animation/cam indirect.json"	,"data":"cam/animation/cam indirect.bin"	,"_keterangan":"per object"	},
+		"cam anireso":{
 			"type":"gpu_buffer_binding",
 			"descriptor":{ "buffer":"cam output" }
 		},
-		"cammod":{
-			"type":"gpu_shader_module",
-			"descriptor":{"label":"this is a module","code":"cam/shader.wgsl"}
-		},
-		"cambind":{
+		"cam anibind":{
 			"type":"gpu_bind_group",
 			"descriptor":{
 				"entries": [
-					{ "binding":0, "resource":"cam reso" },
+					{ "binding":0, "resource":"cam anireso" },
 					{ "binding":1, "resource":"miscreso" }
 				],
-				"label": "bind group for objects",
-				"layout": {"layout": 0,"pipe": "campipe"}
+				"label": "ini bind cam",
+				"layout": {"layout": 0,"pipe": "ANIpipe"}
 			}
-		},
+		}
+,
 		
-		"campipe":{
+		"klep output"	:{	"type":"gpu_buffer",	"descriptor":{"label": "klep sto","size": 64,"usage": 140}	,"data":null},
+		"klep ani"	:{	"type":"gpu_buffer",	"descriptor":"klep/animation/klep.json"	,"data":"klep/animation/klep.bin"	,"_keterangan":"per object"	},
+		"klep ani indr"	:{	"type":"gpu_buffer",	"descriptor":"klep/animation/klep indirect.json"	,"data":"klep/animation/klep indirect.bin"	,"_keterangan":"per object"	},
+		"klep anireso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"klep output" }
+		},
+		"klep anibind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"klep anireso" },
+					{ "binding":1, "resource":"miscreso" }
+				],
+				"label": "ini bind klep",
+				"layout": {"layout": 0,"pipe": "ANIpipe"}
+			}
+		}
+,
+		
+		"impeller output"	:{	"type":"gpu_buffer",	"descriptor":{"label": "impeller sto","size": 64,"usage": 140}	,"data":null},
+		"impeller ani"	:{	"type":"gpu_buffer",	"descriptor":"impeller/animation/impeller.json"	,"data":"impeller/animation/impeller.bin"	,"_keterangan":"per object"	},
+		"impeller ani indr"	:{	"type":"gpu_buffer",	"descriptor":"impeller/animation/impeller indirect.json"	,"data":"impeller/animation/impeller indirect.bin"	,"_keterangan":"per object"	},
+		"impeller anireso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"impeller output" }
+		},
+		"impeller anibind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"impeller anireso" },
+					{ "binding":1, "resource":"miscreso" }
+				],
+				"label": "ini bind impeller",
+				"layout": {"layout": 0,"pipe": "ANIpipe"}
+			}
+		}
+,
+		
+		"tutup pompa output"	:{	"type":"gpu_buffer",	"descriptor":{"label": "tutup pompa sto","size": 64,"usage": 140}	,"data":null},
+		"tutup pompa ani"	:{	"type":"gpu_buffer",	"descriptor":"tutup pompa/animation/tutup pompa.json"	,"data":"tutup pompa/animation/tutup pompa.bin"	,"_keterangan":"per object"	},
+		"tutup pompa ani indr"	:{	"type":"gpu_buffer",	"descriptor":"tutup pompa/animation/tutup pompa indirect.json"	,"data":"tutup pompa/animation/tutup pompa indirect.bin"	,"_keterangan":"per object"	},
+		"tutup pompa anireso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"tutup pompa output" }
+		},
+		"tutup pompa anibind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"tutup pompa anireso" },
+					{ "binding":1, "resource":"miscreso" }
+				],
+				"label": "ini bind tutup pompa",
+				"layout": {"layout": 0,"pipe": "ANIpipe"}
+			}
+		}
+,
+		
+		"ANImod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module","code":"cam/shader.wgsl"}
+		},
+		"ANIpipe":{
 			"type":"gpu_render_pipe",
 			"descriptor":{
 				"depthStencil": {	"depthCompare": "always",	"depthWriteEnabled": true,	"format": "depth24plus"	},
@@ -62,69 +113,175 @@
 							}
 						}
 					],
-					"module": "cammod"
+					"module": "ANImod"
 				},
-				"label": "our pipeline",
+				"label": "our pipeline ANI",
 				"layout": "auto",
 				"primitive": {"cullMode": "none","topology": "point-list"},
 				"vertex": {
 					"buffers": [
-						"cam/attribute descr.json",
-						"cam/attribute descr nextvertex.json"
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 0,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 1,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 2,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 3,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 4,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+},
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 5,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 6,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 7,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 8,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 9,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+},
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 10,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 11,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 12,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 13,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 14,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+}
 					],
-					"module": "cammod"
+					"module": "ANImod"
 				}
 			}
 		},
-
-		"pompav"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/vertex descr.json"	,"data":"pompa/mesh/vertex.bin"	},
-		"pompai"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/index descr.json"	,"data":"pompa/mesh/index.bin"	},
-		"pompaindr"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/indirect descr.json"	,"data":"pompa/mesh/indirect.bin"	},
-		"pompainst"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/instance descr.json"	,"data":"pompa/mesh/instance.bin"	},
-		"pompamod":{
-			"type":"gpu_shader_module",
-			"descriptor":{"label":"this is a module","code":"pompa/pompa.wgsl"}
-		},
-		"pompapipe":{
-			"type":"gpu_render_pipe",
-			"descriptor":{
-				"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
-				"fragment": {
-					"targets": [
-						{
-							"format":"(preferred_canvas_format)",
-							"blend": {
-								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
-								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
-							}
+	"pompav"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/vertex descr.json"	,"data":"pompa/mesh/vertex.bin"	},
+	"pompai"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/index descr.json"	,"data":"pompa/mesh/index.bin"	},
+	"pompaindr"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/indirect descr.json"	,"data":"pompa/mesh/indirect.bin"	},
+	"pompainst"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/instance descr.json"	,"data":"pompa/mesh/instance.bin"	},
+	"pompamod":{
+		"type":"gpu_shader_module",
+		"descriptor":{"label":"this is a module","code":"pompa/pompa.wgsl"}
+	},
+	"pompapipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
 						}
-					],
-					"module": "pompamod"
-				},
-				"label": "this is pompa pipeline",
-				"layout": "auto",
-				"primitive": {"cullMode": "back","topology": "triangle-list"},
-				"vertex": {
-					"buffers": [
-						"pompa/mesh/vertex attribute descr.json",
-						"pompa/mesh/instance attribute descr.json"
-					],
-					"module": "pompamod"
-				}
-			}
-		},
-		"pompabind":{
-			"type":"gpu_bind_group",
-			"descriptor":{
-				"entries": [
-					{ "binding":0, "resource":"miscreso" },
-					{ "binding":1, "resource":"cam reso" }
+					}
 				],
-				"label": "bind group for objects",
-				"layout": {"layout": 0,"pipe": "pompapipe"}
+				"module": "pompamod"
+			},
+			"label": "this is pompa pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"pompa/mesh/vertex attribute descr.json",
+					"pompa/mesh/instance attribute descr.json"
+				],
+				"module": "pompamod"
 			}
-		},
-
+		}
+	},
+	"pompabind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"cam anireso" }
+				
+			],
+			"label": "bind group for objects pompa",
+			"layout": {"layout": 0,"pipe": "pompapipe"}
+		}
+	}
+,
 	"pipav"	:{ "type":"gpu_buffer"	,"descriptor":"pipa/mesh/vertex descr.json"	,"data":"pipa/mesh/vertex.bin"	},
 	"pipai"	:{ "type":"gpu_buffer"	,"descriptor":"pipa/mesh/index descr.json"	,"data":"pipa/mesh/index.bin"	},
 	"pipaindr"	:{ "type":"gpu_buffer"	,"descriptor":"pipa/mesh/indirect descr.json"	,"data":"pipa/mesh/indirect.bin"	},
@@ -166,13 +323,14 @@
 		"descriptor":{
 			"entries": [
 				{ "binding":0, "resource":"miscreso" },
-				{ "binding":1, "resource":"cam reso" }
+				{ "binding":1, "resource":"cam anireso" }
+				
 			],
-			"label": "bind group for objects",
+			"label": "bind group for objects pipa",
 			"layout": {"layout": 0,"pipe": "pipapipe"}
 		}
-	},
-
+	}
+,
 	"impellerv"	:{ "type":"gpu_buffer"	,"descriptor":"impeller/mesh/vertex descr.json"	,"data":"impeller/mesh/vertex.bin"	},
 	"impelleri"	:{ "type":"gpu_buffer"	,"descriptor":"impeller/mesh/index descr.json"	,"data":"impeller/mesh/index.bin"	},
 	"impellerindr"	:{ "type":"gpu_buffer"	,"descriptor":"impeller/mesh/indirect descr.json"	,"data":"impeller/mesh/indirect.bin"	},
@@ -214,13 +372,16 @@
 		"descriptor":{
 			"entries": [
 				{ "binding":0, "resource":"miscreso" },
-				{ "binding":1, "resource":"cam reso" }
+				{ "binding":1, "resource":"cam anireso" }
+				,
+
+{ "binding":2, "resource":"impeller anireso" }
 			],
-			"label": "bind group for objects",
+			"label": "bind group for objects impeller",
 			"layout": {"layout": 0,"pipe": "impellerpipe"}
 		}
-	},
-
+	}
+,
 	"batasv"	:{ "type":"gpu_buffer"	,"descriptor":"batas/mesh/vertex descr.json"	,"data":"batas/mesh/vertex.bin"	},
 	"batasi"	:{ "type":"gpu_buffer"	,"descriptor":"batas/mesh/index descr.json"	,"data":"batas/mesh/index.bin"	},
 	"batasindr"	:{ "type":"gpu_buffer"	,"descriptor":"batas/mesh/indirect descr.json"	,"data":"batas/mesh/indirect.bin"	},
@@ -262,13 +423,14 @@
 		"descriptor":{
 			"entries": [
 				{ "binding":0, "resource":"miscreso" },
-				{ "binding":1, "resource":"cam reso" }
+				{ "binding":1, "resource":"cam anireso" }
+				
 			],
-			"label": "bind group for objects",
+			"label": "bind group for objects batas",
 			"layout": {"layout": 0,"pipe": "bataspipe"}
 		}
-	},
-
+	}
+,
 	"klepv"	:{ "type":"gpu_buffer"	,"descriptor":"klep/mesh/vertex descr.json"	,"data":"klep/mesh/vertex.bin"	},
 	"klepi"	:{ "type":"gpu_buffer"	,"descriptor":"klep/mesh/index descr.json"	,"data":"klep/mesh/index.bin"	},
 	"klepindr"	:{ "type":"gpu_buffer"	,"descriptor":"klep/mesh/indirect descr.json"	,"data":"klep/mesh/indirect.bin"	},
@@ -310,13 +472,16 @@
 		"descriptor":{
 			"entries": [
 				{ "binding":0, "resource":"miscreso" },
-				{ "binding":1, "resource":"cam reso" }
+				{ "binding":1, "resource":"cam anireso" }
+				,
+
+{ "binding":2, "resource":"klep anireso" }
 			],
-			"label": "bind group for objects",
+			"label": "bind group for objects klep",
 			"layout": {"layout": 0,"pipe": "kleppipe"}
 		}
-	},
-
+	}
+,
 	"tutup pompav"	:{ "type":"gpu_buffer"	,"descriptor":"tutup pompa/mesh/vertex descr.json"	,"data":"tutup pompa/mesh/vertex.bin"	},
 	"tutup pompai"	:{ "type":"gpu_buffer"	,"descriptor":"tutup pompa/mesh/index descr.json"	,"data":"tutup pompa/mesh/index.bin"	},
 	"tutup pompaindr"	:{ "type":"gpu_buffer"	,"descriptor":"tutup pompa/mesh/indirect descr.json"	,"data":"tutup pompa/mesh/indirect.bin"	},
@@ -358,13 +523,65 @@
 		"descriptor":{
 			"entries": [
 				{ "binding":0, "resource":"miscreso" },
-				{ "binding":1, "resource":"cam reso" }
+				{ "binding":1, "resource":"cam anireso" }
+				,
+
+{ "binding":2, "resource":"tutup pompa anireso" }
 			],
-			"label": "bind group for objects",
+			"label": "bind group for objects tutup pompa",
 			"layout": {"layout": 0,"pipe": "tutup pompapipe"}
 		}
+	}
+,
+	"airv"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/vertex descr.json"	,"data":"air/mesh/vertex.bin"	},
+	"airi"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/index descr.json"	,"data":"air/mesh/index.bin"	},
+	"airindr"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/indirect descr.json"	,"data":"air/mesh/indirect.bin"	},
+	"airinst"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/instance descr.json"	,"data":"air/mesh/instance.bin"	},
+	"airmod":{
+		"type":"gpu_shader_module",
+		"descriptor":{"label":"this is a module","code":"air/air.wgsl"}
 	},
-
+	"airpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "airmod"
+			},
+			"label": "this is air pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"air/mesh/vertex attribute descr.json",
+					"air/mesh/instance attribute descr.json"
+				],
+				"module": "airmod"
+			}
+		}
+	},
+	"airbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"cam anireso" }
+				
+			],
+			"label": "bind group for objects air",
+			"layout": {"layout": 0,"pipe": "airpipe"}
+		}
+	}
+,
 		"suara wggg":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/wggg.m4a"	,"_attribution":""	},
 		"suara wggg1":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/wggg1.m4a"	,"_attribution":""	},
 		"suara wggg2":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/wggg2.m4a"	,"_attribution":""	},
@@ -374,10 +591,9 @@
 		"suara maturnuwun":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/maturnuwun.m4a"	,"_attribution":""	},
 		"suara tak":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/385/385935_7097737-lq.mp3"	,"_attribution":"S012_Engine_Backfire_Mono.wav by Pól -- https://freesound.org/s/385935/ -- License: Creative Commons 0"	},
 		"suara duar":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/95/95749_1386366-lq.mp3"	,"_attribution":"Ship artillery blast classic.wav by CGEffex -- https://freesound.org/s/95749/ -- License: Attribution 4.0"	},
-		"suara air":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/261/261167_3452716-lq.mp3"	,"_attribution":"Water under the bridge by VlatkoBlazek -- https://freesound.org/s/261167/ -- License: Attribution 4.0"	}
+		"suara air":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/261/261167_3452716-lq.mp3"	,"_attribution":"Water under the bridge by VlatkoBlazek -- https://freesound.org/s/261167/ -- License: Attribution 4.0"	},
+		"suara pompa0":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/suara pompa0.m4a"	,"_attribution":""	},
+		"suara pompa1":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sounds/suara pompa1.m4a"	,"_attribution":""	}
 
-
-
-
-
-}}
+	}
+}

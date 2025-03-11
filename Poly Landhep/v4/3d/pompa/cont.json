@@ -9,5 +9,8 @@
 	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara tak"	,"volume": 0.4	,"when": 4.6	},
 	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara tak"	,"volume": 0.4	,"when": 4.8	},
 	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara duar"	,"volume": 1.3	,"when": 5.2	},
-	{	"duration": null	,"loop": true	,"offset": 0	,"src": "suara air"	,"volume": 0.3	,"when": 0	}
+	{	"duration": null	,"loop": true	,"offset": 0	,"src": "suara air"	,"volume": 0.3	,"when": 0	},
+	{	"duration": 14	,"loop": false	,"offset": 0	,"src": "suara pompa0"	,"volume": 0.7	,"when": 22.5	},
+	{	"duration": null	,"loop": false	,"offset": 20	,"src": "suara pompa0"	,"volume": 0.7	,"when": 36.5	},
+	{	"duration": null	,"loop": true	,"offset": 0	,"src": "suara pompa1"	,"volume": 0.7	,"when": 72	}
 ]

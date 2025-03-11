@@ -1,0 +1,154 @@
+{
+	"_create": {
+		"x": -3425.66,
+		"y": 343.13,
+		"width": 417,
+		"height": 377,
+		"zindex": 140,
+		"data": "{\"create\":{\n\t\t\"deptex\":{\n\t\t\t\"type\":\"gpu_texture\",\n\t\t\t\"descriptor\":{\"label\":\"this is depth texture\",\"size\":\"(canvas)\",\"format\":\"depth24plus\",\"usage\": 16},\n\t\t\t\"data\":null\n\t\t},\n\t\t\"deptexview\":{\n\t\t\t\"type\":\"gpu_texture_view\",\n\t\t\t\"descriptor\":{\"label\":\"this is depth tex view\"},\n\t\t\t\"data\":\"deptex\"\n\t\t},\n\t\t\"miscreso\":{\n\t\t\t\"type\":\"gpu_buffer_binding\",\n\t\t\t\"descriptor\":{ \"buffer\":\"(misc)\" }\n\t\t}\n===my data===\n\t}\n}\n"
+	},
+	"anibuf": {
+		"x": -3414.34,
+		"y": 1043,
+		"width": 826,
+		"height": 469,
+		"zindex": 642,
+		"data": ",\n\t\t\n\t\t\"+++++ output\"\t:{\t\"type\":\"gpu_buffer\",\t\"descriptor\":{\"label\": \"+++++ sto\",\"size\": 64,\"usage\": 140}\t,\"data\":null},\n\t\t\"+++++ ani\"\t:{\t\"type\":\"gpu_buffer\",\t\"descriptor\":\"+++++/animation/+++++.json\"\t,\"data\":\"+++++/animation/+++++.bin\"\t,\"_keterangan\":\"per object\"\t},\n\t\t\"+++++ ani indr\"\t:{\t\"type\":\"gpu_buffer\",\t\"descriptor\":\"+++++/animation/+++++ indirect.json\"\t,\"data\":\"+++++/animation/+++++ indirect.bin\"\t,\"_keterangan\":\"per object\"\t},\n\t\t\"+++++ anireso\":{\n\t\t\t\"type\":\"gpu_buffer_binding\",\n\t\t\t\"descriptor\":{ \"buffer\":\"+++++ output\" }\n\t\t},\n\t\t\"+++++ anibind\":{\n\t\t\t\"type\":\"gpu_bind_group\",\n\t\t\t\"descriptor\":{\n\t\t\t\t\"entries\": [\n\t\t\t\t\t{ \"binding\":0, \"resource\":\"+++++ anireso\" },\n\t\t\t\t\t{ \"binding\":1, \"resource\":\"miscreso\" }\n\t\t\t\t],\n\t\t\t\t\"label\": \"ini bind +++++\",\n\t\t\t\t\"layout\": {\"layout\": 0,\"pipe\": \"ANIpipe\"}\n\t\t\t}\n\t\t}\n"
+	},
+	"reso semua mesh": {
+		"x": -2413.01,
+		"y": 287.53,
+		"width": 575,
+		"height": 310,
+		"zindex": 643,
+		"data": ",\n\t\"========================v\"\t:{ \"type\":\"gpu_buffer\"\t,\"descriptor\":\"========================/mesh/vertex descr.json\"\t,\"data\":\"========================/mesh/vertex.bin\"\t},\n\t\"========================i\"\t:{ \"type\":\"gpu_buffer\"\t,\"descriptor\":\"========================/mesh/index descr.json\"\t,\"data\":\"========================/mesh/index.bin\"\t},\n\t\"========================indr\"\t:{ \"type\":\"gpu_buffer\"\t,\"descriptor\":\"========================/mesh/indirect descr.json\"\t,\"data\":\"========================/mesh/indirect.bin\"\t},\n\t\"========================inst\"\t:{ \"type\":\"gpu_buffer\"\t,\"descriptor\":\"========================/mesh/instance descr.json\"\t,\"data\":\"========================/mesh/instance.bin\"\t},\n\t\"========================mod\":{\n\t\t\"type\":\"gpu_shader_module\",\n\t\t\"descriptor\":{\"label\":\"this is a module\",\"code\":\"========================/========================.wgsl\"}\n\t},\n\t\"========================pipe\":{\n\t\t\"type\":\"gpu_render_pipe\",\n\t\t\"descriptor\":{\n\t\t\t\"depthStencil\": {\t\"depthCompare\": \"greater\",\t\"depthWriteEnabled\": true,\t\"format\": \"depth24plus\"\t},\n\t\t\t\"fragment\": {\n\t\t\t\t\"targets\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"format\":\"(preferred_canvas_format)\",\n\t\t\t\t\t\t\"blend\": {\n\t\t\t\t\t\t\t\"alpha\": {\"dstFactor\": \"one-minus-src-alpha\",\"operation\": \"add\",\"srcFactor\": \"one\"},\n\t\t\t\t\t\t\t\"color\": {\"dstFactor\": \"one-minus-src-alpha\",\"operation\": \"add\",\"srcFactor\": \"src-alpha\"}\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"module\": \"========================mod\"\n\t\t\t},\n\t\t\t\"label\": \"this is ======================== pipeline\",\n\t\t\t\"layout\": \"auto\",\n\t\t\t\"primitive\": {\"cullMode\": \"back\",\"topology\": \"triangle-list\"},\n\t\t\t\"vertex\": {\n\t\t\t\t\"buffers\": [\n\t\t\t\t\t\"========================/mesh/vertex attribute descr.json\",\n\t\t\t\t\t\"========================/mesh/instance attribute descr.json\"\n\t\t\t\t],\n\t\t\t\t\"module\": \"========================mod\"\n\t\t\t}\n\t\t}\n\t},\n\t\"========================bind\":{\n\t\t\"type\":\"gpu_bind_group\",\n\t\t\"descriptor\":{\n\t\t\t\"entries\": [\n\t\t\t\t{ \"binding\":0, \"resource\":\"miscreso\" },\n\t\t\t\t{ \"binding\":1, \"resource\":\"cam anireso\" }\n\t\t\t\t===objek anireso===\n\t\t\t],\n\t\t\t\"label\": \"bind group for objects ========================\",\n\t\t\t\"layout\": {\"layout\": 0,\"pipe\": \"========================pipe\"}\n\t\t}\n\t}\n"
+	},
+	"===": {
+		"x": -1789.78,
+		"y": 286.39,
+		"width": 256,
+		"height": 79,
+		"zindex": 644,
+		"data": "========================"
+	},
+	"---impeller": {
+		"x": -1780.66,
+		"y": 603.99,
+		"width": 225,
+		"height": 75,
+		"zindex": 645,
+		"data": "impeller"
+	},
+	"---batas": {
+		"x": -1784.43,
+		"y": 696.66,
+		"width": 210,
+		"height": 74,
+		"zindex": 646,
+		"data": "batas"
+	},
+	"===my data": {
+		"x": -3423.08,
+		"y": 732.06,
+		"width": 208,
+		"height": 68,
+		"zindex": 647,
+		"data": "===my data==="
+	},
+	"---pompa": {
+		"x": -1782.02,
+		"y": 442.05,
+		"width": 221,
+		"height": 68,
+		"zindex": 648,
+		"data": "pompa"
+	},
+	"---pipa": {
+		"x": -1783.8,
+		"y": 516.72,
+		"width": 213,
+		"height": 70,
+		"zindex": 649,
+		"data": "pipa"
+	},
+	"---klep": {
+		"x": -1783.09,
+		"y": 788.02,
+		"width": 203,
+		"height": 75,
+		"zindex": 650,
+		"data": "klep"
+	},
+	"---tutup pompa": {
+		"x": -1785.52,
+		"y": 876.71,
+		"width": 228,
+		"height": 72,
+		"zindex": 659,
+		"data": "tutup pompa"
+	},
+	"suara": {
+		"x": -807.53,
+		"y": 231.88,
+		"width": 1505,
+		"height": 310,
+		"zindex": 676,
+		"data": ",\n\t\t\"suara wggg\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/wggg.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara wggg1\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/wggg1.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara wggg2\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/wggg2.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara wggg3\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/wggg3.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara wggg5\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/wggg5.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara penjelasan pompa\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/penjelasan pompa.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara maturnuwun\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/maturnuwun.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara tak\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"https://cdn.freesound.org/previews/385/385935_7097737-lq.mp3\"\t,\"_attribution\":\"S012_Engine_Backfire_Mono.wav by Pól -- https://freesound.org/s/385935/ -- License: Creative Commons 0\"\t},\n\t\t\"suara duar\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"https://cdn.freesound.org/previews/95/95749_1386366-lq.mp3\"\t,\"_attribution\":\"Ship artillery blast classic.wav by CGEffex -- https://freesound.org/s/95749/ -- License: Attribution 4.0\"\t},\n\t\t\"suara air\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"https://cdn.freesound.org/previews/261/261167_3452716-lq.mp3\"\t,\"_attribution\":\"Water under the bridge by VlatkoBlazek -- https://freesound.org/s/261167/ -- License: Attribution 4.0\"\t},\n\t\t\"suara pompa0\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/suara pompa0.m4a\"\t,\"_attribution\":\"\"\t},\n\t\t\"suara pompa1\":{\t\"type\":\"audio_buffer\"\t,\"descriptor\":{}\t,\"data\":\"sounds/suara pompa1.m4a\"\t,\"_attribution\":\"\"\t}\n"
+	},
+	"ANImod": {
+		"x": -3422,
+		"y": 838,
+		"width": 679,
+		"height": 161,
+		"zindex": 661,
+		"data": ",\n\t\t\n\t\t\"ANImod\":{\n\t\t\t\"type\":\"gpu_shader_module\",\n\t\t\t\"descriptor\":{\"label\":\"this is a module\",\"code\":\"cam/shader.wgsl\"}\n\t\t},\n\t\t\"ANIpipe\":{\n\t\t\t\"type\":\"gpu_render_pipe\",\n\t\t\t\"descriptor\":{\n\t\t\t\t\"depthStencil\": {\t\"depthCompare\": \"always\",\t\"depthWriteEnabled\": true,\t\"format\": \"depth24plus\"\t},\n\t\t\t\t\"fragment\": {\n\t\t\t\t\t\"targets\": [\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"format\":\"(preferred_canvas_format)\",\n\t\t\t\t\t\t\t\"blend\": {\n\t\t\t\t\t\t\t\t\"alpha\": {\"dstFactor\": \"one-minus-src-alpha\",\"operation\": \"add\",\"srcFactor\": \"one\"},\n\t\t\t\t\t\t\t\t\"color\": {\"dstFactor\": \"one-minus-src-alpha\",\"operation\": \"add\",\"srcFactor\": \"src-alpha\"}\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t],\n\t\t\t\t\t\"module\": \"ANImod\"\n\t\t\t\t},\n\t\t\t\t\"label\": \"our pipeline ANI\",\n\t\t\t\t\"layout\": \"auto\",\n\t\t\t\t\"primitive\": {\"cullMode\": \"none\",\"topology\": \"point-list\"},\n\t\t\t\t\"vertex\": {\n\t\t\t\t\t\"buffers\": [\n{\n\t\"arrayStride\": 68,\n\t\"stepMode\": \"vertex\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"_name\": \"time\",\n\t\t\t\"shaderLocation\": 0,\n\t\t\t\"format\": \"float32\",\n\t\t\t\"offset\": 0\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column1\",\n\t\t\t\"shaderLocation\": 1,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 4\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column2\",\n\t\t\t\"shaderLocation\": 2,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 20\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column3\",\n\t\t\t\"shaderLocation\": 3,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 36\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column4\",\n\t\t\t\"shaderLocation\": 4,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 52\n\t\t}\n\t]\n},\n{\n\t\"arrayStride\": 68,\n\t\"stepMode\": \"vertex\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"_name\": \"time\",\n\t\t\t\"shaderLocation\": 5,\n\t\t\t\"format\": \"float32\",\n\t\t\t\"offset\": 0\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column1\",\n\t\t\t\"shaderLocation\": 6,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 4\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column2\",\n\t\t\t\"shaderLocation\": 7,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 20\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column3\",\n\t\t\t\"shaderLocation\": 8,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 36\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column4\",\n\t\t\t\"shaderLocation\": 9,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 52\n\t\t}\n\t]\n},\n{\n\t\"arrayStride\": 68,\n\t\"stepMode\": \"vertex\",\n\t\"attributes\": [\n\t\t{\n\t\t\t\"_name\": \"time\",\n\t\t\t\"shaderLocation\": 10,\n\t\t\t\"format\": \"float32\",\n\t\t\t\"offset\": 0\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column1\",\n\t\t\t\"shaderLocation\": 11,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 4\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column2\",\n\t\t\t\"shaderLocation\": 12,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 20\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column3\",\n\t\t\t\"shaderLocation\": 13,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 36\n\t\t},\n\t\t{\n\t\t\t\"_name\": \"column4\",\n\t\t\t\"shaderLocation\": 14,\n\t\t\t\"format\": \"float32x4\",\n\t\t\t\"offset\": 52\n\t\t}\n\t]\n}\n\t\t\t\t\t],\n\t\t\t\t\t\"module\": \"ANImod\"\n\t\t\t\t}\n\t\t\t}\n\t\t}"
+	},
+	"+++": {
+		"x": -2561,
+		"y": 1053,
+		"width": 207,
+		"height": 76,
+		"zindex": 662,
+		"data": "+++++"
+	},
+	"---cam": {
+		"x": -2543,
+		"y": 1192,
+		"width": 174,
+		"height": 68,
+		"zindex": 663,
+		"data": "cam"
+	},
+	"===objek anireso": {
+		"x": -1451,
+		"y": 292,
+		"width": 271,
+		"height": 63,
+		"zindex": 664,
+		"data": "===objek anireso==="
+	},
+	"bindinganireso": {
+		"x": -1465,
+		"y": 436,
+		"width": 533,
+		"height": 106,
+		"zindex": 667,
+		"data": ",\n\n{ \"binding\":2, \"resource\":\"+++++ anireso\" }"
+	},
+	"---kosong": {
+		"x": -1636,
+		"y": 208,
+		"width": 278,
+		"height": 31,
+		"zindex": 668,
+		"data": ""
+	},
+	"---air": {
+		"x": -1788,
+		"y": 965,
+		"width": 181,
+		"height": 64,
+		"zindex": 669,
+		"data": "air"
+	}
+}
