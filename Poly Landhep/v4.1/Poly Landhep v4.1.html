@@ -1,0 +1,137 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Poly Landhep v4.1
+		</title>
+		<link rel="stylesheet" href="../v4/css/object3dview.css"/>
+		<link rel="stylesheet" href="../v4/css/hias0.css">
+		<link rel="stylesheet" href="../v4/css/hias1.css">
+		
+		<link id="" href="">
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="tombolll">
+					<!-- https://www.iconpacks.net/free-icon/view-6444.html -->
+					<svg id="SHhelp" class="" sasaran="#hlm0help" mousedescr="Free Camera" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="SHcontroller" class="nyala" sasaran="#hlm1controller" mousedescr="Show/Hide Controller" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+					<svg id="SHinfo" class="" sasaran="#hlm2info" mousedescr="Show/Hide Info" viewBox="0 0 256 256">
+						<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
+							<path d="M 45 66.739 c -11.987 0 -21.74 -9.752 -21.74 -21.739 S 33.013 23.26 45 23.26 S 66.739 33.013 66.739 45 S 56.987 66.739 45 66.739 z M 45 29.26 c -8.679 0 -15.74 7.061 -15.74 15.74 S 36.321 60.739 45 60.739 S 60.739 53.679 60.739 45 S 53.679 29.26 45 29.26 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<path d="M 45 66.763 c -14.477 0 -28.953 -6.054 -43.328 -18.16 C 0.609 47.708 0 46.395 0 45 s 0.609 -2.708 1.672 -3.603 c 28.751 -24.214 57.906 -24.214 86.656 0 l 0 0 C 89.391 42.293 90 43.605 90 45 s -0.609 2.707 -1.672 3.602 C 73.953 60.709 59.477 66.763 45 66.763 z M 6.726 45 c 25.74 21.046 50.809 21.048 76.547 0 C 57.536 23.954 32.467 23.952 6.726 45 z M 84.459 45.984 c 0.001 0.001 0.003 0.002 0.004 0.003 C 84.461 45.986 84.461 45.985 84.459 45.984 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
+							<circle cx="45" cy="45" r="7" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: white; fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<div id='hlm0help' class="hidechild">
+					Poly Landhep v4.1
+					<table class="hlmhelp"><tbody>
+						<tr><th colspan="2">Help	</th>		</tr>
+						<tr><td>Putar kamera	</td><td>: Hold R	</td>	</tr>
+						<tr><td>Zoom	</td><td>: Hold R + mousewheel	</td>	</tr>
+						<tr><td>Geser kamera arah horizontal	</td><td>: Hold M	</td>	</tr>
+						<tr><td>Geser kamera arah vertikal	</td><td>: Hold M + mousewheel	</td>	</tr>
+						<tr><td>Reset kamera	</td><td>: Press H	</td>	</tr>
+					</tbody></table>
+				</div>
+				<div id='hlm1controller'><!--  class="hidechild" -->
+					
+					
+					
+					<!-- controller luar -->
+					<div style="
+						
+						background: black;
+						width: fit-content;
+						padding: 6px;
+						font-size: large;
+						
+					" id="panelcontroller">
+						<svg id="play" class="" mousedescr="Play" viewBox="-50 -50 100 100">
+							<path fill="none" stroke="white" stroke-width="6px" d="
+								M -30 -40
+								L 30 0
+								L -30 40
+								Z
+							"></path>
+						</svg>
+						<svg id="pause" class="" mousedescr="Pause" viewBox="-50 -50 100 100">
+							<path fill="none" stroke="white" stroke-width="6px" d="
+								M -30 -30
+								L -10 -30
+								L -10 30
+								L -30 30
+								Z
+								M 30 -30
+								L 10 -30
+								L 10 30
+								L 30 30
+								Z
+							"></path>
+						</svg>
+						<svg id="seek" class="" mousedescr="Seek" fill="white" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-51.2 -51.2 614.40 614.40" xml:space="preserve" stroke="#00bd5b" stroke-width="0.00512"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="7.168000000000001"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M276.193,58.507V40.389h14.578c11.153,0,20.194-9.042,20.194-20.194S301.923,0,290.771,0h-69.544 c-11.153,0-20.194,9.042-20.194,20.194s9.042,20.194,20.194,20.194h14.578v18.118C119.952,68.76,28.799,166.327,28.799,284.799 C28.799,410.078,130.721,512,256,512s227.201-101.922,227.201-227.201C483.2,166.327,392.046,68.76,276.193,58.507z M276.193,470.516v-20.124c0-11.153-9.042-20.194-20.194-20.194c-11.153,0-20.194,9.042-20.194,20.194v20.124 c-86.91-9.385-156.137-78.614-165.522-165.522h20.124c11.153,0,20.194-9.042,20.194-20.194s-9.042-20.194-20.194-20.194H70.282 c9.385-86.91,78.614-156.137,165.522-165.523v20.124c0,11.153,9.042,20.194,20.194,20.194c11.153,0,20.194-9.042,20.194-20.194 V99.081c86.91,9.385,156.137,78.614,165.522,165.523h-20.124c-11.153,0-20.194,9.042-20.194,20.194s9.042,20.194,20.194,20.194 h20.126C432.331,391.903,363.103,461.132,276.193,470.516z"></path> <path d="M317.248,194.99l-58.179,58.18c-1.011-0.097-2.034-0.151-3.071-0.151c-17.552,0-31.779,14.229-31.779,31.779 c0,17.552,14.228,31.779,31.779,31.779s31.779-14.229,31.779-31.779c0-1.037-0.054-2.06-0.151-3.07l58.178-58.18 c7.887-7.885,7.887-20.672,0-28.559C337.922,187.103,325.135,187.103,317.248,194.99z"></path> </g> </g> </g> </g></svg>
+						<svg id="speed" class="" mousedescr="Speed" fill="white" stroke="white" viewBox="0 0 463.008 463.008"><path d="m461.948,277.176c-5.102-54.26-29.787-105.32-69.508-143.775-39.7-38.435-91.534-61.491-145.954-64.921-32.748-2.063-64.741,2.568-95.101,13.767-29.183,10.764-55.532,27.07-78.317,48.464-22.823,21.43-40.788,46.754-53.396,75.27-13.053,29.522-19.672,60.988-19.672,93.525 0,25.446 4.115,50.473 12.231,74.387 4.285,12.628 16.254,21.113 29.781,21.113h378.973c13.529,0 25.499-8.487 29.786-21.12 10.532-31.035 14.292-63.574 11.177-96.71zm-25.382,91.89c-2.22,6.543-8.481,10.94-15.581,10.94h-378.972c-7.098,0-13.357-4.394-15.576-10.934-7.589-22.357-11.437-45.763-11.437-69.566 0-30.435 6.188-59.86 18.391-87.46 11.791-26.667 28.595-50.354 49.945-70.4 40.581-38.103 92.687-58.644 148.015-58.644 4.708,0 9.442,0.148 14.192,0.448 105.021,6.62 191.634,90.507 201.472,195.13 2.916,31.02-0.599,61.464-10.449,90.486z"></path> <path d="m323.089,197.441l-96,69.818c-0.519,0.377-0.967,0.814-1.359,1.286-14.622,2.719-25.73,15.563-25.73,30.961 0,17.369 14.131,31.5 31.5,31.5 15.395,0 28.236-11.104 30.959-25.721 0.474-0.393 0.909-0.847 1.288-1.368l69.818-96c2.171-2.984 1.848-7.105-0.762-9.714-2.61-2.61-6.73-2.933-9.714-0.762zm-91.589,118.565c-9.098,0-16.5-7.402-16.5-16.5s7.402-16.5 16.5-16.5 16.5,7.402 16.5,16.5-7.402,16.5-16.5,16.5zm27.745-31.401c-2.93-5.435-7.41-9.914-12.844-12.844l47.096-34.251-34.252,47.095z"></path> <path d="m415.813,223.161c-0.023-0.055-0.052-0.106-0.076-0.16-9.964-23.905-24.448-45.469-42.381-63.621-0.236-0.328-0.493-0.646-0.788-0.941-0.295-0.295-0.612-0.552-0.94-0.787-18.15-17.932-39.711-32.414-63.612-42.378-0.058-0.026-0.112-0.057-0.17-0.081-0.069-0.029-0.14-0.048-0.21-0.075-23.473-9.729-49.186-15.111-76.136-15.111-26.949,0-52.662,5.383-76.135,15.111-0.07,0.027-0.141,0.046-0.21,0.075-0.059,0.024-0.113,0.055-0.17,0.081-23.901,9.964-45.462,24.446-63.612,42.378-0.328,0.235-0.645,0.492-0.94,0.787-0.295,0.295-0.552,0.613-0.788,0.941-17.934,18.153-32.418,39.717-42.381,63.622-0.024,0.054-0.053,0.104-0.076,0.159-0.027,0.065-0.045,0.132-0.071,0.198-9.732,23.476-15.117,49.193-15.117,76.147 0,19.766 2.909,39.342 8.646,58.185 0.962,3.158 3.874,5.315 7.175,5.315h367.359c3.301,0 6.213-2.158 7.175-5.315 5.736-18.84 8.646-38.417 8.646-58.185 0-26.954-5.385-52.671-15.116-76.147-0.026-0.066-0.044-0.133-0.072-0.198zm-6.277,124.845h-356.071c-3.638-13.374-5.736-27.117-6.296-41h16.331c4.143,0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-16.335c0.79-19.645 4.654-38.51 11.143-56.12l15.11,6.259c0.938,0.389 1.91,0.573 2.867,0.573 2.943,0 5.735-1.744 6.932-4.632 1.586-3.827-0.231-8.214-4.059-9.799l-15.082-6.247c8.125-17.491 18.91-33.502 31.835-47.515l11.491,11.491c1.465,1.464 3.385,2.197 5.304,2.197s3.839-0.732 5.304-2.197c2.929-2.929 2.929-7.678 0-10.606l-11.492-11.492c14.012-12.926 30.024-23.71 47.515-31.835l6.248,15.083c1.196,2.888 3.988,4.632 6.932,4.632 0.956,0 1.929-0.184 2.867-0.573 3.827-1.585 5.645-5.973 4.059-9.799l-6.259-15.109c17.61-6.49 36.476-10.354 56.121-11.144v16.335c0,4.142 3.357,7.5 7.5,7.5s7.5-3.358 7.5-7.5v-16.335c19.645,0.79 38.511,4.654 56.121,11.144l-6.259,15.109c-1.586,3.827 0.231,8.214 4.059,9.799 0.938,0.389 1.91,0.573 2.867,0.573 2.943,0 5.735-1.744 6.932-4.632l6.248-15.083c17.491,8.125 33.502,18.91 47.515,31.835l-11.492,11.492c-2.929,2.929-2.929,7.678 0,10.606 1.465,1.464 3.385,2.197 5.304,2.197s3.839-0.732 5.304-2.197l11.491-11.491c12.926,14.012 23.71,30.024 31.835,47.515l-15.082,6.247c-3.827,1.585-5.645,5.973-4.059,9.799 1.196,2.888 3.988,4.632 6.932,4.632 0.956,0 1.929-0.184 2.867-0.573l15.11-6.259c6.489,17.61 10.354,36.476 11.143,56.12h-16.337c-4.143,0-7.5,3.358-7.5,7.5s3.357,7.5 7.5,7.5h16.332c-0.561,13.885-2.659,27.627-6.296,41z"></path></svg>
+						<svg id="fps" class="" mousedescr="FPS" stepcount="1" fill="white" stroke="white" viewBox="0 0 24 24"><text x="0" y="18" style="user-select:none;">60</text></svg>
+						<span style="vertical-align:super;color:#00ffffff;" id="showseek" mousedescr="Current time"></span>
+						<span style="vertical-align:super;color:#ffdd99ff;" id="showspeed" mousedescr="Current speed"></span>
+						<svg id="save" class="hilang" mousedescr="Save" viewBox="-50 -50 612 612">
+							<path fill="none" stroke="white" stroke-width="11px" d="
+								M12.4,0h333M12.4,0v512h487.3V114.3L404.1,0h-58.9v195.4H85.8V0H12.4z M207.8,24.7v122h97.3v-122H207.8z    M85.8,276.5h341.3v186.9H85.8V276.5z M134.4,316.6v24.7h244.1v-24.7H134.4z M134.4,390v24.7h244.1V390   C378.5,390,134.4,390,134.4,390z
+							"></path>
+						</svg>
+					</div>
+					<span id="pesanselesai" class="hilang" style="
+						font-size: 22px;
+						background: #00000077;
+						padding: 7px;
+														display:none;
+					">Selesai</span>
+					
+					
+					
+				</div>
+				<div id='hlm2info' class="hidechild">
+					<svg id="clearinfo" viewBox="-110 -110 722 722" mousedescr="Hapus info">
+						<g>
+							<path fill="white" d="M457.2,73.1H347.3V45.7v-0.2v-0.1c0-6.2-1.3-12.3-3.6-17.7c-3.5-8.2-9.3-15.1-16.5-20c-3.6-2.4-7.7-4.4-11.9-5.7   c-4.3-1.3-8.9-2-13.5-2h-0.1h-0.1h-91.3h-0.2H210c-6.2,0-12.3,1.3-17.7,3.6c-8.2,3.5-15.1,9.3-20,16.5c-2.4,3.6-4.4,7.7-5.7,11.9   c-1.3,4.3-2,8.9-2,13.5v0.1v27.5H54.9c-10.1,0-18.3,8.2-18.3,18.3c0,10.1,8.2,18.3,18.3,18.3h19.4L96,458.3l0,0   c0.4,7.3,2,14.4,4.8,20.7c4.2,9.7,11,18,19.7,23.9c4.3,2.9,9.2,5.2,14.3,6.8c5.1,1.5,10.5,2.3,16,2.3h210.3   c7.4,0,14.6-1.4,21.1-4.1c9.8-4.1,18.1-11,23.9-19.7s9.2-19,9.9-29.9l21.8-348.6h19.4c10.1,0,18.3-8.2,18.3-18.3   C475.5,81.3,467.3,73.1,457.2,73.1z M201.1,45.7v-0.1c0-1.3,0.3-2.4,0.7-3.5c0.7-1.6,1.8-3,3.3-4c0.7-0.5,1.5-0.9,2.3-1.1   c0.8-0.3,1.7-0.4,2.7-0.4h0.1h91.4h0.1c1.3,0,2.4,0.3,3.5,0.7c1.6,0.7,3,1.8,4,3.3c0.5,0.7,0.9,1.5,1.1,2.3   c0.3,0.8,0.4,1.7,0.4,2.7v0.1v27.4H201.1V45.7z M379.5,456c-0.2,3.3-0.9,6.1-2,8.5c-1.6,3.6-3.8,6.2-6.5,8   c-1.3,0.9-2.8,1.6-4.4,2.1c-1.6,0.5-3.4,0.8-5.5,0.8H150.9c-2.7,0-5-0.5-7-1.3c-3.1-1.3-5.6-3.4-7.6-6.3c-2-2.9-3.4-6.8-3.6-11.6   V456l-21.8-346.3h290.3L379.5,456z"></path>
+							<path fill="white" d="M256,146.3c-10.1,0-18.3,8.2-18.3,18.3v256c0,10.1,8.2,18.3,18.3,18.3c10.1,0,18.3-8.2,18.3-18.3v-256   C274.3,154.5,266.1,146.3,256,146.3z"></path>
+							<path fill="white" d="M173,146.3c-10,0.4-17.9,8.8-17.6,18.9l9.1,256c0.4,10.1,8.8,18,18.9,17.6c10.1-0.4,18-8.8,17.6-18.9l-9.1-256   C191.5,153.8,183.1,145.9,173,146.3z"></path>
+							<path fill="white" d="M320,163.9l-9.1,256c-0.4,10.1,7.5,18.6,17.6,18.9c10.1,0.4,18.6-7.5,18.9-17.6l9.1-256c0.4-10.1-7.5-18.6-17.6-18.9   C328.8,145.9,320.4,153.8,320,163.9z"></path>
+						</g>
+					</svg>
+					<div id="infolist" style="background:#00000099;"></div> <!-- class="infoupdate"  -->
+				</div>
+				<div id="scrollberlebih"></div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="../v4/js/wgpu-matrix.js"></script>
+		<!--<script src="../../js/rumus.js"></script>-->
+		<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+		<script type="module">
+import {main} from './js/main.js'
+main()
+
+		</script>
+	</body>
+</html>
