@@ -1,0 +1,834 @@
+{"create":{
+		"deptex":{
+			"type":"gpu_texture",
+			"descriptor":{"label":"this is depth texture","size":"(canvas)","format":"depth24plus","usage": 16},
+			"data":null
+		},
+		"deptexview":{
+			"type":"gpu_texture_view",
+			"descriptor":{"label":"this is depth tex view"},
+			"data":"deptex"
+		},
+		"miscreso":{
+			"type":"gpu_buffer_binding",
+			"descriptor":{ "buffer":"(misc)" }
+		},
+"mod":{
+	"type":"gpu_shader_module",
+	"descriptor":{"label":"this is a module","code":"wgpumod.wgsl"}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+		
+		"armmod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module, armature","code":"armmod.wgsl"}
+		},
+		"armpipe":{
+			"type":"gpu_render_pipe",
+			"descriptor":{
+				"depthStencil": {	"depthCompare": "always",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+				"fragment": {
+					"targets": [
+						{
+							"format":"(preferred_canvas_format)",
+							"blend": {
+								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+							}
+						}
+					],
+					"module": "armmod"
+				},
+				"label": "our pipeline ANI",
+				"layout": "auto",
+				"primitive": {"cullMode": "none","topology": "point-list"},
+				"vertex": {
+					"buffers": [],
+					"module": "armmod"
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+		
+		"ANImod":{
+			"type":"gpu_shader_module",
+			"descriptor":{"label":"this is a module","code":"ANImod.wgsl"}
+		},
+		"ANIpipe":{
+			"type":"gpu_render_pipe",
+			"descriptor":{
+				"depthStencil": {	"depthCompare": "always",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+				"fragment": {
+					"targets": [
+						{
+							"format":"(preferred_canvas_format)",
+							"blend": {
+								"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+								"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+							}
+						}
+					],
+					"module": "ANImod"
+				},
+				"label": "our pipeline ANI",
+				"layout": "auto",
+				"primitive": {"cullMode": "none","topology": "point-list"},
+				"vertex": {
+					"buffers": [
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 0,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 1,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 2,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 3,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 4,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+},
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 5,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 6,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 7,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 8,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 9,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+},
+{
+	"arrayStride": 68,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "time",
+			"shaderLocation": 10,
+			"format": "float32",
+			"offset": 0
+		},
+		{
+			"_name": "column1",
+			"shaderLocation": 11,
+			"format": "float32x4",
+			"offset": 4
+		},
+		{
+			"_name": "column2",
+			"shaderLocation": 12,
+			"format": "float32x4",
+			"offset": 20
+		},
+		{
+			"_name": "column3",
+			"shaderLocation": 13,
+			"format": "float32x4",
+			"offset": 36
+		},
+		{
+			"_name": "column4",
+			"shaderLocation": 14,
+			"format": "float32x4",
+			"offset": 52
+		}
+	]
+}
+					],
+					"module": "ANImod"
+				}
+			}
+		}
+,
+		"suara air":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/261/261167_3452716-lq.mp3"	,"_attribution":"Water under the bridge by VlatkoBlazek -- https://freesound.org/s/261167/ -- License: Attribution 4.0"	},
+		"suara tandon":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/520/520696_5596396-lq.mp3"	,"_attribution":"water_in_a_big_tank.flac by SaaXeemQ -- https://freesound.org/s/520696/ -- License: Attribution 4.0"	},
+		"suara tuang":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/351/351757_4717925-lq.mp3"	,"_attribution":"Coffee_Pour_4-7s.wav by stereostory -- https://freesound.org/s/351757/ -- License: Attribution 3.0"	},
+		"suara banjir":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/395/395032_1648170-lq.mp3"	,"_attribution":"waves close coast small 004.wav by klankbeeld -- https://freesound.org/s/395032/ -- License: Attribution 4.0"	},
+		"suara blip0":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/559/559085_9250976-lq.mp3"	,"_attribution":"Ambiance_Glitchy_Computer_Loop_Mono.wav by Nox_Sound -- https://freesound.org/s/559085/ -- License: Creative Commons 0"	},
+		"suara click":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/106/106793_321967-lq.mp3"	,"_attribution":"02246 key type shot strike typewriter.wav by Robinhood76 -- https://freesound.org/s/106793/ -- License: Attribution NonCommercial 4.0"	},
+		"suara salam":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sound/salam2.m4a"	},
+		"suara bagi kawan":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sound/bagi kawan.m4a"	},
+		"suara maturnuwun":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"sound/maturnuwun2.m4a"	},
+		"suara jangkrik":{	"type":"audio_buffer"	,"descriptor":{}	,"data":"https://cdn.freesound.org/previews/79/79567_1231168-lq.mp3"	,"_attribution":"Trampa at Night.wav by Razzvio -- https://freesound.org/s/79567/ -- License: Attribution 3.0"	}
+,
+		
+		"CAM_bCAM ani indr"	:{	"type":"gpu_buffer",	"descriptor":"armCAM/animation/bCAM indirect.json"	,"data":"armCAM/animation/bCAM indirect.bin"	},
+		"CAM_bCAM ani"	:{	"type":"gpu_buffer",	"descriptor":"armCAM/animation/bCAM.json"	,"data":"armCAM/animation/bCAM inverse.bin"	},
+		"CAM_bCAM anibind":{
+			"type":"gpu_bind_group",
+			"descriptor":{
+				"entries": [
+					{ "binding":0, "resource":"CAM aniloc reso" },
+					{ "binding":1, "resource":"miscreso" }
+				],
+				"label": "ini bind CAM_bCAM",
+				"layout": {"layout": 0,"pipe": "ANIpipe"}
+			}
+		}
+,
+	"langitv"	:{ "type":"gpu_buffer"	,"descriptor":"langit/mesh/vertex descr.json"	,"data":"langit/mesh/vertex.bin"	},
+	"langiti"	:{ "type":"gpu_buffer"	,"descriptor":"langit/mesh/index descr.json"	,"data":"langit/mesh/index.bin"	},
+	"langitindr"	:{ "type":"gpu_buffer"	,"descriptor":"langit/mesh/indirect descr.json"	,"data":"langit/mesh/indirect.bin"	},
+	"langitinst"	:{ "type":"gpu_buffer"	,"descriptor":"langit/mesh/instance descr.json"	,"data":"langit/mesh/instance.bin"	},
+	
+	"langitaniglo"	:{ "type":"gpu_buffer"	,"descriptor":"armlangit/armature/matrices.json"	,"data":null	},
+	"langitaniloc"	:{ "type":"gpu_buffer"	,"descriptor":"armlangit/armature/matrices.json"	,"data":null	},
+	"langitinvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armlangit/armature/matrices.json"	,"data":"armlangit/armature/inverted_global_matrices.bin"	},
+	"langitpar"	:{ "type":"gpu_buffer"	,"descriptor":"armlangit/armature/parent_indices.json"	,"data":"armlangit/armature/parent_indices.bin"	},
+	
+	"langitboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armlangit/armature/bone_indirect.json"	,"data":"armlangit/armature/bone_indirect.bin"	},
+	
+	"langit aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"langitaniglo" }
+	},
+	"langit aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"langitaniloc" }
+	},
+	"langit invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"langitinvglo" }
+	},
+	"langit par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"langitpar" }
+	},
+	"langitpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "langit_frag"
+			},
+			"label": "this is langit pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"langit/mesh/vertex attribute descr.json",
+					"langit/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "langit_vert"
+			}
+		}
+	},
+	"langitbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"langit aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects langit",
+			"layout": {"layout": 0,"pipe": "langitpipe"}
+		}
+	},
+	"langitarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"langit par reso" },
+				{ "binding":2, "resource":"langit invglo reso" },
+				{ "binding":1, "resource":"langit aniloc reso" },
+				{ "binding":0, "resource":"langit aniglo reso" }
+			],
+			"label": "bind group for arm langit",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"pompav"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/vertex descr.json"	,"data":"pompa/mesh/vertex.bin"	},
+	"pompai"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/index descr.json"	,"data":"pompa/mesh/index.bin"	},
+	"pompaindr"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/indirect descr.json"	,"data":"pompa/mesh/indirect.bin"	},
+	"pompainst"	:{ "type":"gpu_buffer"	,"descriptor":"pompa/mesh/instance descr.json"	,"data":"pompa/mesh/instance.bin"	},
+	
+	"pompaaniglo"	:{ "type":"gpu_buffer"	,"descriptor":"armpompa/armature/matrices.json"	,"data":null	},
+	"pompaaniloc"	:{ "type":"gpu_buffer"	,"descriptor":"armpompa/armature/matrices.json"	,"data":null	},
+	"pompainvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armpompa/armature/matrices.json"	,"data":"armpompa/armature/inverted_global_matrices.bin"	},
+	"pompapar"	:{ "type":"gpu_buffer"	,"descriptor":"armpompa/armature/parent_indices.json"	,"data":"armpompa/armature/parent_indices.bin"	},
+	
+	"pompaboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armpompa/armature/bone_indirect.json"	,"data":"armpompa/armature/bone_indirect.bin"	},
+	
+	"pompa aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"pompaaniglo" }
+	},
+	"pompa aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"pompaaniloc" }
+	},
+	"pompa invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"pompainvglo" }
+	},
+	"pompa par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"pompapar" }
+	},
+	"pompapipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "pompa_frag"
+			},
+			"label": "this is pompa pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"pompa/mesh/vertex attribute descr.json",
+					"pompa/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "pompa_vert"
+			}
+		}
+	},
+	"pompabind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"pompa aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects pompa",
+			"layout": {"layout": 0,"pipe": "pompapipe"}
+		}
+	},
+	"pompaarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"pompa par reso" },
+				{ "binding":2, "resource":"pompa invglo reso" },
+				{ "binding":1, "resource":"pompa aniloc reso" },
+				{ "binding":0, "resource":"pompa aniglo reso" }
+			],
+			"label": "bind group for arm pompa",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"tanahv"	:{ "type":"gpu_buffer"	,"descriptor":"tanah/mesh/vertex descr.json"	,"data":"tanah/mesh/vertex.bin"	},
+	"tanahi"	:{ "type":"gpu_buffer"	,"descriptor":"tanah/mesh/index descr.json"	,"data":"tanah/mesh/index.bin"	},
+	"tanahindr"	:{ "type":"gpu_buffer"	,"descriptor":"tanah/mesh/indirect descr.json"	,"data":"tanah/mesh/indirect.bin"	},
+	"tanahinst"	:{ "type":"gpu_buffer"	,"descriptor":"tanah/mesh/instance descr.json"	,"data":"tanah/mesh/instance.bin"	},
+	
+	"tanahaniglo"	:{ "type":"gpu_buffer"	,"descriptor":"armtanah/armature/matrices.json"	,"data":null	},
+	"tanahaniloc"	:{ "type":"gpu_buffer"	,"descriptor":"armtanah/armature/matrices.json"	,"data":null	},
+	"tanahinvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armtanah/armature/matrices.json"	,"data":"armtanah/armature/inverted_global_matrices.bin"	},
+	"tanahpar"	:{ "type":"gpu_buffer"	,"descriptor":"armtanah/armature/parent_indices.json"	,"data":"armtanah/armature/parent_indices.bin"	},
+	
+	"tanahboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armtanah/armature/bone_indirect.json"	,"data":"armtanah/armature/bone_indirect.bin"	},
+	
+	"tanah aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"tanahaniglo" }
+	},
+	"tanah aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"tanahaniloc" }
+	},
+	"tanah invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"tanahinvglo" }
+	},
+	"tanah par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"tanahpar" }
+	},
+	"tanahpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "tanah_frag"
+			},
+			"label": "this is tanah pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"tanah/mesh/vertex attribute descr.json",
+					"tanah/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "tanah_vert"
+			}
+		}
+	},
+	"tanahbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"tanah aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects tanah",
+			"layout": {"layout": 0,"pipe": "tanahpipe"}
+		}
+	},
+	"tanaharmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"tanah par reso" },
+				{ "binding":2, "resource":"tanah invglo reso" },
+				{ "binding":1, "resource":"tanah aniloc reso" },
+				{ "binding":0, "resource":"tanah aniglo reso" }
+			],
+			"label": "bind group for arm tanah",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"rumputv"	:{ "type":"gpu_buffer"	,"descriptor":"rumput/mesh/vertex descr.json"	,"data":"rumput/mesh/vertex.bin"	},
+	"rumputi"	:{ "type":"gpu_buffer"	,"descriptor":"rumput/mesh/index descr.json"	,"data":"rumput/mesh/index.bin"	},
+	"rumputindr"	:{ "type":"gpu_buffer"	,"descriptor":"rumput/mesh/indirect descr.json"	,"data":"rumput/mesh/indirect.bin"	},
+	"rumputinst"	:{ "type":"gpu_buffer"	,"descriptor":"rumput/mesh/instance descr.json"	,"data":"rumput/mesh/instance.bin"	},
+	
+	"rumputaniglo"	:{ "type":"gpu_buffer"	,"descriptor":"armrumput/armature/matrices.json"	,"data":null	},
+	"rumputaniloc"	:{ "type":"gpu_buffer"	,"descriptor":"armrumput/armature/matrices.json"	,"data":null	},
+	"rumputinvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armrumput/armature/matrices.json"	,"data":"armrumput/armature/inverted_global_matrices.bin"	},
+	"rumputpar"	:{ "type":"gpu_buffer"	,"descriptor":"armrumput/armature/parent_indices.json"	,"data":"armrumput/armature/parent_indices.bin"	},
+	
+	"rumputboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armrumput/armature/bone_indirect.json"	,"data":"armrumput/armature/bone_indirect.bin"	},
+	
+	"rumput aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"rumputaniglo" }
+	},
+	"rumput aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"rumputaniloc" }
+	},
+	"rumput invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"rumputinvglo" }
+	},
+	"rumput par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"rumputpar" }
+	},
+	"rumputpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "rumput_frag"
+			},
+			"label": "this is rumput pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"rumput/mesh/vertex attribute descr.json",
+					"rumput/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "rumput_vert"
+			}
+		}
+	},
+	"rumputbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"rumput aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects rumput",
+			"layout": {"layout": 0,"pipe": "rumputpipe"}
+		}
+	},
+	"rumputarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"rumput par reso" },
+				{ "binding":2, "resource":"rumput invglo reso" },
+				{ "binding":1, "resource":"rumput aniloc reso" },
+				{ "binding":0, "resource":"rumput aniglo reso" }
+			],
+			"label": "bind group for arm rumput",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"airv"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/vertex descr.json"	,"data":"air/mesh/vertex.bin"	},
+	"airi"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/index descr.json"	,"data":"air/mesh/index.bin"	},
+	"airindr"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/indirect descr.json"	,"data":"air/mesh/indirect.bin"	},
+	"airinst"	:{ "type":"gpu_buffer"	,"descriptor":"air/mesh/instance descr.json"	,"data":"air/mesh/instance.bin"	},
+	
+	"airaniglo"	:{ "type":"gpu_buffer"	,"descriptor":"armair/armature/matrices.json"	,"data":null	},
+	"airaniloc"	:{ "type":"gpu_buffer"	,"descriptor":"armair/armature/matrices.json"	,"data":null	},
+	"airinvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armair/armature/matrices.json"	,"data":"armair/armature/inverted_global_matrices.bin"	},
+	"airpar"	:{ "type":"gpu_buffer"	,"descriptor":"armair/armature/parent_indices.json"	,"data":"armair/armature/parent_indices.bin"	},
+	
+	"airboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armair/armature/bone_indirect.json"	,"data":"armair/armature/bone_indirect.bin"	},
+	
+	"air aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"airaniglo" }
+	},
+	"air aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"airaniloc" }
+	},
+	"air invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"airinvglo" }
+	},
+	"air par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"airpar" }
+	},
+	"airpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "air_frag"
+			},
+			"label": "this is air pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"air/mesh/vertex attribute descr.json",
+					"air/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "air_vert"
+			}
+		}
+	},
+	"airbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"air aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects air",
+			"layout": {"layout": 0,"pipe": "airpipe"}
+		}
+	},
+	"airarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"air par reso" },
+				{ "binding":2, "resource":"air invglo reso" },
+				{ "binding":1, "resource":"air aniloc reso" },
+				{ "binding":0, "resource":"air aniglo reso" }
+			],
+			"label": "bind group for arm air",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"kunangv"	:{ "type":"gpu_buffer"	,"descriptor":"kunang/mesh/vertex descr.json"	,"data":"kunang/mesh/vertex.bin"	},
+	"kunangi"	:{ "type":"gpu_buffer"	,"descriptor":"kunang/mesh/index descr.json"	,"data":"kunang/mesh/index.bin"	},
+	"kunangindr"	:{ "type":"gpu_buffer"	,"descriptor":"kunang/mesh/indirect descr.json"	,"data":"kunang/mesh/indirect.bin"	},
+	"kunanginst"	:{ "type":"gpu_buffer"	,"descriptor":"kunang/mesh/instance descr.json"	,"data":"kunang/mesh/instance.bin"	},
+	
+	"kunanganiglo"	:{ "type":"gpu_buffer"	,"descriptor":"armkunang/armature/matrices.json"	,"data":null	},
+	"kunanganiloc"	:{ "type":"gpu_buffer"	,"descriptor":"armkunang/armature/matrices.json"	,"data":null	},
+	"kunanginvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armkunang/armature/matrices.json"	,"data":"armkunang/armature/inverted_global_matrices.bin"	},
+	"kunangpar"	:{ "type":"gpu_buffer"	,"descriptor":"armkunang/armature/parent_indices.json"	,"data":"armkunang/armature/parent_indices.bin"	},
+	
+	"kunangboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armkunang/armature/bone_indirect.json"	,"data":"armkunang/armature/bone_indirect.bin"	},
+	
+	"kunang aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"kunanganiglo" }
+	},
+	"kunang aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"kunanganiloc" }
+	},
+	"kunang invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"kunanginvglo" }
+	},
+	"kunang par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"kunangpar" }
+	},
+	"kunangpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "kunang_frag"
+			},
+			"label": "this is kunang pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"kunang/mesh/vertex attribute descr.json",
+					"kunang/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "kunang_vert"
+			}
+		}
+	},
+	"kunangbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"kunang aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects kunang",
+			"layout": {"layout": 0,"pipe": "kunangpipe"}
+		}
+	},
+	"kunangarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"kunang par reso" },
+				{ "binding":2, "resource":"kunang invglo reso" },
+				{ "binding":1, "resource":"kunang aniloc reso" },
+				{ "binding":0, "resource":"kunang aniglo reso" }
+			],
+			"label": "bind group for arm kunang",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+,
+	"CAMv"	:{ "type":"gpu_buffer"	,"descriptor":"CAM/mesh/vertex descr.json"	,"data":"CAM/mesh/vertex.bin"	},
+	"CAMi"	:{ "type":"gpu_buffer"	,"descriptor":"CAM/mesh/index descr.json"	,"data":"CAM/mesh/index.bin"	},
+	"CAMindr"	:{ "type":"gpu_buffer"	,"descriptor":"CAM/mesh/indirect descr.json"	,"data":"CAM/mesh/indirect.bin"	},
+	"CAMinst"	:{ "type":"gpu_buffer"	,"descriptor":"CAM/mesh/instance descr.json"	,"data":"CAM/mesh/instance.bin"	},
+	
+	"CAManiglo"	:{ "type":"gpu_buffer"	,"descriptor":"armCAM/armature/matrices.json"	,"data":null	},
+	"CAManiloc"	:{ "type":"gpu_buffer"	,"descriptor":"armCAM/armature/matrices.json"	,"data":null	},
+	"CAMinvglo"	:{ "type":"gpu_buffer"	,"descriptor":"armCAM/armature/matrices.json"	,"data":"armCAM/armature/inverted_global_matrices.bin"	},
+	"CAMpar"	:{ "type":"gpu_buffer"	,"descriptor":"armCAM/armature/parent_indices.json"	,"data":"armCAM/armature/parent_indices.bin"	},
+	
+	"CAMboneindr"	:{ "type":"gpu_buffer"	,"descriptor":"armCAM/armature/bone_indirect.json"	,"data":"armCAM/armature/bone_indirect.bin"	},
+	
+	"CAM aniglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"CAManiglo" }
+	},
+	"CAM aniloc reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"CAManiloc" }
+	},
+	"CAM invglo reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"CAMinvglo" }
+	},
+	"CAM par reso":{
+		"type":"gpu_buffer_binding",
+		"descriptor":{ "buffer":"CAMpar" }
+	},
+	"CAMpipe":{
+		"type":"gpu_render_pipe",
+		"descriptor":{
+			"depthStencil": {	"depthCompare": "greater",	"depthWriteEnabled": true,	"format": "depth24plus"	},
+			"fragment": {
+				"targets": [
+					{
+						"format":"(preferred_canvas_format)",
+						"blend": {
+							"alpha": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "one"},
+							"color": {"dstFactor": "one-minus-src-alpha","operation": "add","srcFactor": "src-alpha"}
+						}
+					}
+				],
+				"module": "mod",
+				"entryPoint": "CAM_frag"
+			},
+			"label": "this is CAM pipeline",
+			"layout": "auto",
+			"primitive": {"cullMode": "back","topology": "triangle-list"},
+			"vertex": {
+				"buffers": [
+					"CAM/mesh/vertex attribute descr.json",
+					"CAM/mesh/instance attribute descr.json"
+				],
+				"module": "mod",
+				"entryPoint": "CAM_vert"
+			}
+		}
+	},
+	"CAMbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":0, "resource":"miscreso" },
+				{ "binding":1, "resource":"CAM aniglo reso" },
+				{ "binding":2, "resource":"CAM aniloc reso" }
+			],
+			"label": "bind group for objects CAM",
+			"layout": {"layout": 0,"pipe": "CAMpipe"}
+		}
+	},
+	"CAMarmbind":{
+		"type":"gpu_bind_group",
+		"descriptor":{
+			"entries": [
+				{ "binding":3, "resource":"CAM par reso" },
+				{ "binding":2, "resource":"CAM invglo reso" },
+				{ "binding":1, "resource":"CAM aniloc reso" },
+				{ "binding":0, "resource":"CAM aniglo reso" }
+			],
+			"label": "bind group for arm CAM",
+			"layout": {"layout": 0,"pipe": "armpipe"}
+		}
+	}
+
+}}

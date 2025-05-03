@@ -1,0 +1,138 @@
+[
+	{
+		"descriptor":{ "label":"this is encoderrrrr" },
+		"renderpasses":[
+{
+	"descriptor":{
+		"label": "animation renderPass",
+		"colorAttachments": [
+			{"loadOp": "load","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthLoadOp": "load","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+	
+	["set_pipeline"	,"ANIpipe"	],
+	
+	
+	
+	["set_vertex_buffer"	,0,"CAM_bCAM ani"	],
+	["set_vertex_buffer"	,1,"CAM_bCAM ani",68	],
+	["set_vertex_buffer"	,2,"CAM_bCAM ani",136	],
+	["set_bind_group"	,0,"CAM_bCAM anibind"	],
+	["draw_indirect"	,"CAM_bCAM ani indr",0]
+	
+	
+	
+	]
+},
+
+
+
+
+
+
+
+
+
+
+{
+	"descriptor":{
+		"label": "armature renderPass",
+		"colorAttachments": [
+			{"loadOp": "load","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthLoadOp": "load","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+	
+	["set_pipeline"	,"armpipe"	]
+	
+	
+	
+	
+	
+	
+	]
+},
+
+
+
+
+
+
+
+
+
+
+{
+	"descriptor":{
+		"label": "mesh (langit) renderPass",
+		"colorAttachments": [
+			{"clearValue": [0.3,0.3,0.3,0.0],"loadOp": "clear","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+
+	["set_pipeline"	,"langitpipe"	],
+	["set_vertex_buffer"	,0,"langitv"	],
+	["set_vertex_buffer"	,1,"langitinst"	],
+	["set_index_buffer"	,"langiti","uint16"	],
+	["set_bind_group"	,0,"langitbind"	],
+	["draw_indexed_indirect"	,"langitindr",0	]
+	
+	]
+},
+{
+	"descriptor":{
+		"label": "mesh renderPass",
+		"colorAttachments": [
+			{"clearValue": [0.3,0.7,0.9,1],"loadOp": "load","storeOp": "store","view":"(context)"}
+		],
+		"depthStencilAttachment": {"depthClearValue": 0,"depthLoadOp": "clear","depthStoreOp": "store","view":"deptexview"}
+	},
+	"methods":[
+
+	["set_pipeline"	,"tanahpipe"	],
+	["set_vertex_buffer"	,0,"tanahv"	],
+	["set_vertex_buffer"	,1,"tanahinst"	],
+	["set_index_buffer"	,"tanahi","uint16"	],
+	["set_bind_group"	,0,"tanahbind"	],
+	["draw_indexed_indirect"	,"tanahindr",0	],
+
+	["set_pipeline"	,"pompapipe"	],
+	["set_vertex_buffer"	,0,"pompav"	],
+	["set_vertex_buffer"	,1,"pompainst"	],
+	["set_index_buffer"	,"pompai","uint16"	],
+	["set_bind_group"	,0,"pompabind"	],
+	["draw_indexed_indirect"	,"pompaindr",0	],
+
+	["set_pipeline"	,"rumputpipe"	],
+	["set_vertex_buffer"	,0,"rumputv"	],
+	["set_vertex_buffer"	,1,"rumputinst"	],
+	["set_index_buffer"	,"rumputi","uint16"	],
+	["set_bind_group"	,0,"rumputbind"	],
+	["draw_indexed_indirect"	,"rumputindr",0	],
+
+	["set_pipeline"	,"airpipe"	],
+	["set_vertex_buffer"	,0,"airv"	],
+	["set_vertex_buffer"	,1,"airinst"	],
+	["set_index_buffer"	,"airi","uint16"	],
+	["set_bind_group"	,0,"airbind"	],
+	["draw_indexed_indirect"	,"airindr",0	],
+
+	["set_pipeline"	,"kunangpipe"	],
+	["set_vertex_buffer"	,0,"kunangv"	],
+	["set_vertex_buffer"	,1,"kunanginst"	],
+	["set_index_buffer"	,"kunangi","uint16"	],
+	["set_bind_group"	,0,"kunangbind"	],
+	["draw_indexed_indirect"	,"kunangindr",0	]
+
+	]
+}
+			
+			
+		]
+	}
+]

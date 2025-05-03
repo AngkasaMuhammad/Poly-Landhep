@@ -1,0 +1,15 @@
+[
+	{	"duration": 7	,"loop": true	,"offset": 6.8	,"src": "suara blip0"	,"volume": 0.45	,"when": 0	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara click"	,"volume": 0.45	,"when": 8	},
+	{	"duration": 6	,"loop": true	,"offset": 0	,"src": "suara tandon"	,"volume": 0.25	,"when": 7	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara tuang"	,"volume": 0.25	,"when": 10	},
+	{	"duration": 26.2	,"loop": true	,"offset": 0	,"src": "suara air"	,"volume": 0.25	,"when": 12.8	},
+	{	"duration": 26.2	,"loop": true	,"offset": 0	,"src": "suara banjir"	,"volume": 0.17	,"when": 14	},
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara salam"	,"volume": 0.45	,"when": 16	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara bagi kawan"	,"volume": 0.45	,"when": 20	},
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara maturnuwun"	,"volume": 0.45	,"when": 38	},
+	
+	{	"duration": null	,"loop": false	,"offset": 0	,"src": "suara click"	,"volume": 0.45	,"when": 45	},
+	{	"duration": null	,"loop": true	,"offset": 0	,"src": "suara jangkrik"	,"volume": 0.45	,"when": 45	}
+]

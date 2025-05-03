@@ -1,0 +1,816 @@
+[
+	[
+		{
+			"text": "\nstruct stmisc{\n\tpersp:mat4x4f,\n\tpivot:mat4x4f,\n\tcam:mat4x4f,\n\tinvcam:mat4x4f,\n\tview:mat4x4f, // = persp*invcam\n\tnow:u32,\n\tseek:f32,\n\tfreecam:u32,\n\tprevseek:f32,\n\tranfl:f32,\n}\n@group(0) @binding(0) var<uniform> misc:stmisc;\n@group(0) @binding(1) var<storage,read> ani:array<mat4x4f>;\n@group(0) @binding(2) var<storage,read> anicam:mat4x4f;\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst m_arahsiang = mat4x4f(0.808, -0.479, 0.342, 0, 0.442, 0.878, 0.187, 0, -0.389, 0, 0.921, 0, 0, 0, 0, 1);\nconst m_arahmalam = mat4x4f(-0.498, 0.841, -0.21, 0, -0.775, -0.54, -0.328, 0, -0.389, 0, 0.921, 0, 0, 0, 0, 1);\n//arah sumber matahari\nconst arahsiang = normalize(m_arahsiang[1].xyz); //vec3f(.2,.3,.2,);\nconst arahmalam = normalize(m_arahmalam[1].xyz);;\n\nconst wbs = vec4f(.4,.4,.4,.45,); //warna belakang siang\nconst wds = vec4f(.9,.9,.9,.25,); //warna depan siang\nconst wbm = vec4f(.0,.0,.0,.7,); //warna belakang malam\nconst wdm = vec4f(.0,.0,.0,.9,); //warna depan malam\n\nconst matide = mat4x4f(\n\t1,0,0,0,\n\t0,1,0,0,\n\t0,0,1,0,\n\t0,0,0,1,\n);\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "6446513.8526059175",
+			"speed": "8.05405405405406",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "88",
+					"g": "122",
+					"b": "88",
+					"frame": "1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn pompa_vert(\n\t@builtin(vertex_index) vi:u32,\n\t\n\t@location(0) meshid:i32,\n\t@location(1) nor:i32, // 3nor\n\t@location(2) pos:vec3f,\n\t@location(3) tex:vec2f,\n)-> vout0{\n\tlet seek = misc.seek;\n\t\n\tvar p = pos;\n\tvar m = matide;\n\tvar p1 = p;\n\tvar m1 = m;\n\tvar _using = false; // untuk select\n\tvar tampil = true;\n\n\n\n\n\n//tandon luar\n_using = meshid == Ptl;\n\n\tlet tlt = //tampil\n\t\t(seek < 10. || 12.5 < seek) \n\t\t&& (seek < 29. || 38. < seek)\n\t;\n\tp1 = pos;// vec3f(pos.xy ,pos.z+20.,);\n\tp1 = select(vec3f(0.),p1,tlt,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n//bola\n_using = meshid == Pb;\n\n\ttampil = 28. < seek;\n\tvar sudut = clamp(misc.seek,33.,34.,)-34.5;\n\tm1 = putarZ(sudut*.5);\n\t\n\tlet ykatup = select(.0,18.,seek < 30.,);\n\tm1[3] = vec4f(-3.,15.,.0,1.,);\n\tm1[3].y += ykatup;\n\t\n\tp1 = pos-vec3f(-3.,15.,.0,);\n\tp1 = select(vec3f(0.),p1,tampil,);\n\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\n\n\n\n\n\n//katup bola\n_using = meshid == Pkb;\n\n\t//tampil dari bola\n\tp1 = pos;\n\tp1.y += ykatup;\n\tp1 = select(vec3f(0.),p1,tampil,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n\t\n\tlet pout = m*vec4f(p,1.,);\n\tlet nor1 = fnor(m,nor,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\tvar cam = misc.view;\n\tlet viof = u32(misc.seek*377.);\n\treturn vout0(\n\t\tmisc.persp*fcam()*pout/f32(vi < viof), //animasi cyan\n\t\tnor1,\n\t\ttex,\n\t\tviof-vi,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout0{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(1) tex:vec2f,\n\t@location(2) @interpolate(flat) viof:u32, //vi offset\n}\n",
+			"visible": true,
+			"time": "4873413.4495801665",
+			"speed": "8.792792792792786",
+			"running": true,
+			"color": [
+				{
+					"r": "222",
+					"g": "0",
+					"b": "88",
+					"frame": "0"
+				},
+				{
+					"r": "222",
+					"g": "0",
+					"b": "88",
+					"frame": "1"
+				},
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "1.02"
+				},
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn pompa_frag(\n\to:vout0,\n)-> @location(0) vec4f{\n\tlet x = o.tex.x;\n\tlet y = o.tex.y;\n\nlet ff = select(vec4f(1.),vec4f(.5,.5,.5,1.,),x < .0,);\nlet ee = select(vec4f(.6,.1,.0,1.,),vec4f(.0,.0,.0,1.,),x < 4.,);\nlet dd = select(vec4f(.0,.0,.2,1.,),vec4f(.5,.5,.0,1.,),y < 4.5,);\nlet cc = select(dd,ee,y < .0,);\nlet bb = select(cc,vec4f(.0,.0,.4,1.,),x < .0,);\nlet aa = select(bb,ff,y < -4.,);\n\n//cyan\nlet is_cyan = misc.seek < 7.;\n\nlet warna = aa;\n\t\n\treturn select(\n\t\n\tvec4f(\n\t\tfsinar(warna.xyz,o.nor,)\n\t,warna.w,),\n\tselect(\n\t\tvec4f(.0,.4,.4,.5,),\n\t\tvec4f(.3,1.,1.,1.,),\n\t\to.viof < 66u,\n\t),\n\tis_cyan,\n\t\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//pompa\nconst Ptl = 1i; //tandon luar\nconst Pb = 2i; //bola\nconst Pkb = 3i; //katup bola\nconst Ptt = 4i; //tutup tandon\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn tanah_vert(\n\t@builtin(vertex_index) vi:u32,\n\t\n\t@location(0) pos:vec3f,\n)-> vout1{\n\tlet p = vec4f(pos,1.,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\tvar cam = misc.view;\n\treturn vout1(\n\t\tmisc.persp*fcam()*p,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout1{\n\t@builtin(position) posout:vec4f,\n\t@location(0) pos:vec4f,\n}\n",
+			"visible": true,
+			"time": "3028478.5182406064",
+			"speed": "6.081081081081079",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "1.01"
+				},
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn tanah_frag(\n\to:vout1,\n)-> @location(0) vec4f{\n\tlet x = o.pos.x;\n\tlet z = o.pos.z;\n\tlet x1 = x;//sin(x)%cos(x);\n\tlet z1 = z;//sin(z+pow(.9,x,)+.2*x);\n\treturn select(\n\t\tselect(\n\t\t\tvec4f(.9,.8,.4,.99,),\n\t\t\tvec4f(.8,.7,.3,.99,),\n\t\t\tsin(sin(x*z)) < pow(5.,sin(z*sin(x)),)*sin(9.*x),\n\t\t),\n\t\tselect(\n\t\t\tvec4f(.85,.75,.4,.99,),\n\t\t\tvec4f(.75,.65,.3,.99,),\n\t\t\tsin(x)%cos(x) < sin(z),\n\t\t),\n\t\ttan(x1+pow(.7,z,)) < sin(z1+pow(.9,x,)+.2*x1),\n\t)\n\t*vec4f(vec3f(select(.3,1.,is_siang(),)),1.,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n@vertex fn rumput_vert(\n\t@builtin(vertex_index) vi:u32,\n\t@builtin(instance_index) ii:u32,\n\t\n\t@location(0) pos:vec3f,\n)-> vout4{\n\tlet seek = misc.seek;\n\tvar p = vec3f(.0); //instance\n\tlet fii = f32(ii);\n\t\n\tp.x = ((fii*.11) % 888.)-444.;\n\tp.z = ((fii*4.7) % 888.)-444.;\n\t\n\tp += randomxz0(p);\n\t\n\tp.y = pos.y*((fii*2.51) % 5.);\n\t\n\t\n\t\n\t//ani\n\tlet tumbuh = clamp(seek-41.,.0,9.,)/9.;\n\t\n\tp.z += pow(p.y,2.,)\n\t*(1.+asft(\n\t\tfii +seek*2.7*((fii % .711)+.6)\n\t))\n\t*.01;\n\t\n\t\n\t\n\t\n\tlet pout = vec4f(\n\t\t(pos+p)\n\t\t*vec3f(1.,tumbuh,1.,)\n\t\t*f32(41. < seek)\n\t,1.,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\tvar cam = misc.view;\n\treturn vout4(\n\t\tmisc.persp*fcam()*pout,\n\t\t//pout,\n\t\tfii,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout4{\n\t@builtin(position) posout:vec4f,\n\t//@location(0) p:vec4f,\n\t@location(1) fii:f32,\n\t@location(2) pinst:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn rumput_frag(\n\to:vout4,\n)-> @location(0) vec4f{\n\treturn vec4f(.0,.6,.0,1.,)\n\t*vec4f(\n\t\tvec3f(select(.3,1.,is_siang(),))\n\t\t*(1. -asft(misc.seek +o.fii*.31)*.4)\n\t,1.,)\n\t;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn kunang_vert(\n\t//@builtin(vertex_index) vi:u32,\n\t@builtin(instance_index) ii:u32,\n\t\n\t@location(0) meshid:i32,\n\t@location(1) pos:vec3f,\n)-> vout5{\n\tlet seek = misc.seek;\n\tlet fii = f32(ii);\n\tvar p = pos; //vertex\n\tvar p1 = vec3f(.0); //vertex\n\tvar p2 = vec3f(.0); //instance\t\n\tvar m = matide;\n\tvar m1 = matide;\n\tvar _using = false;\n\n\n\n\n\n//bukan sayap\n_using = meshid != Ks;\n\t\n\tp1 = pos *f32(45.+fii*.1 < seek);\n\tm1 = putarY(seek*.3);\n\tm1[3] = vec4f(.0,11.,.0,1.,);\n\t\n\tm1[3].x = (asft(fii*.06112)+.5)*444.;\n\tm1[3].z = (asft(fii*.07191)+.5)*444.;\n\t\n\tm1[3].x += sin(seek+fii*.3117)*15.107;\n\tm1[3].y += sin(seek*.2+fii*.7372)*22.332 +22.;\n\tm1[3].z += sin(seek+fii*.9919)*18.721;\n\t\n\tlet j = distance(m1[3].xyz,misc.cam[3].xyz,); //jarak kamera\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\n\n\n\n\n\n//sayap\n_using = meshid == Ks;\n\t\n\tvar putar = asft(seek*88.+fii)*2.5 +1.3;\n\tputar *= select(1.,-1.,pos.x < .0,);\n\tm1 = m1*putarZ(putar);\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\n\n\n\n\n\n\n\tlet pout = m*vec4f(p,1.,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\tvar cam = misc.view;\n\treturn vout5(\n\t\tmisc.persp*fcam()*pout,\n\t\tvec4f(pos,1.,),\n\t\tmeshid,\n\t\tj,\n\t\tfii,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout5{\n\t@builtin(position) posout:vec4f,\n\t@location(0) p:vec4f,\n\t@location(1) @interpolate(flat) meshid:i32,\n\t@location(2) j:f32,\n\t@location(3) fii:f32,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn kunang_frag(\n\to:vout5,\n)-> @location(0) vec4f{\n\t\n\tlet hitam = vec4f(.0,.0,.0,1.,);\n\tlet kuning = vec4f(.8,1.,.0,1.,);\n\tlet putih = vec4f(1.,1.,1.,.5,);\n\t\n\tlet badan = select(\n\t\thitam,\n\t\tkuning,\n\t\to.p.z < -.01,\n\t);\n\tlet sayap = putih;\n\t\n\tlet cerah = o.j*sin(misc.seek*5.+o.fii*3.11);\n\tlet sinar0 = vec4f(kuning.rgb,.008*cerah,);\n\tlet sinar1 = vec4f(kuning.rgb,.005*cerah,);\n\t\n\tvar warna = select(badan,sayap,o.meshid == Ks,);\n\twarna = select(warna,sinar0,o.meshid == Ksi0);\n\twarna = select(warna,sinar1,o.meshid == Ksi1);\n\t\n\treturn warna;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//kunang\nconst Kb = 1i; // badan\nconst Ks = 2i; // sayap\nconst Ksi0 = 3i; // sinar0\nconst Ksi1 = 4i; // sinar1\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn air_vert(\n\t@builtin(vertex_index) vi:u32,\n\t\n\t@location(0) meshid:i32,\n\t@location(1) pos:vec3f,\n\t@location(2) tex:vec2f,\n)-> vout2{\n\tlet seek = misc.seek;\n\tvar p = pos;\n\tvar p1 = pos;\n\tvar m = matide;\n\tvar m1 = matide;\n\tvar _using = false;\n\n\n\n\n\n//bocor\n_using = meshid == Abo;\n\n\tlet bot = 13. < seek && seek < 39.; //tampil\n\tp1 = pos;\n\tp1 = select(vec3f(0.),p1,bot,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n//banjir\n_using = meshid == Aba;\n\n\tlet bat = 14. < seek && seek < 40.; //tampil\n\tp1 = pos;\n\tp1 = select(vec3f(0.),p1,bat,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n//arus0\n_using = meshid == Aa0;\n\n\tlet a0t = 7. < seek && seek < 30.; //tampil\n\tp1 = pos;\n\tp1 = select(vec3f(0.),p1,a0t,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n//arus1\n_using = meshid == Aa1;\n\n\tlet a1t = 30. < seek && seek < 33.5; //tampil\n\tp1 = pos;\n\tp1 = select(vec3f(0.),p1,a1t,);\n\np = select(p,p1,_using,);\n\n\n\n\n\n//level\n_using = meshid == Al;\n\n\tlet lt = 7. < seek; //tampil\n\tp1 = pos;\n\tp1 = select(vec3f(0.),p1,lt,);\n\t\n\tm1 = matide;\n\tm1[1][1] = clamp(\n\t\t(seek-10.)*1.8\n\t,.2,2.8,);\n\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\n\n\n\n\n\n\tlet pout = m*vec4f(p,1.,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\tvar cam = misc.view;\n\treturn vout2(\n\t\tmisc.persp*fcam()*pout,\n\t\ttex,\n\t\tsin(f32(vi))*1.4,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout2{\n\t@builtin(position) posout:vec4f,\n\t@location(0) tex:vec2f,\n\t@location(1) vi:f32,\n}\n",
+			"visible": true,
+			"time": "5756158.555689266",
+			"speed": "13.306306306306304",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn air_frag(\n\to:vout2,\n)-> @location(0) vec4f{\n\tlet t1 = misc.seek*5.;\n\tlet x = o.tex.x  +asft(t1*.4)*2.1;\n\tlet y = o.tex.y  +t1  +asft(t1*.5+o.vi)*.5;\n\t\n\tlet aa = (sin(y)+2.3)*1.8;\n\tlet bb = sin(x*.5);\n\tlet cc = bb*-.5;\n\t\n\tlet fac0 =\n\n\tf32(\n\t\t\tbb+4.1\n\t\t<\n\t\t\taa\n\t) * f32(\n\t\t\taa  +asft(misc.seek  +o.tex.x*.1  +o.tex.y*.4)+.3\n\t\t<\n\t\t\tbb+4.5\n\t)\n+\n\tf32(\n\t\t\tcc+3.2\n\t\t<\n\t\t\taa\n\t) * f32(\n\t\t\taa\n\t\t<\n\t\t\tcc+3.9\n\t)\n\n\t;\n\t\n\treturn select(\n\t\tvec4f(.5,.9,.9,.9,),\n\t\tvec4f(.0,.9,.9,.5,),\n\t\tfac0 < .5,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//air\nconst Abo = 1i; // bocor\nconst Aba = 2i; // banjir\nconst Aa0 = 3i; // arus0\nconst Aa1 = 4i; // arus1\nconst Al = 5i; // level\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn langit_vert(\n\t@builtin(vertex_index) vi:u32,\n\t\n\t@location(0) meshid:i32,\n\t@location(1) pos:vec3f,\n)-> vout3{\n\tlet AAANNNNIIIIIICCAAMMM = anicam;\n\tvar p = pos;\n\tvar p1 = p;\n\tvar warna = vec4f(.9);\n\tvar warna1 = vec4f(.9);\n\tvar m = matide;\n\tvar m1 = m;\n\tvar _using = false; // untuk select\n\n\n\n\n\n//langit\n_using = meshid == Ll;\n\t\n\tp1 = pos;\n\tm1 = matide;\n\twarna1 = select(vec4f(.0,.0,.0,1.,),vec4f(.3,.7,.9,1.,),is_siang(),);\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\nwarna = select(warna,warna1,_using,);\n\n\n\n\n\n//matahari\n_using = meshid == Lm;\n\t\n\tp1 = pos;\n\tm1 = fcam();\n\tm1 = misc.persp * mat4x4f(\n\t\tvec4f(normalize(m1[0].xyz),.0,),\n\t\tvec4f(normalize(m1[1].xyz),.0,),\n\t\tvec4f(normalize(m1[2].xyz),.0,),\n\t\tvec4f(.0,.0,.0,1.,),\n\t)\n\t*array(m_arahmalam,m_arahsiang,)[u32(is_siang())];\n\twarna1 = vec4f(1.);\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\nwarna = select(warna,warna1,_using,);\n\n\n\n\n\n//bnitang\n_using = meshid == Lbi;\n\t\n\tp1 = pos *f32(!is_siang());\n\t//m1 dari mataahari\n\twarna1 = vec4f(1.);\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\nwarna = select(warna,warna1,_using,);\n\n\n\n\n\n//bulan\n_using = meshid == Lbu;\n\t\n\tp1 = pos *f32(!is_siang());\n\t//m1 dari mataahari\n\twarna1 = vec4f(1.,1.,.5,1.,);\n\t\np = select(p,p1,_using,);\nm = array(m,m1,)[u32(_using)];\nwarna = select(warna,warna1,_using,);\n\n\n\n\n\n\tlet pout = m*vec4f(p,1.,);\n\t\n\tlet aaaaa = ani[0];\n\t\n\treturn vout3(\n\t\tpout,\n\t\twarna,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct vout3{\n\t@builtin(position) posout:vec4f,\n\t@location(0) warna:vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn langit_frag(\n\to:vout3,\n)-> @location(0) vec4f{\n\treturn o.warna;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//langit\nconst Ll = 1i; //langit\nconst Lm = 2i; //matahari\nconst Lbi = 3i; //bintang\nconst Lbu = 4i; //bulan\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn CAM_vert(\n)-> @builtin(position) vec4f {\n\tlet AAANNNNIIIIIICCAAMMM = anicam;\n\tlet seek = misc.seek;\n\t\n\tlet aaaaa = ani[0];\n\t\n\t\n\treturn vec4f(.0);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n@fragment fn CAM_frag(\n)-> @location(0) vec4f {\n\treturn vec4f(.0);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst weiarr = array(\nvec3f(0.000000, 1.000000, 0.000000,), // 0  \nvec3f(0.000000, 0.933334, 0.066667,), // 1  \nvec3f(0.000000, 0.866667, 0.133334,), // 2  \nvec3f(0.000000, 0.800000, 0.200000,), // 3  \nvec3f(0.000000, 0.733334, 0.266667,), // 4  \nvec3f(0.000000, 0.666667, 0.333334,), // 5  \nvec3f(0.000000, 0.600000, 0.400000,), // 6  \nvec3f(0.000000, 0.533334, 0.466667,), // 7  \nvec3f(0.000000, 0.466667, 0.533334,), // 8  \nvec3f(0.000000, 0.400000, 0.600000,), // 9  \nvec3f(0.000000, 0.333334, 0.666667,), // 10 \nvec3f(0.000000, 0.266667, 0.733334,), // 11 \nvec3f(0.000000, 0.200000, 0.800000,), // 12 \nvec3f(0.000000, 0.133334, 0.866667,), // 13 \nvec3f(0.000000, 0.066667, 0.933334,), // 14 \nvec3f(0.000000, 0.000000, 1.000000,), // 15 \nvec3f(0.066667, 0.933334, 0.000000,), // 16 \nvec3f(0.066667, 0.866667, 0.066667,), // 17 \nvec3f(0.066667, 0.800000, 0.133334,), // 18 \nvec3f(0.066667, 0.733334, 0.200000,), // 19 \nvec3f(0.066667, 0.666667, 0.266667,), // 20 \nvec3f(0.066667, 0.600000, 0.333334,), // 21 \nvec3f(0.066667, 0.533334, 0.400000,), // 22 \nvec3f(0.066667, 0.466667, 0.466667,), // 23 \nvec3f(0.066667, 0.400000, 0.533334,), // 24 \nvec3f(0.066667, 0.333334, 0.600000,), // 25 \nvec3f(0.066667, 0.266667, 0.666667,), // 26 \nvec3f(0.066667, 0.200000, 0.733334,), // 27 \nvec3f(0.066667, 0.133334, 0.800000,), // 28 \nvec3f(0.066667, 0.066667, 0.866667,), // 29 \nvec3f(0.066667, 0.000000, 0.933334,), // 30 \nvec3f(0.133334, 0.866667, 0.000000,), // 31 \nvec3f(0.133334, 0.800000, 0.066667,), // 32 \nvec3f(0.133334, 0.733334, 0.133334,), // 33 \nvec3f(0.133334, 0.666667, 0.200000,), // 34 \nvec3f(0.133334, 0.600000, 0.266667,), // 35 \nvec3f(0.133334, 0.533334, 0.333334,), // 36 \nvec3f(0.133334, 0.466667, 0.400000,), // 37 \nvec3f(0.133334, 0.400000, 0.466667,), // 38 \nvec3f(0.133334, 0.333334, 0.533334,), // 39 \nvec3f(0.133334, 0.266667, 0.600000,), // 40 \nvec3f(0.133334, 0.200000, 0.666667,), // 41 \nvec3f(0.133334, 0.133334, 0.733334,), // 42 \nvec3f(0.133334, 0.066667, 0.800000,), // 43 \nvec3f(0.133334, 0.000000, 0.866667,), // 44 \nvec3f(0.200000, 0.800000, 0.000000,), // 45 \nvec3f(0.200000, 0.733334, 0.066667,), // 46 \nvec3f(0.200000, 0.666667, 0.133334,), // 47 \nvec3f(0.200000, 0.600000, 0.200000,), // 48 \nvec3f(0.200000, 0.533334, 0.266667,), // 49 \nvec3f(0.200000, 0.466667, 0.333334,), // 50 \nvec3f(0.200000, 0.400000, 0.400000,), // 51 \nvec3f(0.200000, 0.333334, 0.466667,), // 52 \nvec3f(0.200000, 0.266667, 0.533334,), // 53 \nvec3f(0.200000, 0.200000, 0.600000,), // 54 \nvec3f(0.200000, 0.133334, 0.666667,), // 55 \nvec3f(0.200000, 0.066667, 0.733334,), // 56 \nvec3f(0.200000, 0.000000, 0.800000,), // 57 \nvec3f(0.266667, 0.733334, 0.000000,), // 58 \nvec3f(0.266667, 0.666667, 0.066667,), // 59 \nvec3f(0.266667, 0.600000, 0.133334,), // 60 \nvec3f(0.266667, 0.533334, 0.200000,), // 61 \nvec3f(0.266667, 0.466667, 0.266667,), // 62 \nvec3f(0.266667, 0.400000, 0.333334,), // 63 \nvec3f(0.266667, 0.333334, 0.400000,), // 64 \nvec3f(0.266667, 0.266667, 0.466667,), // 65 \nvec3f(0.266667, 0.200000, 0.533334,), // 66 \nvec3f(0.266667, 0.133334, 0.600000,), // 67 \nvec3f(0.266667, 0.066667, 0.666667,), // 68 \nvec3f(0.266667, 0.000000, 0.733334,), // 69 \nvec3f(0.333334, 0.666667, 0.000000,), // 70 \nvec3f(0.333334, 0.600000, 0.066667,), // 71 \nvec3f(0.333334, 0.533334, 0.133334,), // 72 \nvec3f(0.333334, 0.466667, 0.200000,), // 73 \nvec3f(0.333334, 0.400000, 0.266667,), // 74 \nvec3f(0.333334, 0.333334, 0.333334,), // 75 \nvec3f(0.333334, 0.266667, 0.400000,), // 76 \nvec3f(0.333334, 0.200000, 0.466667,), // 77 \nvec3f(0.333334, 0.133334, 0.533334,), // 78 \nvec3f(0.333334, 0.066667, 0.600000,), // 79 \nvec3f(0.333334, 0.000000, 0.666667,), // 80 \nvec3f(0.400000, 0.600000, 0.000000,), // 81 \nvec3f(0.400000, 0.533334, 0.066667,), // 82 \nvec3f(0.400000, 0.466667, 0.133334,), // 83 \nvec3f(0.400000, 0.400000, 0.200000,), // 84 \nvec3f(0.400000, 0.333334, 0.266667,), // 85 \nvec3f(0.400000, 0.266667, 0.333334,), // 86 \nvec3f(0.400000, 0.200000, 0.400000,), // 87 \nvec3f(0.400000, 0.133334, 0.466667,), // 88 \nvec3f(0.400000, 0.066667, 0.533334,), // 89 \nvec3f(0.400000, 0.000000, 0.600000,), // 90 \nvec3f(0.466667, 0.533334, 0.000000,), // 91 \nvec3f(0.466667, 0.466667, 0.066667,), // 92 \nvec3f(0.466667, 0.400000, 0.133334,), // 93 \nvec3f(0.466667, 0.333334, 0.200000,), // 94 \nvec3f(0.466667, 0.266667, 0.266667,), // 95 \nvec3f(0.466667, 0.200000, 0.333334,), // 96 \nvec3f(0.466667, 0.133334, 0.400000,), // 97 \nvec3f(0.466667, 0.066667, 0.466667,), // 98 \nvec3f(0.466667, 0.000000, 0.533334,), // 99 \nvec3f(0.533334, 0.466667, 0.000000,), // 100\nvec3f(0.533334, 0.400000, 0.066667,), // 101\nvec3f(0.533334, 0.333334, 0.133334,), // 102\nvec3f(0.533334, 0.266667, 0.200000,), // 103\nvec3f(0.533334, 0.200000, 0.266667,), // 104\nvec3f(0.533334, 0.133334, 0.333334,), // 105\nvec3f(0.533334, 0.066667, 0.400000,), // 106\nvec3f(0.533334, 0.000000, 0.466667,), // 107\nvec3f(0.600000, 0.400000, 0.000000,), // 108\nvec3f(0.600000, 0.333334, 0.066667,), // 109\nvec3f(0.600000, 0.266667, 0.133334,), // 110\nvec3f(0.600000, 0.200000, 0.200000,), // 111\nvec3f(0.600000, 0.133334, 0.266667,), // 112\nvec3f(0.600000, 0.066667, 0.333334,), // 113\nvec3f(0.600000, 0.000000, 0.400000,), // 114\nvec3f(0.666667, 0.333334, 0.000000,), // 115\nvec3f(0.666667, 0.266667, 0.066667,), // 116\nvec3f(0.666667, 0.200000, 0.133334,), // 117\nvec3f(0.666667, 0.133334, 0.200000,), // 118\nvec3f(0.666667, 0.066667, 0.266667,), // 119\nvec3f(0.666667, 0.000000, 0.333334,), // 120\nvec3f(0.733334, 0.266667, 0.000000,), // 121\nvec3f(0.733334, 0.200000, 0.066667,), // 122\nvec3f(0.733334, 0.133334, 0.133334,), // 123\nvec3f(0.733334, 0.066667, 0.200000,), // 124\nvec3f(0.733334, 0.000000, 0.266667,), // 125\nvec3f(0.800000, 0.200000, 0.000000,), // 126\nvec3f(0.800000, 0.133334, 0.066667,), // 127\nvec3f(0.800000, 0.066667, 0.133334,), // 128\nvec3f(0.800000, 0.000000, 0.200000,), // 129\nvec3f(0.866667, 0.133334, 0.000000,), // 130\nvec3f(0.866667, 0.066667, 0.066667,), // 131\nvec3f(0.866667, 0.000000, 0.133334,), // 132\nvec3f(0.933334, 0.066667, 0.000000,), // 133\nvec3f(0.933334, 0.000000, 0.066667,), // 134\nvec3f(1.000000, 0.000000, 0.000000,), // 135\nvec3f(0.022223, 0.955556, 0.022223,), // 136\nvec3f(0.022223, 0.888889, 0.088889,), // 137\nvec3f(0.022223, 0.822223, 0.155556,), // 138\nvec3f(0.022223, 0.755556, 0.222223,), // 139\nvec3f(0.022223, 0.688889, 0.288889,), // 140\nvec3f(0.022223, 0.622223, 0.355556,), // 141\nvec3f(0.022223, 0.555556, 0.422223,), // 142\nvec3f(0.022223, 0.488889, 0.488889,), // 143\nvec3f(0.022223, 0.422223, 0.555556,), // 144\nvec3f(0.022223, 0.355556, 0.622223,), // 145\nvec3f(0.022223, 0.288889, 0.688889,), // 146\nvec3f(0.022223, 0.222223, 0.755556,), // 147\nvec3f(0.022223, 0.155556, 0.822223,), // 148\nvec3f(0.022223, 0.088889, 0.888889,), // 149\nvec3f(0.022222, 0.022222, 0.955556,), // 150\nvec3f(0.088889, 0.888889, 0.022223,), // 151\nvec3f(0.088889, 0.822223, 0.088889,), // 152\nvec3f(0.088889, 0.755556, 0.155556,), // 153\nvec3f(0.088889, 0.688889, 0.222223,), // 154\nvec3f(0.088889, 0.622223, 0.288889,), // 155\nvec3f(0.088889, 0.555556, 0.355556,), // 156\nvec3f(0.088889, 0.488889, 0.422223,), // 157\nvec3f(0.088889, 0.422223, 0.488889,), // 158\nvec3f(0.088889, 0.355556, 0.555556,), // 159\nvec3f(0.088889, 0.288889, 0.622223,), // 160\nvec3f(0.088889, 0.222223, 0.688889,), // 161\nvec3f(0.088889, 0.155556, 0.755556,), // 162\nvec3f(0.088889, 0.088889, 0.822223,), // 163\nvec3f(0.088889, 0.022223, 0.888889,), // 164\nvec3f(0.155556, 0.822223, 0.022223,), // 165\nvec3f(0.155556, 0.755556, 0.088889,), // 166\nvec3f(0.155556, 0.688889, 0.155556,), // 167\nvec3f(0.155556, 0.622223, 0.222223,), // 168\nvec3f(0.155556, 0.555556, 0.288889,), // 169\nvec3f(0.155556, 0.488889, 0.355556,), // 170\nvec3f(0.155556, 0.422223, 0.422223,), // 171\nvec3f(0.155556, 0.355556, 0.488889,), // 172\nvec3f(0.155556, 0.288889, 0.555556,), // 173\nvec3f(0.155556, 0.222223, 0.622223,), // 174\nvec3f(0.155556, 0.155556, 0.688889,), // 175\nvec3f(0.155556, 0.088889, 0.755556,), // 176\nvec3f(0.155556, 0.022223, 0.822223,), // 177\nvec3f(0.222223, 0.755556, 0.022223,), // 178\nvec3f(0.222223, 0.688889, 0.088889,), // 179\nvec3f(0.222223, 0.622223, 0.155556,), // 180\nvec3f(0.222223, 0.555556, 0.222223,), // 181\nvec3f(0.222223, 0.488889, 0.288889,), // 182\nvec3f(0.222223, 0.422223, 0.355556,), // 183\nvec3f(0.222223, 0.355556, 0.422223,), // 184\nvec3f(0.222223, 0.288889, 0.488889,), // 185\nvec3f(0.222223, 0.222223, 0.555556,), // 186\nvec3f(0.222223, 0.155556, 0.622223,), // 187\nvec3f(0.222223, 0.088889, 0.688889,), // 188\nvec3f(0.222223, 0.022223, 0.755556,), // 189\nvec3f(0.288889, 0.688889, 0.022223,), // 190\nvec3f(0.288889, 0.622223, 0.088889,), // 191\nvec3f(0.288889, 0.555556, 0.155556,), // 192\nvec3f(0.288889, 0.488889, 0.222223,), // 193\nvec3f(0.288889, 0.422223, 0.288889,), // 194\nvec3f(0.288889, 0.355556, 0.355556,), // 195\nvec3f(0.288889, 0.288889, 0.422223,), // 196\nvec3f(0.288889, 0.222223, 0.488889,), // 197\nvec3f(0.288889, 0.155556, 0.555556,), // 198\nvec3f(0.288889, 0.088889, 0.622223,), // 199\nvec3f(0.288889, 0.022223, 0.688889,), // 200\nvec3f(0.355556, 0.622223, 0.022223,), // 201\nvec3f(0.355556, 0.555556, 0.088889,), // 202\nvec3f(0.355556, 0.488889, 0.155556,), // 203\nvec3f(0.355556, 0.422223, 0.222223,), // 204\nvec3f(0.355556, 0.355556, 0.288889,), // 205\nvec3f(0.355556, 0.288889, 0.355556,), // 206\nvec3f(0.355556, 0.222223, 0.422223,), // 207\nvec3f(0.355556, 0.155556, 0.488889,), // 208\nvec3f(0.355556, 0.088889, 0.555556,), // 209\nvec3f(0.355556, 0.022223, 0.622223,), // 210\nvec3f(0.422223, 0.555556, 0.022223,), // 211\nvec3f(0.422223, 0.488889, 0.088889,), // 212\nvec3f(0.422223, 0.422223, 0.155556,), // 213\nvec3f(0.422223, 0.355556, 0.222223,), // 214\nvec3f(0.422223, 0.288889, 0.288889,), // 215\nvec3f(0.422223, 0.222223, 0.355556,), // 216\nvec3f(0.422223, 0.155556, 0.422223,), // 217\nvec3f(0.422223, 0.088889, 0.488889,), // 218\nvec3f(0.422223, 0.022223, 0.555556,), // 219\nvec3f(0.488889, 0.488889, 0.022223,), // 220\nvec3f(0.488889, 0.422223, 0.088889,), // 221\nvec3f(0.488889, 0.355556, 0.155556,), // 222\nvec3f(0.488889, 0.288889, 0.222223,), // 223\nvec3f(0.488889, 0.222223, 0.288889,), // 224\nvec3f(0.488889, 0.155556, 0.355556,), // 225\nvec3f(0.488889, 0.088889, 0.422223,), // 226\nvec3f(0.488889, 0.022223, 0.488889,), // 227\nvec3f(0.555556, 0.422223, 0.022223,), // 228\nvec3f(0.555556, 0.355556, 0.088889,), // 229\nvec3f(0.555556, 0.288889, 0.155556,), // 230\nvec3f(0.555556, 0.222223, 0.222223,), // 231\nvec3f(0.555556, 0.155556, 0.288889,), // 232\nvec3f(0.555556, 0.088889, 0.355556,), // 233\nvec3f(0.555556, 0.022223, 0.422223,), // 234\nvec3f(0.622223, 0.355556, 0.022223,), // 235\nvec3f(0.622223, 0.288889, 0.088889,), // 236\nvec3f(0.622223, 0.222223, 0.155556,), // 237\nvec3f(0.622223, 0.155556, 0.222223,), // 238\nvec3f(0.622223, 0.088889, 0.288889,), // 239\nvec3f(0.622223, 0.022223, 0.355556,), // 240\nvec3f(0.688889, 0.288889, 0.022223,), // 241\nvec3f(0.688889, 0.222223, 0.088889,), // 242\nvec3f(0.688889, 0.155556, 0.155556,), // 243\nvec3f(0.688889, 0.088889, 0.222223,), // 244\nvec3f(0.688889, 0.022223, 0.288889,), // 245\nvec3f(0.755556, 0.222223, 0.022223,), // 246\nvec3f(0.755556, 0.155556, 0.088889,), // 247\nvec3f(0.755556, 0.088889, 0.155556,), // 248\nvec3f(0.755556, 0.022223, 0.222223,), // 249\nvec3f(0.822223, 0.155556, 0.022223,), // 250\nvec3f(0.822223, 0.088889, 0.088889,), // 251\nvec3f(0.822223, 0.022223, 0.155556,), // 252\nvec3f(0.888889, 0.088889, 0.022223,), // 253\nvec3f(0.888889, 0.022223, 0.088889,), // 254\nvec3f(0.955556, 0.022223, 0.022223,), // 255\n);\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "122",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn i_4u(i32_value: i32) -> vec4<u32> { // extract_i32_to_vec4u\n    // Extract individual bytes using bitwise operations\n    let byte0: u32 = u32((i32_value >> 0) & 0xFF);  // Least significant byte\n    let byte1: u32 = u32((i32_value >> 8) & 0xFF);\n    let byte2: u32 = u32((i32_value >> 16) & 0xFF);\n    let byte3: u32 = u32((i32_value >> 24) & 0xFF); // Most significant byte\n\n    // Return the extracted bytes as a vec4<u32>\n    return vec4<u32>(byte0, byte1, byte2, byte3);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fnor(\n\tm:mat4x4f,\n\tn:i32,\n)->vec3f{\n\treturn mat3x3f(\n\t\tm[0].xyz,\n\t\tm[1].xyz,\n\t\tm[2].xyz,\n\t)\n\t*(\n\t\tvec3f(i_4u(n).xyz)\n\t\t/127.5\n\t\t-1.\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fsinar(\n\twarna:vec3f,\n\tnor:vec3f,\n)->vec3f{\n\tlet berat = dot(\n\t\tnor,\n\t\tselect(arahmalam,arahsiang,is_siang(),),\n\t);\n\tlet wb = select(wbm,wbs,is_siang(),);\n\tlet wd = select(wdm,wds,is_siang(),);\n\tlet wbaru = select(wb,wd,.5 < berat,);\n\treturn mix(warna,wbaru.xyz,wbaru.w,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//anime slow fast timing\nfn asft(\n\tt1:f32,\n)->f32{\n\tlet t = t1%3.;\n\treturn (3.*abs(t-1.)-t-3)/4.;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarX(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\t1,0,0,0,\n\t\t0,c,s,0,\n\t\t0,-s,c,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarY(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\tc,0,s,0,\n\t\t0,1,0,0,\n\t\t-s,0,c,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarZ(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\tc,s,0,0,\n\t\t-s,c,0,0,\n\t\t0,0,1,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn is_siang(\n)->bool{\n\tlet s = misc.seek;\n\treturn 8. < s && s < 45.;\n}\n",
+			"visible": true,
+			"time": "470584.9742311485",
+			"speed": "1.6756756756756794",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "155",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "155",
+					"frame": "1"
+				},
+				{
+					"r": "155",
+					"g": "188",
+					"b": "188",
+					"frame": "1.012"
+				},
+				{
+					"r": "155",
+					"g": "188",
+					"b": "188",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\nfn randomxz0(\n\tp:vec3f,\n)->vec3f{\n\treturn vec3f(\n\t\tsin(f32(u32(p.x*999.2) << u32(p.z*555.7)))*22.\t+sin(p.z)*11.,\n\t\t0.,\n\t\tsin(f32(u32(p.x*777.4) | u32(p.z*444.1)))*22.\t+sin(p.x)*13.,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fcam()->mat4x4f{\n\treturn array(\n\t\tanicam,//misc.persp*anicam,\n\t\tmisc.invcam,//misc.view,\n\t)[misc.freecam];\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]
