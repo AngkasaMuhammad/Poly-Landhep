@@ -1,0 +1,8 @@
+{
+    "label": "Descriptor for Local Matrices (Column-Major Order), Inverted Global Matrices (Column-Major Order), & Global Matrices (Column-Major Order)",
+    "size": 64,
+    "usage": 140,
+    "_names_indices": {
+        "bCAM": 0
+    }
+}

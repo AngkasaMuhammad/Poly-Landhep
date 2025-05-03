@@ -1,0 +1,30 @@
+{
+	"arrayStride": 28,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "meshid",
+			"shaderLocation": 0,
+			"format": "sint32",
+			"offset": 0
+		},
+		{
+			"_name": "3nor",
+			"shaderLocation": 1,
+			"format": "sint32",
+			"offset": 4
+		},
+		{
+			"_name": "pos",
+			"shaderLocation": 2,
+			"format": "float32x3",
+			"offset": 8
+		},
+		{
+			"_name": "tex",
+			"shaderLocation": 3,
+			"format": "float32x2",
+			"offset": 20
+		}
+	]
+}
