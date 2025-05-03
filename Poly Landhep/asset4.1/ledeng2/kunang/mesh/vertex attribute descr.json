@@ -1,0 +1,18 @@
+{
+	"arrayStride": 16,
+	"stepMode": "vertex",
+	"attributes": [
+		{
+			"_name": "meshid",
+			"shaderLocation": 0,
+			"format": "sint32",
+			"offset": 0
+		},
+		{
+			"_name": "pos",
+			"shaderLocation": 1,
+			"format": "float32x3",
+			"offset": 4
+		}
+	]
+}
