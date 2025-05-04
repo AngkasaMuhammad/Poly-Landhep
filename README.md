@@ -1,6 +1,7 @@
 # Poly-Landhep  
   
-Objek 3d dengan format texture buatanku sendiri, menampilkan transisi warna yang tajam.
+Animasi 3d dengan feature bisa gerakin view secara bebas.  
+Sedia Play, Pause, Seek, & Speed.  
 
 [Browser compability](https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#browser_compatibility)
   
