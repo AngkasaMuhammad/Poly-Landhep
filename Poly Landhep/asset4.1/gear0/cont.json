@@ -1,0 +1,13 @@
+[
+	{"duration": null	,"src": "suara idle"	,"loop": true	,"offset": 0	,"volume": 0.4	,"when": 0	},
+	{"duration": null	,"src": "suara revving"	,"loop": false	,"offset": 3	,"volume": 0.3	,"when": 0	},
+	{"duration": null	,"src": "suara salam"	,"loop": false	,"offset": 0	,"volume": 0.5	,"when": 0	},
+	{"duration": null	,"src": "suara 3macam"	,"loop": false	,"offset": 0	,"volume": 0.5	,"when": 8.3	},
+	{"duration": null	,"src": "suara click"	,"loop": false	,"offset": 0	,"volume": 0.9	,"when": 8.5	},
+	{"duration": null	,"src": "suara click"	,"loop": false	,"offset": 0	,"volume": 0.9	,"when": 10.3	},
+	{"duration": null	,"src": "suara click"	,"loop": false	,"offset": 0	,"volume": 0.9	,"when": 12.3	},
+	{"duration": null	,"src": "suara mix"	,"loop": false	,"offset": 0	,"volume": 0.5	,"when": 14	},
+	{"duration": null	,"src": "suara varcont"	,"loop": false	,"offset": 0	,"volume": 0.6	,"when": 19	},
+	{"duration": 5.5	,"src": "suara tlogia"	,"loop": false	,"offset": 0	,"volume": 0.5	,"when": 33.2	},
+	{"duration": null	,"src": "suara wait"	,"loop": false	,"offset": 0	,"volume": 0.7	,"when": 38	}
+]

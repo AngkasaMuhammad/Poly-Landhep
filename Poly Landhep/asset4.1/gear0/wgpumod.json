@@ -1,0 +1,947 @@
+[
+	[
+		{
+			"text": "\nstruct stmisc{\n\tpersp:mat4x4f,\n\tpivot:mat4x4f,\n\tcam:mat4x4f,\n\tinvcam:mat4x4f,\n\tview:mat4x4f, // = persp*invcam\n\tnow:u32,\n\tseek:f32,\n\tfreecam:u32,\n\tprevseek:f32,\n\tranfl:f32,\n}\n@group(0) @binding(0) var<uniform> misc:stmisc;\n\nstruct stmisc1{\n\tsk:vec2f, //sudut katrol depan & belakang\n}\n@group(0) @binding(1) var<storage,read_write,> misc1:stmisc1;\n@group(0) @binding(2) var<storage> misc1read:stmisc1;\n@group(0) @binding(3) var<storage> camresoread:array<mat4x4f>;\n@group(0) @binding(4) var<storage> camreso:array<mat4x4f>;\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//dari js Math.PI.toFixed(100)\nconst pi = 3.141592653589793115997963468544185161590576171875;\nconst matide = mat4x4f(\n\t1,0,0,0,\n\t0,1,0,0,\n\t0,0,1,0,\n\t0,0,0,1,\n);\n\nconst m_arahsiang = mat4x4f(0.808, -0.479, 0.342, 0, 0.442, 0.878, 0.187, 0, -0.389, 0, 0.921, 0, 0, 0, 0, 1);\n//const m_arahmalam = mat4x4f(-0.498, 0.841, -0.21, 0, -0.775, -0.54, -0.328, 0, -0.389, 0, 0.921, 0, 0, 0, 0, 1);\n\n//arah sumber matahari\nconst arahsiang = normalize(m_arahsiang[1].xyz); //vec3f(.2,.3,.2,);\n//const arahmalam = normalize(m_arahmalam[1].xyz);;\n\nconst wbs = vec4f(.4,.4,.4,.45,); //warna belakang siang\nconst wds = vec4f(.9,.9,.9,.25,); //warna depan siang\n//const wbm = vec4f(.0,.0,.0,.7,); //warna belakang malam\n//const wdm = vec4f(.0,.0,.0,.9,); //warna depan malam\n\n\n\nconst tp = vec4f(.9,.9,.0,1.,);\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn tanah_vert(\n\t@location(0) p:vec3f,\n\t\n\t//@builtin(vertex_index) vi:u32,\n\t@builtin(instance_index) ii_:u32,\n)-> tanah_out {\n\tlet pout = vec4f(p,1.,);\t\n\treturn tanah_out(\n\t\tfcam()*pout,\n\t\tpout,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct tanah_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) p:vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn tanah_frag(\n\to:tanah_out,\n)-> @location(0) vec4f {\n\t//return o.p;\n\tlet x = o.p.x;\n\tlet y = o.p.y;\n\tlet z = o.p.z;\n\tlet seek = misc.seek;\n\t\n\treturn select(\n\t\tselect(\n\t\t\tvec4f(1.,.8,.4,1.9,),\n\t\t\tvec4f(.8,.7,.3,1.9,),\n\t\t\tcorak0(o.p.xyz),\n\t\t\t//sin(sin(x*z)) < pow(5.,sin(z*sin(x+y)),)*sin(9.*x), //ini rapi\n\t\t\t//tan(x*z) < sin(z),\n\t\t),\n\t\tselect(\n\t\t\tvec4f(.85,.75,.4,1.9,),\n\t\t\tvec4f(.75,.65,.3,1.9,),\n\t\t\t//sin(x*z-z)+cos(z*z) < atan(x*z),\n\t\t\tsin(x)%cos(x) < sin(z),\n\t\t\t//x*x+z*z < tan(200.*z/x),\n\t\t),\n\t\ttan(x+pow(.7,z,)) < sin(z+pow(1.,x,)+.2*x),\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "88",
+					"g": "255",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//const r = 2.; //rasio (mesin/katrol belakang)\n//const rg = log(r)/log(2.); //geser sabuk\n\n@vertex fn gear0_vert(\n\t\n\t@location(0) nor:vec4f,\n\t@location(1) p:vec3f,\n\t\n\t//@location(2) ii:u32,\n\t\n\t//bikin pake inst buffer aja, instance_index ngilangin mesh (cuma di project ini)\n\t@builtin(instance_index) ii_:u32, //makes mesh not appeared\n)-> gear0_out {\n\tlet pilih = u32(1u < ii_);\n\t\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ps = .5*(-ks-ms); //planet speed\n\tlet ds = .5*(ks-ms); //diff speed\n\t\n\tlet sp = spur(nor,p,ii_,ds,);\n\tlet be = bevel(nor,p,ii_, r(),ps,ds,);\n\tlet sg = shaftgear(nor,p,ii_, ds,);\n\treturn array(\n\t\tsp,sp,\n\t\tbe,be,be,be,\n\t\tsg,\n\t)[ii_];\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct gear0_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(1) nor0:vec4f,\n\t@location(2) pos0:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn gear0_frag(\n\to:gear0_out,\n)-> @location(0) vec4f {\n\tlet wa = warnagear(o.pos0);\n\tvar wa1 = wa*select(\n\t\t1.,\n\t\t.9,\n\t\tcorak0(o.pos0+o.nor0.xyz*11.),\n\t);\n\t\n\t//tanda putar\n\tlet p = o.pos0;\n\twa1 = select(\n\t\twa1,\n\t\ttp,\n\t\t-.03 < p.x &&\n\t\tp.x < .03 &&\n\t\t.0 < p.y,\n\t);\n\t\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,wa.a,);\n}\n\n\n\n\n\nconst g0luas = vec4f(.7,.7,.9,1.,);\nconst g0gelap = vec4f(.4,.4,.7,1.,);\nconst g0sedang = vec4f(.5,.5,.8,1.,);\nconst g0cerah = vec4f(.6,.6,.9,1.,);\nfn warnagear(\n\tp:vec3f,\n)->vec4f{\n\t\n\t//warna gear\n\tvar out = select(\n\t\tg0cerah,\n\t\tg0sedang,\n\t\tlength(p.xy) < .508,\n\t);\n\tout = select(\n\t\tout,\n\t\tg0gelap,\n\t\tlength(p.xy) < .482,\n\t);\n\tout = select(\n\t\tg0luas,\n\t\tout,\n\t\t-.057 < p.z &&\n\t\tp.z < .057,\n\t);\n\t\n\treturn out;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//=============================================\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn spur(\n\t\n\tnor:vec4f,\n\tpos:vec3f,\n\tii:u32,\n\tds:f32,\n\t\t\n)-> gear0_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(8.5 < misc.seek);\n\t\n\tlet arah = select(-1.,1.,ii < 1u,);\n\tlet putar = putarZ(mesin_speed()*arah);\n\tlet nor1 = fnor(putar,nor.xyz,);\n\t\n\tvar pout = vec4f(p,1.,);\n\tpout = putar*pout;\n\tpout.x += select(.0,1.,bool(ii),);\n\tpout.z -= 1.;\n\t\n\treturn gear0_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tnor,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn bevel(\n\t\n\tnor:vec4f,\n\tpos:vec3f,\n\tii:u32,\n\t\n\tr:f32, //rasio\n\tps:f32, //planet speed\n\tds:f32, //diff speed\n\t\t\n)-> gear0_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(12.5 < misc.seek);\n\t\n\tlet is_p = bool(ii%2u); //is_planet\n\t\n\tvar putar = putarZ(ps*select(-1.,1.,is_p,));\n\tputar = putarY(f32(ii)*pi*.5) *putar;\n\tputar = putarZ(ds)*putar;\n\tvar pout = vec4f(p,1.,);\n\tpout.z += .1;\n\t\n\tlet s = pout.z*2.;//scale\n\tpout.x *= s;\n\tpout.y *= s;\n\tpout = putar*pout;\n\tpout.x += 1.;\n\t\n\tlet nor1 = fnor(putar,nor.xyz,);\n\treturn gear0_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tnor,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn shaftgear(\n\t\n\tnor:vec4f,\n\tpos:vec3f,\n\tii:u32,\n\t\n\tds:f32, //diff speed\n\t\t\n)-> gear0_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(12.7 < misc.seek);\n\t\n\tlet putar = putarY(-.5*pi)*putarZ(ds);\n\tvar pout = vec4f(p,1.,);\n\tpout.z *= .25;\n\tpout.z += .3;\n\t\n\tlet s = pout.z*2.;//scale\n\tpout.x *= s;\n\tpout.y *= s;\n\tpout = putar*pout;\n\tpout.x += 1.;\n\t\n\tlet nor1 = fnor(putar,nor.xyz,);\n\t\n\treturn gear0_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tnor,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn mesin_vert(\n\t\n\t@location(0) warna:vec4f,\n\t@location(1) nor:vec4f,\n\t@location(2) p:vec3f,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> mesin_out {\n\tlet t = misc.seek;\n\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ds = .5*(ks-ms); //diff speed\n\t\n\tlet pout = vec4f(p,1.,);\n/*========\n\t/f32(\n\t\tp.x < .5\n\t\t|| 11. < t\n\t);\n--------*/\n\tlet nor1 = vec4f(fnor(\n\t\tmatide,\n\t\tnor.xyz,\n\t),1.,);\n\t\n\treturn mesin_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\twarna,\n\t\tnor1,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct mesin_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) warna:vec4f,\n\t@location(1) nor:vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn mesin_frag(\n\to:mesin_out,\n)-> @location(0) vec4f {\n\t\n\tlet wa = o.warna.xyz;\n\tlet wa1 = wa*select(\n\t\t1.,\n\t\t.9,\n\t\tcorak0(o.nor.xyz*55.),\n\t);\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,o.warna.a,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn katrol_vert(\n\t\n\t@location(0) nor:vec4f,\n\t@location(1) pos:vec3f,\n\t\n\t//@location(2) ii:u32,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> katrol_out {\n/*\n\t0\t1\n\n\n\n\t2\t3\n*/\n\t\n\t//muncul saat\n\tlet p = pos/f32(10.5 < misc.seek);\n\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ds = .5*(ks-ms); //diff speed\n\n\tlet arahbool = bool(ii_%2u);\n\tlet fii = f32(ii_);\n\tlet x = f32(1u < ii_);\n\tlet z = 1.2;\n\tvar putar = putarZ(select(\n\t\tks,\n\t\tms,\n\t\tii_ < 2u,\n\t))*putarX(pi*f32(arahbool),);\n\tvar pout = putar*vec4f(p,1.,);\n\tpout.x += x;\n\tpout.z += z +rg()*.04*f32(ii_ == 0u || ii_ == 3u);\n\t\n\tlet nor1 = fnor(putar,nor.xyz,);\n\t\n\treturn katrol_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tpout,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "222",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct katrol_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(1) pos:vec4f,\n\t@location(14) p0:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn katrol_frag(\n\to:katrol_out,\n)-> @location(0) vec4f {\n\t\n\tlet wa = vec4f(.4,.6,.4,1.,);\n\tvar wa1 = wa*select(\n\t\t1.,\n\t\t.9,\n\t\tcorak0(o.p0.xyz*11.),\n\t);\n\t\n\t//tanda putar\n\tlet p = o.p0;\n\twa1 = select(\n\t\twa1,\n\t\ttp,\n\t\t-.03 < p.x &&\n\t\tp.x < .03 &&\n\t\t.0 < p.y,\n\t);\n\t\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,wa.a,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n@vertex fn gear1_vert(\n\t\n\t@location(0) nor:vec4f,\n\t@location(1) pos:vec3f,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> gear1_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(12.6 < misc.seek);\n\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ds = .5*(ks-ms); //diff speed\n\t\n\tvar pout = vec4f(p,1.,);\n\t\n\tlet putar = putarZ(ds);\n\tpout = putar*pout;\n\tpout.x += 1.;\n\t\n\tlet nor1 = fnor(putar,nor.xyz,);\n\t\n\treturn gear1_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tp,\n\t);}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct gear1_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(1) p0:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn gear1_frag(\n\to:gear1_out,\n)-> @location(0) vec4f {\n\tlet wa = vec4f(.5,.3,.3,1.,);\n\tvar wa1 = wa*select(\n\t\t1.,\n\t\t.9,\n\t\tcorak0(o.p0+o.nor*4.),\n\t);\n\t\n\t//tanda putar\n\tlet p = o.p0;\n\twa1 = select(\n\t\twa1,\n\t\ttp,\n\t\t-.03 < p.x &&\n\t\tp.x < .03 &&\n\t\t.0 < p.y,\n\t);\n\t\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,wa.a,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn ban_vert(\n\t\n\t@location(0) nor:vec4f,\n\t@location(1) p:vec3f,\n\t\n\t//@location(2) ii:u32,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> ban_out {\n\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ds = .5*(ks-ms); //diff speed\n\t\n\tvar putar = putarX(.5*pi) *putarY(-ds);\n\tputar[3][0] = 5.5;\n\tputar[3][2] = 2.6*select(1.,-1.,bool(ii_),);\n\tlet pout = putar*vec4f(p,1.,);\n\t\n\tlet nor1 = fnor(putar,nor.xyz,);\n\t\n\treturn ban_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\tnor.xyz,\n\t\tp,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct ban_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(1) nor0:vec3f,\n\t@location(2) p0:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn ban_frag(\n\to:ban_out,\n)-> @location(0) vec4f {\n\tlet wa = vec4f(.0,.0,.0,1.,);\n\tvar wa1 = wa+select(\n\t\t.0,\n\t\t.1,\n\t\tcorak0(o.p0+o.nor0*11.),\n\t);\n\t\n\t//tanda putar\n\tlet p = o.p0;\n\twa1 = select(\n\t\twa1,\n\t\ttp,\n\t\t-.03 < p.x &&\n\t\tp.x < .03 &&\n\t\t.0 < p.y,\n\t);\n\t\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,wa.a,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n@vertex fn sabuk_vert(\n\t\n\t@location(0) nor:vec4f,\n\t@location(1) pos:vec3f,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> sabuk_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(10.5 < misc.seek);\n\n\tlet ms = mesin_speed();\n\tlet ks = katrol_speed(r());\n\tlet ds = .5*(ks-ms); //diff speed\n\t\n\tvar pout = vec4f(p,1.,);\n\t\n\tlet belakangkah = 0. < pout.x;\n\t\n\tlet r1 = select(rg(),-rg(),belakangkah,) *.08;\n\tlet xysize = length(pout.xy);\n\tlet size = normalize(pout.xy)*(xysize +r1);\n\tpout = vec4f(size,pout.zw,);\n\t\n\tpout.x += f32(belakangkah);\n\tpout.z += 1.2 +rg()*.02;\n\t\n\t\n\tlet nor1 = fnor(matide,nor.xyz,);\n\tlet tex = putarZ(ms)*pout;\n\t\n\treturn sabuk_out(\n\t\tfcam()*posmobil(ds)*pout,\n\t\tnor1,\n\t\ttex.xyz,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct sabuk_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) nor:vec3f,\n\t@location(13) p0:vec3f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn sabuk_frag(\n\to:sabuk_out,\n)-> @location(0) vec4f {\n\tlet wa = vec4f(.0,.0,.0,1.,);\n\tlet wa1 = wa+select(\n\t\t.0,\n\t\t.1,\n\t\tcorak0(o.p0*66.),\n\t);\n\tlet wa_out = fsinar(wa1.rgb,o.nor.xyz,);\n\treturn vec4f(wa_out,wa.a,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "88",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n@vertex fn panah_vert(\n\t\n\t@location(0) pos:vec3f,\n\t\n\t@builtin(instance_index) ii_:u32, //bikin mesh muncul juga, semua @vertex harus ada @builtin(instance_index)\n)-> panah_out {\n\t\n\tvar pout = vec4f(pos,1.,);\n\t\n\treturn panah_out(\n\t\tfcam()*camresoread[2]*pout,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct panah_out{\n\t@builtin(position) posout:vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn panah_frag(\n)-> @location(0) vec4f {\n\treturn vec4f(\n\t\tvec3f(sin(misc.seek*11.)+.5),\n\t\t1.,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\n@vertex fn teks0_vert(\n\t\n\t@location(0) pos:vec3f,\n\t\n\t@builtin(instance_index) ii_:u32,\n)-> teks0_out {\n\t\n\t//muncul saat\n\tlet p = pos/f32(40.5 < misc.seek)\n\t+vec3f(\n\t\tsin((f32(misc.now)+pos.y)*111.252),\n\t\tsin((f32(misc.now)+pos.x)*112.7811),\n\t\t0,\n\t)*.004;\n\t\n\tvar pout = vec4f(p,1.,);\nlet bentarrrrr = fcam();\n\t\n\treturn teks0_out(\n\t\tpout,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct teks0_out{\n\t@builtin(position) posout:vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn teks0_frag(\n)-> @location(0) vec4f {\n\treturn vec4f(1.);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn rpm_vert(\n\t\n\t@builtin(vertex_index) vi:u32,\n)-> rpm_out {\n\t\n\treturn rpm_out(\n\t\tvec4f(.0,.0,.99,1.,),\n\t\tvi,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct rpm_out{\n\t@builtin(position) posout:vec4f,\n\t@location(0) @interpolate(flat) vi:u32,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@fragment fn rpm_frag(\n\to:rpm_out,\n)-> @location(0) vec4f {\n\tlet ds = misc.seek-misc.prevseek;//delta sekk\n\t\n/*========\n\tlet coba = f32(o.vi < 555u);\n\tmisc1.sk[0] += ds*coba;\n\tmisc1.sk[1] += ds*r()*coba;\n--------*/\n\tmisc1.sk[o.vi] += ds*7.*select(1.,r(),bool(o.vi),); //f32(o.vi+1u)*.01;\n\treturn vec4f(.001);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn mesin_speed(\n)-> f32 {\n\treturn misc1read.sk[0u]; //misc.seek;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn katrol_speed(\n\tr:f32, //rasio\n)-> f32 {\n\treturn misc1read.sk[1u]; //misc.seek*r;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn r()->f32{ //rasio (mesin/katrol belakang)\n\t//return select(2.,.5,misc.seek < 11.,);\n\n\t//let a = 2.*atan(3.*(misc.seek-11.));\n\t//return pow(2,a/pi,);\n\t//return pow(10,-44,);\n\treturn camresoread[1][3][0];\n}\n\n\n\nfn rg()->f32{ //geser sabuk\n\treturn log(r())/log(2.);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn posmobil(\n\tds:f32,\n)->mat4x4f{\n\tlet x = 0.;//-ds;//misc.cam[3].x;\n\tlet m = mat4x4f(\n\t\t1,0,0,0,\n\t\t0,1,0,0,\n\t\t0,0,1,0,\n\t\tx,0,0,1,\n\t);\n\treturn m;\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarX(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\t1,0,0,0,\n\t\t0,c,s,0,\n\t\t0,-s,c,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarY(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\tc,0,s,0,\n\t\t0,1,0,0,\n\t\t-s,0,c,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn putarZ(\n\tr:f32,\n)->mat4x4f{\n\tlet s = sin(r);\n\tlet c = cos(r);\n\tlet m = mat4x4f(\n\t\tc,s,0,0,\n\t\t-s,c,0,0,\n\t\t0,0,1,0,\n\t\t0,0,0,1,\n\t);\n\treturn m;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fcam()->mat4x4f{\n\treturn array(\n\t\tmisc.persp*camresoread[0],\n\t\tmisc.view,\n\t)[misc.freecam];\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fnor(\n\tm:mat4x4f,\n\tn:vec3f,\n)->vec3f{\n\treturn mat3x3f(\n\t\tm[0].xyz,\n\t\tm[1].xyz,\n\t\tm[2].xyz,\n\t)*(n*2.-1.);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn corak0(\n\tp:vec3f,\n)-> bool {\n\t//return o.p;\n\tlet x = p.x;\n\tlet y = p.y;\n\tlet z = p.z;\n\t\n\treturn sin(sin(x*z)) < pow(5.,sin(z*sin(x+y)),)*sin(9.*x);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fsinar(\n\twarna:vec3f,\n\tnor:vec3f,\n)->vec3f{\n\tlet berat = dot(\n\t\tnor,\n\t\tarahsiang,\n\t);\n\tlet wb = wbs;\n\tlet wd = wds;\n\tlet wbaru = select(wb,wd,.0 < berat,);\n\treturn mix(warna,wbaru.xyz,wbaru.w,);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]
