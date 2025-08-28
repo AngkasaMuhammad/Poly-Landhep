@@ -392,7 +392,6 @@ var m1 = matide;
 
 //awal
 var p2 = vec4f(posinst,1.,);		m1[3] = p2;
-
 //naik
 p2.y += 8.;		m1[3] = mix(m1[3],p2,		cublerp(seekpetik-.0)		,);
 
@@ -415,7 +414,6 @@ let s = cublerp(1.-(misc.seek-41.148));
 m1[0u][0u] *= s;
 m1[1u][1u] *= s;
 m1[2u][2u] *= s;
-
 
 
 
@@ -482,10 +480,11 @@ fn anisle(// animasi slepet
 	let p2 = vec4f(.0,50. +ysle ,8.5,1.,);
 	m1[3] = mix(m1[3],p2,		clamp(t*(6./(fii*.0023+.4)),.0,1.,)		,);
 	
-	let s = mix(.0,1.7,tanh(-turun+naik)*.5+.5,);
-	m1[0u][0u] += s;
-	m1[1u][1u] += s;
-	m1[2u][2u] += s;
+	//let s = mix(.0,1.7,tanh(-turun+naik)*.5+.5,); //tanh() di beberapa browser & gpu muncul bug
+	let s = mix(.0,1.7,atan((-turun+naik)*2.)/pi+.5,);
+	m1[0][0] += s;
+	m1[1][1] += s;
+	m1[2][2] += s;
 	
 	return m1;
 }
