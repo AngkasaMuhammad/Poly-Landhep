@@ -1,0 +1,16 @@
+src	volume	buftrimstart	buftrimend	bufduration	bufscale	start
+suara kipas0	0.7	0	src	trimmed	1	22.2
+suara kipas0	0.7	0	src	trimmed	1	24
+suara step0	0.4	0	src	trimmed	1	35.4
+suara step0	0.4	0	src	trimmed	1	36.0
+suara step0	0.4	0	src	trimmed	1	36.6
+suara ambil	0.4	0	src	trimmed	1	37.9
+suara lompat	0.9	0	src	trimmed	1	38.6
+suara kartu	0.5	0	src	trimmed	0.5882352941176471	40
+suara slepet	0.8	0	src	trimmed	2.5	40.8
+suara boom	0.8	0	src	trimmed	2.5	41.15
+suara dahpak	0.3	0	src	trimmed	1	43.5
+suara tanamuntukapa	0.3	0	src	trimmed	1	47
+suara ayunan	0.5	0	src	trimmed	1	49
+suara ayunan1	0.3	0	src	trimmed	1	50.5
+suara metalbar	0.8	0	src	trimmed	1	57.8

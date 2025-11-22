@@ -1,0 +1,24 @@
+src	volume	buftrimstart	buftrimend	bufduration	bufscale	start
+suara angin	0.8	0	src	endless	1	0
+suara omaewa	.2	0	src	trimmed	1	4
+suara teleport	.2	0	src	trimmed	1	3
+suara vergil	1.1	0	3.5	trimmed	1	9
+suara besi2	.5	0	1.5	trimmed	4	10
+suara besi3	.15	0	src	trimmed	3	10.7
+suara besi3	.15	0	src	trimmed	2.5	11
+suara besi2	.3	0	1.5	trimmed	3	11.5
+suara besi1	.15	0	src	trimmed	22.7	13
+suara besi0	1.4	.2	src	trimmed	1.2	16
+suara besi0	1.4	.17	src	trimmed	1.5	16
+suara besi0	1.4	.2	src	trimmed	1.501	16
+suara retak	1.4	0	src	trimmed	1	15.7
+suara glitch	.1	0	src	trimmed	1	16
+suara glitch	.07	0	src	trimmed	.7	16
+suara glitch	.06	0	src	trimmed	.3	16
+suara glitch	.06	0	src	trimmed	.2	16
+suara glitch	.03	0	src	endless	1	16
+suara glitch	.03	0	src	endless	.7	16
+suara glitch	.03	0	src	endless	.43	16
+suara glitch	.03	0	src	endless	.3	16
+suara glitch	.03	0	src	endless	.21	16
+suara teleport	.2	0	src	trimmed	1	27.

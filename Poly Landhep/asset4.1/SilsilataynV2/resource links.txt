@@ -1,0 +1,14 @@
+resosemua.json
+resoutil.json
+tanah/reso.json
+cam/reso.json
+chara0/reso.json
+subtitle/reso.json
+bunga/reso.json
+fxretak/reso.json
+kilat/reso.json
+monyet/reso.json
+babi/reso.json
+batang/reso.json
+daun/reso.json
+rumput/reso.json

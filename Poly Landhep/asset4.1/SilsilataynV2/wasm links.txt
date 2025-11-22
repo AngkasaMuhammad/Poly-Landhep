@@ -1,0 +1,2 @@
+encoder timer.wasm
+encoder timer1.wasm

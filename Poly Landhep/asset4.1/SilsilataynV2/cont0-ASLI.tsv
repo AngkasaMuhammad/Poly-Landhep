@@ -1,0 +1,20 @@
+src	volume	buftrimstart	buftrimend	bufduration	bufscale	start
+suara angin	0.8	0	src	endless	1	0
+suara tolong kupas	0.1	0	src	trimmed	1	1
+suara ya pak	0.3	0	src	trimmed	1	4
+suara ayun	0.5	0	src	trimmed	1	10
+suara ayun	0.5	0	src	trimmed	0.5	10.85
+suara besi1	0.5	0	src	trimmed	0.01	10.8865
+suara besi0	0.5	0	src	trimmed	0.005	10.8888
+suara besi0	0.5	0	src	trimmed	0.5	10.88
+suara besi0	0.5	0	src	trimmed	0.5050505050505051	10.88
+suara jatuhlantai0	0.5	0	src	trimmed	1	11.4
+suara kamutanam	0.5	0	src	trimmed	1	12.9
+suara semuakumpul	0.3	0	src	2	1	24.7
+suara besi2	0.5	0	src	trimmed	1	17.5
+suara ayun	0.5	0	src	trimmed	1	20.4
+suara besi3	0.3	0	src	trimmed	1	20.4
+suara besi3	0.3	0	src	trimmed	1.0101010101010102	20.4
+suara kipas0	0.7	0	src	trimmed	1	20.7
+suara kipas0	0.7	0	src	trimmed	1	22.2
+suara omaewa	.2	0	src	trimmed	1	4

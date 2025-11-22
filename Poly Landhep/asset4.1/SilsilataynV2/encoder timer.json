@@ -1,0 +1,584 @@
+[
+	[
+		{
+			"text": "\n(module\n\t\n\t;;warna Language: Notepad++ ==>> Ada\n\t;;(global $str (import \"myStrings\" \"\") externref)\n",
+			"visible": true,
+			"time": "4659892.691244857",
+			"speed": "7.981981981981975",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "111",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1.5"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": "2"
+				},
+				{
+					"r": "0",
+					"g": "111",
+					"b": "255",
+					"frame": "3"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "3.5"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "111",
+					"frame": "4"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(import \"main\" \"lihat\" (func $lih (param i32) (result i32)))\n\t(import \"main\" \"auplay\" (func $auplay (param externref) (result externref)))\n\t(import \"main\" \"austop\" (func $austop (param externref)))\n\t\n\t(import \"main\" \"cce\" (func $cce (param externref))) ;;createCommandEncoder\n\t\t(import \"main\" \"brp\" (func $brp (param externref))) ;;beginRenderPass\n\t\t\t(import \"main\" \"sp\" (func $sp (param externref))) ;;setPipeline\n\t\t\t(import \"main\" \"svb\" (func $svb (param i32 externref i32 i32))) ;;setVertexBuffer\n\t\t\t(import \"main\" \"sib\" (func $sib (param externref externref i32 i32))) ;;setIndexBuffer\n\t\t\t(import \"main\" \"sbg\" (func $sbg (param i32 externref))) ;;setBindGroup\n\t\t\t(import \"main\" \"draw\" (func $draw (param i32 i32 i32 i32))) ;;draw\n\t\t\t(import \"main\" \"di\" (func $di (param externref i32))) ;;drawIndirect\n\t\t\t(import \"main\" \"dii\" (func $dii (param externref i32))) ;;drawIndexedIndirect\n\t\t\t(import \"main\" \"end\" (func $end)) ;;end\n\t\t(import \"main\" \"cttt\" (func $cttt (param externref externref))) ;;\n\t\t(import \"main\" \"finish\" (func $finish)) ;;finish\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n(import \"memory\" \"chara0misc\" (memory $chara0misc 1))\n(import \"memory\" \"monyetbabimisc\" (memory $monyetbabimisc 1))\n\n(import \"memory\" \"cobamemory0\" (memory $mem0 1))\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t;;(global $str (import \"myStrings\" \"\") externref)\n\n\n(global $strsamplerbind (import \"myStrings\" \"samplerbind\") externref)\n\t\n\t;;enco0\n\t(global $strenco0 (import \"myStrings\" \"enco0\") externref)\n\t\t(global $strcamindr (import \"myStrings\" \"camindr\") externref)\n\t\t(global $strtanahindr (import \"myStrings\" \"tanahindr\") externref)\n\t\t(global $strchara0indr (import \"myStrings\" \"chara0indr\") externref)\n\t\t(global $strsubtitleindr (import \"myStrings\" \"subtitleindr\") externref)\n\t\t(global $strbungaindr (import \"myStrings\" \"bungaindr\") externref)\n\t\t(global $strkilatindr (import \"myStrings\" \"kilatindr\") externref)\n\t\t(global $strmonyetbabiindr (import \"myStrings\" \"monyetbabiindr\") externref)\n\t\t(global $strbatangindr (import \"myStrings\" \"batangindr\") externref)\n\t\t(global $strdaunindr (import \"myStrings\" \"daunindr\") externref)\n\t\t(global $strrumputindr (import \"myStrings\" \"rumputindr\") externref)\n\t\t\n\t\t;;ani\n\t\t(global $stranirp (import \"myStrings\" \"ani rp\") externref)\n\t\t\t(global $str_bufkosong (import \"myStrings\" \"_bufkosong\") externref)\n\t\t\t(global $struint16 (import \"myStrings\" \"uint16\") externref)\n\t\t\t(global $strANIpipe (import \"myStrings\" \"ANIpipe\") externref)\n\t\t\t\n\t\t\t;;cam\n\t\t\t(global $strCAM_bCAMani (import \"myStrings\" \"CAM_bCAM ani\") externref)\n\t\t\t(global $strCAM_bCAManibind (import \"myStrings\" \"CAM_bCAM anibind\") externref)\n\t\t\t\n\t\t\t;;chara0\n\t\t\t(global $strchara0ani (import \"myStrings\" \"chara0ani\") externref)\n\t\t\t(global $strchara0anibind (import \"myStrings\" \"chara0 anibind\") externref)\n\t\t\t\n\t\t\t;;monyetbabi\n\t\t\t(global $strmonyetbabiani (import \"myStrings\" \"monyetbabiani\") externref)\n\t\t\t(global $strmonyetbabianibind (import \"myStrings\" \"monyet babi anibind\") externref)\n\t\t\n\t\t;;arm\n\t\t(global $strarmrp (import \"myStrings\" \"arm rp\") externref)\n\t\t\t(global $strarmpipe (import \"myStrings\" \"armpipe\") externref)\n\t\t\t\n\t\t\t;;chara0\n\t\t\t(global $strchara0armbind (import \"myStrings\" \"chara0 armbind\") externref)\n\t\t\n\t\t;;mesh\n\t\t(global $strmeshrp (import \"myStrings\" \"mesh rp\") externref)\n\t\t\t\n\t\t\t;;tanah\n\t\t\t(global $strtanahpipe (import \"myStrings\" \"tanahpipe\") externref)\n\t\t\t(global $strtanahv (import \"myStrings\" \"tanahv\") externref)\n\t\t\t(global $strtanahi (import \"myStrings\" \"tanahi\") externref)\n\t\t\t(global $strtanahbind (import \"myStrings\" \"tanahbind\") externref)\n\t\t\t\n\t\t\t;;chara0\n\t\t\t(global $strchara0pipe (import \"myStrings\" \"chara0pipe\") externref)\n\t\t\t(global $strchara0v (import \"myStrings\" \"chara0v\") externref)\n\t\t\t(global $strchara0i (import \"myStrings\" \"chara0i\") externref)\n\t\t\t(global $strchara0bind (import \"myStrings\" \"chara0bind\") externref)\n\t\t\t\n\t\t\t;;subtitle\n\t\t\t(global $strsubtitlepipe (import \"myStrings\" \"subtitlepipe\") externref)\n\t\t\t(global $strsubtitlev (import \"myStrings\" \"subtitlev\") externref)\n\t\t\t(global $strsubtitlei (import \"myStrings\" \"subtitlei\") externref)\n\t\t\t(global $strsubtitlebind (import \"myStrings\" \"subtitlebind\") externref)\n\t\t\t\n\t\t\t;;bunga\n\t\t\t(global $strbungapipe (import \"myStrings\" \"bungapipe\") externref)\n\t\t\t(global $strbungav (import \"myStrings\" \"bungav\") externref)\n\t\t\t(global $strbungainst (import \"myStrings\" \"bungainst\") externref)\n\t\t\t(global $strbungai (import \"myStrings\" \"bungai\") externref)\n\t\t\t(global $strbungabind (import \"myStrings\" \"bungabind\") externref)\n\t\t\t\n\t\t\t;;kilat\n\t\t\t(global $strkilatpipe0 (import \"myStrings\" \"kilatpipe0\") externref)\n\t\t\t(global $strkilatpipe1 (import \"myStrings\" \"kilatpipe1\") externref)\n\t\t\t(global $strkilatv (import \"myStrings\" \"kilatv\") externref)\n\t\t\t(global $strkilati (import \"myStrings\" \"kilati\") externref)\n\t\t\t(global $strkilatbind (import \"myStrings\" \"kilatbind\") externref)\n\t\t\t\n\t\t\t;;monyetbabi\n\t\t\t(global $strmonyetbabibind (import \"myStrings\" \"monyetbabibind\") externref)\n\t\t\t\n\t\t\t;;monyet\n\t\t\t(global $strmonyetpipe (import \"myStrings\" \"monyetpipe\") externref)\n\t\t\t(global $strmonyetv (import \"myStrings\" \"monyetv\") externref)\n\t\t\t(global $strmonyeti (import \"myStrings\" \"monyeti\") externref)\n\t\t\t\n\t\t\t;;babi\n\t\t\t(global $strbabipipe (import \"myStrings\" \"babipipe\") externref)\n\t\t\t(global $strbabiv (import \"myStrings\" \"babiv\") externref)\n\t\t\t(global $strbabii (import \"myStrings\" \"babii\") externref)\n\t\t\t\n\t\t\t;;batang\n\t\t\t(global $strbatangpipe (import \"myStrings\" \"batangpipe\") externref)\n\t\t\t(global $strbatangv (import \"myStrings\" \"batangv\") externref)\n\t\t\t(global $strbatangi (import \"myStrings\" \"batangi\") externref)\n\t\t\t(global $strbatangbind (import \"myStrings\" \"batangbind\") externref)\n\t\t\t\n\t\t\t;;daun\n\t\t\t(global $strdaunpipe (import \"myStrings\" \"daunpipe\") externref)\n\t\t\t(global $strdaunv (import \"myStrings\" \"daunv\") externref)\n\t\t\t(global $strdauninst (import \"myStrings\" \"dauninst\") externref)\n\t\t\t(global $strdauni (import \"myStrings\" \"dauni\") externref)\n\t\t\t(global $strdaunbind (import \"myStrings\" \"daunbind\") externref)\n\t\t\t\n\t\t\t;;rumput\n\t\t\t(global $strrumputpipe (import \"myStrings\" \"rumputpipe\") externref)\n\t\t\t(global $strrumputv (import \"myStrings\" \"rumputv\") externref)\n\t\t\t(global $strrumputi (import \"myStrings\" \"rumputi\") externref)\n\t\t\t(global $strrumputbind (import \"myStrings\" \"rumputbind\") externref)\n\t\t\n\t\t;;fx\n\t\t(global $strfxretakrp (import \"myStrings\" \"fxretak rp\") externref)\n\t\t\t(global $strfxretakpipe (import \"myStrings\" \"fxretakpipe\") externref)\n\t\t\t(global $strfxretakbind (import \"myStrings\" \"fxretakbind\") externref)\n\n\t;;copy (canvas) to fxtex\n\t(global $strcontext (import \"myStrings\" \"(context)\") externref)\n\t(global $strfxtex (import \"myStrings\" \"fxtex\") externref)\n\n\n\n;;audio\n(global $straucon2 (import \"myStrings\" \"aucon2\") externref)\n\n\n",
+			"visible": true,
+			"time": "550910.9344024927",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				},
+				{
+					"r": "122",
+					"g": "255",
+					"b": "122",
+					"frame": "1.5"
+				},
+				{
+					"r": "0",
+					"g": "122",
+					"b": "255",
+					"frame": "1.6"
+				},
+				{
+					"r": "0",
+					"g": "122",
+					"b": "255",
+					"frame": "3"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t;;audio\n\t(global $aucon2belumplay (mut i32) (i32.const 1))\n\t(global $aucon2belumstop (mut i32) (i32.const 1))\n\t\n\t;;\n\t(global $t (mut f32) (f32.const 0.))\n\t(global $aucon (mut externref) (ref.null extern))\n\t(func (export \"main\")\n\t\t(param $t0 f32)\n\t\t\n\t\tlocal.get $t0\n\t\tglobal.set $t\n\t\t\n;;`````````````````````````|\n\t\tcall $enco_enco0\n;;_________________________|\n\t\n\t;;audio cont\n\t\n\t\t\tf32.const 3.1\n\t\t\t;;global.get $t\n\t\t\ti32.const 0 f32.load $mem0\n\t\tf32.lt\n\t\tglobal.get $aucon2belumplay\n\ti32.and\n\tif\n\t\tglobal.get $straucon2\n\t\tcall $auplay\n\t\tglobal.set $aucon\n\t\t\n\t\ti32.const 0\n\t\tglobal.set $aucon2belumplay\n\tend\n\t\n\t\t\tf32.const 5.5\n\t\t\t;;global.get $t\n\t\t\ti32.const 0 f32.load $mem0\n\t\tf32.lt\n\t\tglobal.get $aucon2belumstop\n\ti32.and\n\tif\n\t\tglobal.get $aucon\n\t\tcall $austop\n\t\t\n\t\ti32.const 0\n\t\tglobal.set $aucon2belumstop\n\tend\n\t)\n",
+			"visible": true,
+			"time": "534006.7586048346",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "88",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": ".14"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $enco_enco0\n\t\t;;enco0 +++++++++++++++++++\n\t\tglobal.get $strenco0\n\t\tcall $cce\n\t\t\n;;`````````````````````````|\n\t\tcall $rp_enco0ani\n\t\tcall $rp_enco0arm\n\t\tcall $rp_enco0mesh\n\t\t\tglobal.get $strfxtex\n\t\t\tglobal.get $strcontext\n\t\tcall $cttt\n\t\tcall $rp_enco0fxretak\n;;_________________________|\n\t\t\n\t\tcall $finish\n\t)\n",
+			"visible": true,
+			"time": "533707.0304048345",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1.2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $rp_enco0ani\n\t\t;;ani +++++++++++++++++++\n\t\tglobal.get $stranirp\n\t\tcall $brp\n\t\t\n\t\t\tglobal.get $strANIpipe\n\t\t\tcall $sp\n\t\t\t\n;;`````````````````````````|\n\t\t\t\tglobal.get $strCAM_bCAMani\n\t\t\t\tglobal.get $strCAM_bCAManibind\n\t\t\t\tglobal.get $strcamindr\n\t\t\t\ti32.const 0\n\t\t\t\ti32.const 1\n\t\t\tcall $enco0ani...\n\t\t\t\tglobal.get $strchara0ani\n\t\t\t\tglobal.get $strchara0anibind\n\t\t\t\tglobal.get $strchara0indr\n\t\t\t\ti32.const 0 i32.load $chara0misc\n\t\t\t\ti32.const 4 i32.load $chara0misc\n\t\t\tcall $enco0ani...\n\t\t\t\tglobal.get $strmonyetbabiani\n\t\t\t\tglobal.get $strmonyetbabianibind\n\t\t\t\tglobal.get $strmonyetbabiindr\n\t\t\t\ti32.const 0 i32.load $monyetbabimisc\n\t\t\t\ti32.const 4 i32.load $monyetbabimisc\n\t\t\tcall $enco0ani...\n;;_________________________|\n\t\t\n\t\tcall $end\n\t)\n",
+			"visible": true,
+			"time": "533917.7093048346",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "88",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": ".14"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $enco0ani...\n\t\t(param $str...ani externref)\n\t\t(param $str...anibind externref)\n\t\t(param $str...indr externref)\n\t\t(param $indoff i32) ;;indirect offset, bukan per byte\n\t\t(param $bonelen i32) ;;jumlah bones\n\t\t\n\t\t(local $i i32)\n\t\t\n\t\ti32.const 0\n\t\tlocal.get $str...ani\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 1\n\t\tlocal.get $str...ani\n\t\ti32.const 68\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 2\n\t\tlocal.get $str...ani\n\t\ti32.const 136\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 0\n\t\tlocal.get $str...anibind\n\t\tcall $sbg\n\t\t\n\t\ti32.const 0 local.set $i\n\t\t(loop $lp\n\t\t\tlocal.get $str...indr\n\t\t\t\t\tlocal.get $i\n\t\t\t\t\tlocal.get $indoff\n\t\t\t\ti32.add\n\t\t\t\ti32.const 20\n\t\t\ti32.mul\n\t\t\tcall $di\n\t\t\t\n\t\t\t\tlocal.get $i\n\t\t\t\ti32.const 1\n\t\t\ti32.add\n\t\t\t\n\t\t\t\tlocal.tee $i\n\t\t\t\tlocal.get $bonelen\n\t\t\ti32.lt_s\n\t\t\tbr_if $lp\n\t\t)\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $rp_enco0arm\n\t\t;;arm +++++++++++++++++++\n\t\tglobal.get $strarmrp\n\t\tcall $brp\n\t\t\t\n\t\t\tglobal.get $strarmpipe\n\t\t\tcall $sp\n\t\t\t\n\t\t\ti32.const 0\n\t\t\tglobal.get $str_bufkosong\n\t\t\ti32.const 0\n\t\t\ti32.const -333 ;;omitted\n\t\t\tcall $svb\n\t\t\t\n\t\t\ti32.const 1\n\t\t\tglobal.get $str_bufkosong\n\t\t\ti32.const 0\n\t\t\ti32.const -333 ;;omitted\n\t\t\tcall $svb\n\t\t\t\n;;`````````````````````````|\n\t\t\tcall $draw_enco0armchara0\n;;_________________________|\n\t\t\t\n\t\tcall $end\n\t)\n",
+			"visible": true,
+			"time": "3587472.9000161635",
+			"speed": "6.882882882882884",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "0.9"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "0",
+					"frame": "1"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0armchara0\n\t\t;;chara0 +++++++++++++++++++\n\t\ti32.const 0\n\t\tglobal.get $strchara0armbind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strchara0indr\n\t\ti32.const 20\n\t\tcall $di\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $rp_enco0mesh\n\t\t;;mesh +++++++++++++++++++\n\t\tglobal.get $strmeshrp\n\t\tcall $brp\n\t\t\t\n\t\t\ti32.const 1\n\t\t\tglobal.get $str_bufkosong\n\t\t\ti32.const 0\n\t\t\ti32.const -333 ;;omitted\n\t\t\tcall $svb\n\t\t\t\n;;`````````````````````````|\n\t\t\tcall $draw_enco0meshtanah\n\t\t\tcall $draw_enco0meshchara0\n\t\t\tcall $draw_enco0meshbunga\n\t\t\tcall $draw_enco0meshmonyetbabi\n\t\t\tcall $draw_enco0meshbatang\n\t\t\tcall $draw_enco0meshdaun\n\t\t\tcall $draw_enco0meshrumput\n\t\t\t;;global.get $t f32.const 10.5 f32.gt if\n\t\t\t\n\t\t\t\t\tf32.const 10.5\n\t\t\t\t\tglobal.get $t\n\t\t\t\tf32.lt\n\t\t\t\t\tglobal.get $t\n\t\t\t\t\tf32.const 16\n\t\t\t\tf32.lt\n\t\t\ti32.and\n\t\t\tif\n\t\t\t\tcall $draw_enco0meshkilat\n\t\t\tend\n;;_________________________|\n\t\t\t\n\t\tcall $end\n\t)\n",
+			"visible": true,
+			"time": "2873799.2372995736",
+			"speed": "5.522522522522523",
+			"running": true,
+			"color": [
+				{
+					"r": "88",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "1"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshtanah\n\t\t;;tanah +++++++++++++++++++\n\t\tglobal.get $strtanahpipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strtanahv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strtanahi\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strtanahbind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strtanahindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshchara0\n\t\t;;chara0 +++++++++++++++++++\n\t\tglobal.get $strchara0pipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strchara0v\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strchara0i\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strchara0bind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strchara0indr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshbunga\n\t\t;;bunga +++++++++++++++++++\n\t\tglobal.get $strbungapipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strbungav\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 1\n\t\tglobal.get $strbungainst\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strbungai\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strbungabind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strbungaindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshmonyetbabi\n\t\ti32.const 0\n\t\tglobal.get $strmonyetbabibind\n\t\tcall $sbg\n\t\t\n;;monyet +++++++++++++++++++\n\t\ti32.const 0\n\t\tglobal.get $strmonyetv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strmonyeti\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\tglobal.get $strmonyetpipe\n\t\tcall $sp\n\t\t\n\t\tglobal.get $strmonyetbabiindr\n\t\ti32.const 0\n\t\tcall $dii\n\t\t\n;;babi +++++++++++++++++++\n\t\ti32.const 0\n\t\tglobal.get $strbabiv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strbabii\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\tglobal.get $strbabipipe\n\t\tcall $sp\n\t\t\n\t\tglobal.get $strmonyetbabiindr\n\t\ti32.const 20\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshkilat\n\t\t;;kilat +++++++++++++++++++\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strkilatv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strkilati\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strkilatbind\n\t\tcall $sbg\n\t\t\n\t\t;;jelas\n\t\tglobal.get $strkilatpipe0\n\t\tcall $sp\n\t\tglobal.get $strkilatindr\n\t\ti32.const 0\n\t\tcall $dii\n\t\t\n\t\t;;samar\n\t\tglobal.get $strkilatpipe1\n\t\tcall $sp\n\t\tglobal.get $strkilatindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshbatang\n\t\t;;batang +++++++++++++++++++\n\t\tglobal.get $strbatangpipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strbatangv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strbatangi\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strbatangbind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strbatangindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshdaun\n\t\t;;daun +++++++++++++++++++\n\t\tglobal.get $strdaunpipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strdaunv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 1\n\t\tglobal.get $strdauninst\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strdauni\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strdaunbind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strdaunindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshrumput\n\t\t;;rumput +++++++++++++++++++\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strrumputv\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strrumputi\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strrumputbind\n\t\tcall $sbg\n\t\t\n\t\tglobal.get $strrumputpipe\n\t\tcall $sp\n\t\tglobal.get $strrumputindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $rp_enco0fxretak\n\t\tglobal.get $strfxretakrp\n\t\tcall $brp\n\t\t\t\n\t\t\ti32.const 1\n\t\t\tglobal.get $str_bufkosong\n\t\t\ti32.const 0\n\t\t\ti32.const -333 ;;omitted\n\t\t\tcall $svb\n\t\t\t\n\t\t\t\t\tf32.const 10.5\n\t\t\t\t\tglobal.get $t\n\t\t\t\tf32.lt\n(;========\n\t\t\t\t\tglobal.get $t\n\t\t\t\t\tf32.const 18\n\t\t\t\tf32.lt\n\t\t\ti32.and\n--------;)\n\t\t\tif\n\t\t\t\tcall $draw_fxretak\n\t\t\tend\n\t\t\tcall $draw_enco0meshsubtitle\n\t\t\t\n\t\tcall $end\n\t)\n",
+			"visible": true,
+			"time": "1970887.6715266716",
+			"speed": "5.207207207207207",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "1"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_fxretak\n\t\t\n\t\tglobal.get $strfxretakpipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $str_bufkosong\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strfxretakbind\n\t\tcall $sbg\n\t\t\n\t\ti32.const 1\n\t\tglobal.get $strsamplerbind\n\t\tcall $sbg\n\t\t\n\t\ti32.const 33 i32.const 3 i32.mul\n\t\ti32.const 1\n\t\ti32.const 0\n\t\ti32.const 0\n\t\tcall $draw\n\t\t\t\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func $draw_enco0meshsubtitle\n\t\t;;subtitle +++++++++++++++++++\n\t\tglobal.get $strsubtitlepipe\n\t\tcall $sp\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strsubtitlev\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $svb\n\t\t\n\t\tglobal.get $strsubtitlei\n\t\tglobal.get $struint16\n\t\ti32.const 0\n\t\ti32.const -333 ;;omitted\n\t\tcall $sib\n\t\t\n\t\ti32.const 0\n\t\tglobal.get $strsubtitlebind\n\t\tcall $sbg\n\t\tglobal.get $strsubtitleindr\n\t\ti32.const 0\n\t\tcall $dii\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n;;=+=+=+=+=+=+=+=+=+=+=+=+=\n)\n",
+			"visible": true,
+			"time": "578538.7207021763",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		}
+	]
+]

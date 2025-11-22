@@ -1,0 +1,6 @@
+src	volume	buftrimstart	buftrimend	bufduration	bufscale	start
+suara besi1	0.99	0	src	trimmed	1	1
+suara besi1	0.99	0	src	trimmed	3	1.1
+suara besi1	0.99	0	src	trimmed	7	1.2
+suara besi3	1	.5	2	6.25	.5	2
+suara ya pak	.3	1.0	1.5	endless	6	.4

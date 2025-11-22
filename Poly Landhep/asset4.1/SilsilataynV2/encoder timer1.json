@@ -1,0 +1,148 @@
+[
+	[
+		{
+			"text": "\n(module\n\t\n\t;;warna Language: Notepad++ ==>> Ada\n\t;;(global $str (import \"myStrings\" \"\") externref)\n",
+			"visible": true,
+			"time": "4563320.543870762",
+			"speed": "7.981981981981975",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "111",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1.5"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": "2"
+				},
+				{
+					"r": "0",
+					"g": "111",
+					"b": "255",
+					"frame": "3"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "3.5"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "111",
+					"frame": "4"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n(import \"memory\" \"cobamemory0\" (memory $mem0 1))\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n\t(func (export \"main\")\n\t\t(param $t0 f32)\n\t\t\n\t\ti32.const 0\n\t\tf32.const 14.47\n\t\tf32.store $mem0\n\t)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n;;=+=+=+=+=+=+=+=+=+=+=+=+=\n)\n",
+			"visible": true,
+			"time": "566439.9528031854",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		}
+	]
+]
