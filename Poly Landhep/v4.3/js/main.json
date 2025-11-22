@@ -1,0 +1,1033 @@
+[
+	[
+		{
+			"text": "'use strict'\n\n/*\nimport {\n\tvec3 as v3,\n\tmat4 as m4,\n} from 'https://wgpu-matrix.org/dist/3.x/wgpu-matrix.module.js'\n*/\nlet v3 = wgpuMatrix.vec3\nlet m4 = wgpuMatrix.mat4\n\n\n\n\nimport {\n\tlihat as lih,\n\tsleep,\n\ttyarr_b64,\n\tb64_tyarr,\n\tpisahstr,\n\t//getWordByIndex,\n} from '../../v4/js/utilku.js'\n\n\n\nimport {\n\tcanv3d,\n\tcanv2d,\n\tcx3d,\n\tcx2d,\n\ttambahinfo,\n\t\n\tuiloop,\n\tcontentloaded as cload,\n\t\n\tset_getsuara,\n\tset_freecam,\n\tset_setspf,\n} from './ui.js'\n\n\n\nimport {\n\tloadcam,\n\tfview,\n} from './camera.js'\n\n",
+			"visible": true,
+			"time": "1326524.6416620333",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "1"
+				},
+				{
+					"r": "155",
+					"g": "255",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\nlet valtype = val=>{\n    if (val === null) {\n        return 'null'; // Special case: typeof null is \"object\", so handle it explicitly.\n    }\n    if (Array.isArray(val)) {\n        return 'array'; // Arrays are technically objects, but we want to distinguish them.\n    }\n    const type = typeof val;\n    if (type === 'object') {\n        return 'object'; // Handle plain objects.\n    }\n    return type; // Return the type for primitives like 'number', 'string', 'boolean', etc.\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nclass Deferred {\n\tconstructor() {\n\t\tthis.promise = new Promise(resolve => {\n\t\t\tthis.run = resolve;\n\t\t});\n\t}\n\n\t// Make the instance awaitable: await d\t=== await d.promise\n\tthen(...args) { return this.promise.then(...args); }\n\tcatch(...args) { return this.promise.catch(...args); }\n\tfinally(...args) { return this.promise.finally(...args); }\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst taskQueue = []; //wasm asyncs\n\nlet enta = async (fn, ...args)=>{ //enqueue task\n\tlet defe = new Deferred()\n\ttaskQueue.push([fn,args,defe,]);\n\treturn defe\n}\n\nlet runWAsmQueue = async()=>{\n\twhile (taskQueue.length) {\n\t\tconst [fn,args,defe,] = taskQueue.shift();\n\t\tdefe.run(await fn(...args)); // ensures order\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet submitarr = []\n\n\n\nlet wasm_cce = async ( //createCommandEncoder\n\tencoreso,\n)=>{\n\tlet ce = await reso.get(encoreso)\n\tce = dv.createCommandEncoder(ce.descriptor)\n\t//lih(ce)\n\treturn editenco = ce\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "215555",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet editenco = 'kkkkosong'\n\n\n\nlet wasm_brp = async ( //beginRenderPass\n\tstrrpreso,\n)=>{\n\tlet rpreso = await reso.get(strrpreso)\n\tlet descr = rpreso.descriptor\n\t\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = context.getCurrentTexture().createView(cvd)\n\t\t}\n\t}\n\t\n\tlet rp = editenco.beginRenderPass(descr)\n\t//lih(rp)\n\treturn editrp = rp\n}\n\n\nlet wasm_cttt = async ( //finish\n\tsrc,\n\tdst,\n\tsize,\n)=>{\n\tawait 99999\n\t\n\tsrc = tex.has(src) ?tex.get(src)() :(await reso.get(src))\n\tdst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))\n\tif(\n\t\tsrc.width !== dst.width ||\n\t\tsrc.height !== dst.height\n\t) throw Error('size must match')\n\t\n\teditenco.copyTextureToTexture(\n\t\t{texture:src},\n\t\t{texture:dst},\n\t\tsrc,\n\t)\n}\n\n\nlet wasm_finish = async ( //finish\n)=>{\n\tawait 99999\n\tsubmitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))\n\teditenco = 'kkkkosong1'\n}\n\n\n",
+			"visible": true,
+			"time": "507923.4827143033",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "55",
+					"frame": "1"
+				},
+				{
+					"r": "155",
+					"g": "0",
+					"b": "255",
+					"frame": "1.1"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "4"
+				}
+			]
+		},
+		{
+			"text": "\nlet editrp = 'kosonggg g gg'\n\n\n\nlet wasm_sp = async ( //setPipeline\n\tstrpipereso\n)=>{\n\tlet pipe = await reso.get(strpipereso)\n\teditrp.setPipeline(pipe)\n}\n\n\nlet wasm_svb = async ( //setVertexBuffer\n\tslot,\n\tstrbufreso,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setVertexBuffer(slot,buf,offset,)\n\t}else{\n\t\teditrp.setVertexBuffer(slot,buf,offset,size,)\n\t}\n}\n\n\nlet wasm_sib = async ( //setIndexBuffer\n\tstrbufreso,\n\tindexFormat,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,)\n\t}else{\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,size,)\n\t}\n}\n\n\nlet wasm_sbg = async ( //setBindGroup\n\tindex,\n\tstrbgreso,\n)=>{\n\tlet bg = await reso.get(strbgreso)\n\teditrp.setBindGroup(index,bg,)\n}\n\n\nlet wasm_dii = async ( //drawIndexedIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndexedIndirect(buf,offset,)\n}\n\n\nlet wasm_di = async ( //drawIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndirect(buf,offset,)\n}\n\n\nlet wasm_draw = async ( //draw\n\tvertexCount,\n\tinstanceCount,\n\tfirstVertex,\n\tfirstInstance,\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.draw(\n\t\tvertexCount,\n\t\tinstanceCount,\n\t\tfirstVertex,\n\t\tfirstInstance,\n\t)\n}\n\n\nlet wasm_end = async ( //end\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.end()\n\teditrp = 'bekas '+editrp.label\n}\n\n\n/*========\nlet wasm_ = async ( //\n)=>{\n\tlet = await reso.get()\n\teditrp.()\n}\n--------*/\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//audio sekali play\nlet wasm_auplay = async straucon=>{\n\tlet aucon = await reso.get(straucon)\n\tlet out = []\n\tfor(let con of aucon){\n\t\tlet bufsrc = con.src\n\t\tlet when = +con.start\n\t\tlet whenglo = when +aucx.currentTime\n\t\tlet vol = +con.volume\n\t\tlet buftrimstart = +con.buftrimstart\n\t\tlet buftrimend = con.buftrimend\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\tlet dur = con.bufduration\n\t\t\tdur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time\n\t\t\tdur = (dur === 'endless') ?'endless' :+dur //buffer time\n\t\tlet bufscale = +con.bufscale\n\t\t\n\t\tlet source = aucx.createBufferSource()\n\t\tout.push(source)\n\t\tsource.buffer = bufsrc\n\t\tsource.loop = true\n\t\tsource.playbackRate.value = 1/bufscale;\n\t\tconst gainNode = aucx.createGain();\t\tgainNode.gain.value = vol\n\n\t\tsource.connect(gainNode).connect(aucx.destination)\n\t\tlet curtime = aucx.currentTime\n\t\tlet whencx = curtime +when\n\t\t\n\t\tsource.loopStart = buftrimstart\n\t\tsource.loopEnd = buftrimend\n\t\tlet durcx = dur\n\t\t\n\t\tlet offsetlok = buftrimstart\n\t\t\n\t\tsource.start(whencx,offsetlok,)\n\t\tif(dur !== 'endless'){\n\t\t\tdurcx *= bufscale\n\t\t\tsource.stop(whencx+durcx)\n\t\t}\n\t}\n\treturn out\n}\n\nlet wasm_austop = async aucon=>{\n\tlih(aucon)\n\tfor(let con of await aucon){\n\t\tcon.stop()\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet context = cx3d\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\nexport let getsuara = ()=>suara\nset_getsuara(getsuara)\n\nlet reso = new Map()\nlet encoarr = []\nlet aubuflist = []\nlet auconlist = [] //duration\tsrc\tloop\toffset\tvolume\twhen\tmyspeed\nlet cont = []\nlet tunggureso = new Deferred()\n\n\n\n\n\n//+++++++++++++++ resource +++++++++++++++\n\nlet reslinkslink = new URLSearchParams(location.search).get('reslinks')\nreslinkslink = new URL(reslinkslink,location.href,)\nlet resosrc = fetch(reslinkslink)\n.then(r=>r.text())\n\n//fetch links\n.then(str=>Promise.all(\n\tstr\n\t.split(strnewline)\n\t.map(aa=>{\n\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\treturn fetch(urlini)\n\t\t.then(r=>r.json())\n\t\t.then(out=>({\n\t\t\tout,\n\t\t\tparenturl:urlini,\n\t\t}))\n\t})\n))\n.then(arr=>{\n\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\tlet o = out[k]\n\t\to.parenturl = parenturl\n\t}}\n\treturn Object.assign({},...arr.map(aa=>aa.out),)\n})\n\n\n\n\n\n//+++++++++++++++ wasm +++++++++++++++\n\nlet wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\nwasmlinkslink = new URL(wasmlinkslink,location.href,)\nlet wasmsrc = fetch(wasmlinkslink)\n.then(r=>r.text())\n\n//fetch links\n.then(async str=>{\n\tlet strconst = {\n\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t}\n\t\n\tlih('tunggu reso')\n\tlet impobj = {\n\tmain:{\n\t\tlihat:(...args)=>enta(lih, ...args),\n\t\tauplay:(...args)=>enta(wasm_auplay, ...args),\n\t\taustop:(...args)=>enta(wasm_austop, ...args),\n\t\t\n\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t//clear buffer blum bikin\n\t\t\t//copy buf to buf blum bikin\n\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\t\n\t},\n\tmemory:lih(await tunggureso)\n\t}\n\tlih('reso loaded')\n\t\n\t\n\t\n\treturn Promise.all(\n\tstr\n\t.split(strnewline)\n\t.map(aa=>{\n\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\treturn WebAssembly.instantiateStreaming(\n\t\t\tfetch(urlini),\n\t\t\timpobj,\n\t\t\tstrconst,\n\t\t)\n\t})\n\t\n\t\n\t\n)})\n\n\n\n\n\n//sampe sini, \n\t/*\n1. \n\t\t\t\tfgoi(key,'LOAD '+key,)\n\t*/\n\n\n\nlet urlparam = new URLSearchParams(location.search)\n\n/*========\nlet resosrclink = new URL(urlparam.get('resource') ?? 'resources.json',location.href,) //\nlet resosrc = fetch(resosrclink)\n.then(r=>r.json())\n\nlet encosrclink = new URL(urlparam.get('encoder') ?? 'encoder.json',location.href,) //\nlet encosrc = fetch(encosrclink)\n.then(r=>r.json())\n\nlet contsrclink = new URL(urlparam.get('controller') ?? 'controller.json',location.href,) //\nlet contsrc = fetch(contsrclink)\n//.then(r=>r.json())\n\t.then(r=>r.text())\n\t.then(r=>lih(tsvToObj(r)))\n--------*/\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet _aucon = class {\n\tconstructor(audioData) {\n\t\tlet curtime = aucx.currentTime\n\t\tthis.audioContext = aucx;\n\t\tthis.audioData = audioData;\n\t\tthis.sources = [];\n\t\tthis.gainNodes = [];\n\t\tthis.isPlaying = false;\n\t\tthis.speed = 1;\n\t\tthis.startTime = curtime;// global\n\t\tthis.curtime = 0;// global, ga realtime\n\t\tthis.lastseek = 0;// local\n\t\tthis.stopTime = curtime;// global\n\t\t\n\t\t//sekali play\n\t\t\n\t}\n\n\tcreateSource(audioBuffer, volume, newspeed,) {//loop,\n\t\tconst source = this.audioContext.createBufferSource();\n\t\tsource.buffer = audioBuffer;\n\t\tsource.playbackRate.value = newspeed;\n\t\t//source.loop = loop;\n\t\tsource.loop = true\n\n\t\tconst gainNode = this.audioContext.createGain();\n\t\tgainNode.gain.value = volume;\n\n\t\tsource.connect(gainNode).connect(this.audioContext.destination);\n\n\t\treturn { source, gainNode };\n\t}\n\n\tstart_at(seek,newspeed,) {\n\t\tif (this.isPlaying) return;\n\t\tthis.isPlaying = true;\n\t\t\n\t\tlet curtime = this.audioContext.currentTime\n\t\t\n\t\t//let newstartTime = curtime\n\t\t\n\t\t//let info0 = 'seek = '+seek+' ===================\\n'\n\t\tthis.audioData.forEach(({\n\t\t\t\n\t\t\tsrc:bufsrc,\n\t\t\tstart:when,\n\t\t\t//offset, //mau diganti buftrimstart\n\t\t\tbufduration,\n\t\t\tvolume,\n\t\t\t//loop,\n\t\t\t//myspeed = 1, //mau dihapus\n\t\t\t\n\t\t\tbuftrimstart,\n\t\t\tbuftrimend, // < 0, bufsrc.duration\n\t\t\tbufscale,\n\t\t\t\n\t\t},i,) => {\n\t\t\twhen *= 1\n\t\t\t//offset *= 1\n\t\t\tvolume *= 1\n\t\t\t//myspeed *= 1\n\t\t\t//loop = loop === 'true'\n\t\t\t\n\t\t\tbuftrimstart *= 1\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\t\t\n\t\t\tbufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time\n\t\t\tbufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time\n\t\t\t\n\t\t\tbufscale *= 1\n\t\t\t/*\n\t\t\tcara pakai start()\n\t\t\t\twhen:contexttime,\n\t\t\t\toffset:sourcetime,\n\t\t\t*/\n/*=======\n//ASLI\n\t\t\t\n\t\t\t//const { source, gainNode } = this.createSource(bufsrc, volume, loop,newspeed,); ASLI\n\t\t\tconst { source, gainNode } = this.createSource(bufsrc, volume, loop,newspeed*myspeed,); //COBA\n\t\t\t\n\t\t\t\n\t\t\tlet whenglo\t= curtime + (when - seek)/newspeed\t;\t;whenglo = Math.max(0,whenglo,)\n\t\t\t//let offsetlok\t= Math.max(offset,offset + seek - when,)\t;\t;offsetlok = Math.max(0,offsetlok,) ASLI\n\t\t\tlet offsetlok\t= Math.max(offset,offset + (seek - when)*myspeed,)\t;\t;offsetlok = Math.max(0,offsetlok,) //COBA\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tif(bufduration < 0){\n\t\t\t\tsource.start(whenglo,offsetlok,)\n\t\t\t}else{\n\t\t\t\tif(loop){\n\t\t\t\t\toffsetlok = offsetlok % bufsrc.duration\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\tlet durglo = Math.min(bufduration,bufduration + when - seek,) ;durglo = Math.max(0,durglo,) ;durglo /= newspeed*myspeed\n\t\t\t\tsource.start(whenglo,offsetlok,durglo,)\n\t\t\t}\n--------*/\n\t\t\t//COBA\n\t\t\tconst { source, gainNode } = this.createSource(bufsrc, volume, newspeed/bufscale,); //COBA1\n\t\t\t//let nabrak = //context nabrak when\n\t\t\t\n\t\t\tlet whenglo = when\n\t\t\tlet whencx = Math.max(0,curtime +(whenglo-seek)/newspeed,)\n\t\t\t\n\t\t\tsource.loopStart = buftrimstart\n\t\t\tsource.loopEnd = buftrimend //(buftrimend < 0)?bufsrc.duration:buftrimend\n\t\t\tlet durcx = bufduration //(bufduration < 0)?bufsrc.duration:bufduration\n\t\t\t\n\t\t\tlet offsetlok = Math.max(0,-whenglo+seek,)/bufscale\n\t\t\toffsetlok = offsetlok % (source.loopEnd-source.loopStart)\n\t\t\toffsetlok += buftrimstart\n\t\t\t\n\t\t\tsource.start(whencx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()\n\t\t\tif(bufduration !== 'endless'){\n\t\t\t\tdurcx *= 1/newspeed*bufscale\n\t\t\t\tsource.stop(whencx+durcx)\n\t\t\t}\n\t\t\t\n\t\t\t//info0 += `${i}| ${offsetlok.toFixed(3)}\\n`\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t//\n\t\t\tthis.sources.push(source);\n\t\t\tthis.gainNodes.push(gainNode);\n\t\t\t\n\t\t});\n\t\t//tambahinfo('lihataucon'+info0,'cyan','lihataucon',)\n\t\t//akhir\n\t\tthis.speed = newspeed\n\t\tthis.startTime = curtime\n\t\tthis.lastseek = seek\n\n\t}\n\t\n\tgetCurTime() {//realtime\n\t\tlet curtime = this.audioContext.currentTime\n\t\treturn this.isPlaying\n\t\t? (\n\t\t\t(this.isPlaying ? curtime : this.stopTime)\n\t\t\t- this.startTime\n\t\t)*this.speed + this.lastseek\n\t\t: this.curtime\n\t}\n\n\tdestroy() {\n\t\tif (!this.isPlaying) return\n\t\tthis.curtime = this.getCurTime()\n\t\tthis.isPlaying = false;\n\t\tthis.stopTime = this.audioContext.currentTime\n\t\tthis.sources.forEach((source) => {\n\t\t\tsource.stop();\n\t\t\tsource.disconnect();\n\t\t});\n\t\tthis.gainNodes.forEach((gainNode) => gainNode.disconnect());\n\t\tthis.sources = [];\n\t\tthis.gainNodes = [];\n\t}\n\t\n\t//lainlain\n\tplay(){\n\t\t//\"this.curtime\" beda dengan \"curtime\"\n\t\tthis.start_at(this.curtime,this.speed,)\n\t}\n\tpause(){\n\t\tthis.destroy()\n\t}\n\tsetCurTime(time){\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(time,this.speed,)\n\t\t}else{\n\t\t\tthis.curtime = time\n\t\t}\n\t}\n\tsetspeed(speed){\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(this.curtime,speed,)\n\t\t}else{\n\t\t\tthis.speed = speed\n\t\t}\n\t}\n};\n\naddEventListener('mousedown',e=>aucx.resume(),)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "88",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst tsvToObj = (tsv, key = null) => {\n\tconst [header, ...rows] =\n\t\ttsv.trim()\n\t\t\t.split(strnewline)\n\t\t\t.map(r => r.split('\\t'));\n\n\tif (key === null) {\n\t\t// Return an array of objects\n\t\treturn rows.map(row =>\n\t\t\tObject.fromEntries(\n\t\t\t\theader.map((col, i) => [col, row[i]])\n\t\t\t)\n\t\t);\n\t} else {\n\t\t// Return an object keyed by the given column name\n\t\tconst keyIndex = header.indexOf(key);\n\t\tif (keyIndex === -1)\n\t\t\tthrow new Error(`Key \"${key}\" not found in header`);\n\n\t\treturn rows.reduce((out, row) => {\n\t\t\tout[row[keyIndex]] = Object.fromEntries(\n\t\t\t\theader\n\t\t\t\t\t.map((col, i) => [col, row[i]])\n\t\t\t\t\t.filter(([col]) => col !== key)\n\t\t\t);\n\t\t\treturn out;\n\t\t}, {});\n\t}\n};\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet misc = new ArrayBuffer((\n\t+16 //perspective\n\t+16 //camera pivot\n\t+16 //camera\n\t+16 //camera inverse\n\t+16 //camera view\n\t+1 //time now\n\t+1 //seek\n\t+1 //free cam\n\t+1 //previous seek\n\t+1 //random float\n\t+3 // (pad)\n)*4)\nlet miof = 0 //misc offset\nlet fmiof = off=>{ //offset\n\tlet cur = miof\n\tmiof += off\n\treturn cur\n}\n\nlet persp = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet pivot = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet cam = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet invcam = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet view = new Float32Array(misc,( fmiof(16) )*4,16,)\nlet now = new Uint32Array(misc,( fmiof(1) )*4,1,)\nlet seek = new Float32Array(misc,( fmiof(1) )*4,1)\nexport let freecam = new Uint32Array(misc,( fmiof(1) )*4,1)\nlet prevseek = new Float32Array(misc,( fmiof(1) )*4,1)\nlet ranfl = new Float32Array(misc,( fmiof(1) )*4,1)\nset_freecam(freecam)\nfview((\n\t_persp,\n\t_pivot,\n\t_cam,\n\t_invcam,\n\t_view,\n)=>{\n\tm4.copy(_persp,persp,)\n\tm4.copy(_pivot,pivot,)\n\tm4.copy(_cam,cam,)\n\tm4.copy(_invcam,invcam,)\n\tm4.copy(_view,view,)\n})\nlet miscbuf\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet gpu_object_info = {}\nlet fgoi = (k,str,)=>{ //fungsi gpu object info\n\tlet goi =  gpu_object_info\n\tgoi[k] = str\n\t\n\tlet out = ''\n\tfor(let k1 in goi){\n\t\tout += goi[k1]+'\\n'\n\t}\n\t\n\ttambahinfo(out,'#5555ff','objinfo',)\n}\n\nlet create_gpu_object = new Map()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'object',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n})=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\treturn data\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'wat_memory',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\tlet arrbuf = await fetch(new URL(data,parenturl,))\n\tarrbuf = await arrbuf.arrayBuffer()\n\t\t\t\tfgoi(key,'DONE '+key,)\n\tlet pages = Math.max(Math.ceil(arrbuf.byteLength / 65536),1,)\n\tlet mem = new WebAssembly.Memory({ initial: pages });\n\tnew Uint8Array(mem.buffer)\n\t.set(new Uint8Array(arrbuf), 0,)\n\t\n\treturn mem\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_buffer',async ({\n\ttype,\n\tdescriptor:descr, //d_\n\tdata, //da_\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t//let d_obj\n\tlet d_key = (valtype(descr) === 'string') && (reso.get(descr) !== undefined)\n\tlet d_link = (valtype(descr) === 'string') && (reso.get(descr) === undefined)\n\t//let da_null\n\tlet da_link = data !== null\n\t\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\td_key && (descr = await reso.get(descr))\n\td_link && (descr = fetch(new URL(descr,parenturl,)))\n\td_link && (descr = (await descr).json())\n\tda_link && (data = fetch(new URL(data,parenturl,)))\n\tda_link && (data = (await data).arrayBuffer())\n\t\t\t\tfgoi(key,'DONE '+key,)\n\t\n\tlet buf = dv.createBuffer(await descr)\n\tda_link && dv.queue.writeBuffer(buf,0,await data,)\n\treturn buf\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_texture',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet ibm = null //image bitmap\n\tif(data !== null){\n\t\tlet img = document.createElement(\"img\")\n\t\timg.crossOrigin = \"anonymous\" // Enable CORS\n\t\timg.src = new URL(data,parenturl,).toString()\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\t\tawait img.decode()\n\t\tibm = await createImageBitmap(img)\n\t\t\t\tfgoi(key,'DONE '+key,)\n\t\t\n\t}\n\t\n\tif(pf.has(descr.format)){\n\t\tdescr.format = pf.get(descr.format)\n\t}\n\tif(texsize.has(descr.size)){\n\t\tdescr.size = texsize.get(descr.size)(ibm)\n\t}\n\tlet texini = dv.createTexture(descr)\n\t\n\tif(data !== null){\t\n\t\tdv.queue.copyExternalImageToTexture(\n\t\t\t{ source: ibm},\n\t\t\t{ texture: texini},\n\t\t\t[ibm.width, ibm.height],\n\t\t)\n\t}\n\t\n\treturn texini\n},)\n\n\n\nlet texsize = new Map()//texture size\ntexsize.set(\n\t'(canvas)',\n\t()=>canv3d, //ambil width & height doang\n)\ntexsize.set(\n\t'(image_data)',\n\tibm=>[ibm.width,ibm.height,], //ambil width & height doang\n)\n\n\nlet tex = new Map()//texture\ntex.set(\n\t'(context)',\n\t()=>context.getCurrentTexture(),\n)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_texture_view',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet view = (await reso.get(data)).createView(descr)\n\treturn view\n},)\n\n\n\nlet texview = new Map()//texture view\ntexview.set(\n\t'(context)',\n\t()=>context.getCurrentTexture().createView(cvd),\n)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_sampler',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\treturn dv.createSampler(descr)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'audio_buffer_list',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tlet wait = new Deferred()\n\taubuflist.push(wait)\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\tlet arr = await fetch(new URL(data,parenturl,))\n\tarr = await arr.text()\n\t\n\tlet out = tsvToObj(arr,'key',)\n\t\n\t//request, link\n\tfor(let a in out){\n\t\tlet b = out[a]\n\t\tlet f0 = await fetch(new URL(b.data,parenturl,));\n\t\tb.data = f0.arrayBuffer();\n\t}\n\t\t\t\tfgoi(key,'DONE '+key,)\n\t\n\t//tunggu buffer\n\tfor(let a in out){\n\t\tlet b = out[a]\n\t\tlet arrayBuffer = await b.data\n\t\tb.data = await aucx.decodeAudioData(arrayBuffer);\n\t}\n\twait.run(out)\n\treturn out\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "122",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'audio_controller',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tlet wait = new Deferred()\n\tdescr.backsound && cont.push(wait)\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\tlet obj = await fetch(new URL(data,parenturl,))\n\tobj = await obj.text()\n\t\t\t\tfgoi(key,'DONE '+key,)\n\tobj = tsvToObj(obj,null,)\n\tauconlist.push(obj)\n\t\n\twait.run(obj)\n\treturn obj\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_pipeline_layout',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet bglarr = descr.bindGroupLayouts\n\tbglarr.forEach(async (bgl,i,arr,)=>arr[i] = await reso.get(bgl))\n\tawait Promise.all(bglarr)\n\t\n\treturn dv.createPipelineLayout(descr)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_render_pipe',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n//layout\n\tlet aa = descr.layout\n\tdescr.layout = await reso.get(descr.layout)\n\t\n//fragment module\n\tdescr.fragment.module =\n\tawait reso\n\t.get(descr.fragment.module)\n\t\n//vertex module\n\tdescr.vertex.module =\n\tawait reso\n\t.get(descr.vertex.module)\n\t\n//format\n\tfor(let target of descr.fragment.targets){\n\t\tif(pf.has(target.format)){\n\t\t\ttarget.format = pf.get(target.format)\n\t\t}\n\t}\n\t\n//buffer\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\tdescr.vertex.buffers = await Promise.all(\n\t\tdescr.vertex.buffers\n\t\t.map(str=>\n\t\t\t(valtype(str) === 'string')\n\t\t\t?\n\t\t\tfetch(new URL(str,parenturl,))\n\t\t\t.then(res=>res.json())\n\t\t\t:\n\t\t\tstr\n\t\t)\n\t)\n\t\t\t\tfgoi(key,'DONE '+key,)\n\t\n\t\n\treturn await dv.createRenderPipelineAsync(descr)\n},)\n\n\n\nlet pf = new Map() //pipe format\npf.set(\n\t'(preferred_canvas_format)',\n\tnavigator.gpu.getPreferredCanvasFormat(),\n)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_shader_module',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tdescr.code = fetch(new URL(descr.code,parenturl,))\n\t\t\t\tfgoi(key,'LOAD\\t\\t'+key,)\n\tdescr.code = (await descr.code).text()\n\tdescr.code = await descr.code\n\t\t\t\tfgoi(key,'DONE '+key,)\n\treturn dv.createShaderModule(descr)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_buffer_binding',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\n\tdescr.buffer = \n\tbbf.has(descr.buffer)\n\t?bbf.get(descr.buffer)\n\t:await reso.get(descr.buffer)\n\t\n\treturn descr\n},)\n\n\n\nlet bbf //buffer binding format\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_bind_group_layout',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\treturn dv.createBindGroupLayout(descr)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_bind_group',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tfor(let entry of descr.entries){\n\t\tentry.resource = await reso.get(entry.resource)\n\t}\n/*========\n\tdescr.layout = (await reso.get(descr.layout.pipe))\n\t.getBindGroupLayout(descr.layout.layout)\n--------*/\n\tlet aaaa\n\tdescr.layout = await reso.get(aaaa = descr.layout)\n\t\n\treturn dv.createBindGroup(descr)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_command_encoder',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\tfor(let k_encometh in data){\n\t\t\tlet encometh = data[k_encometh] = await reso.get(data[k_encometh])\n\t\t}\n\t\n\tlet o = {\n\t\tdescriptor:descr,\n\t\tdata,\n\t}\n\treturn o\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_begin_render_pass',async (\n/*========\n{\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n}\n--------*/\n\tencometh,\n\tkey,\n)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\t\t\n\t\t\tfor(let ca of encometh.descriptor.colorAttachments){\n\t\t\t\tca.view = texview.has(ca.view)\n\t\t\t\t?texview.get(ca.view)()\n\t\t\t\t:await reso.get(ca.view)\n\t\t\t}\n\t\t\tlet dsa = encometh.descriptor.depthStencilAttachment\n\t\t\tdsa.view = await reso.get(dsa.view)\n\t\n\treturn encometh\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_clear_buffer',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tdata[0] = await reso.get(data[0])\n\t\n\treturn {\n\t\ttype,\n\t\tdescriptor:descr,\n\t\tdata,\n\t}\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'gpu_copy_buffer_to_buffer',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet i = (5 <= data.length)?2:1\n\tdata[0] = await reso.get(data[0])\n\tdata[i] = await reso.get(data[i])\n\t\n\treturn {\n\t\ttype,\n\t\tdescriptor:descr,\n\t\tdata,\n\t}\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet mepa = new Map()//method param\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "88",
+					"g": "122",
+					"b": "88",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'set_pipeline',\nasync met=>{\n\tmet[0] = await reso.get(met[0])\n\treturn {\n\t\t'method':'setPipeline',\n\t\t'param':met,\n\t}\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'set_vertex_buffer',\nasync met=>{\n\tmet[1] = await reso.get(met[1])\n\treturn {\n\t\t'method':'setVertexBuffer',\n\t\t'param':met,\n\t}\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'set_index_buffer',\nasync met=>{\n\tmet[0] = await reso.get(met[0])\n\treturn {\n\t\t'method':'setIndexBuffer',\n\t\t'param':met,\n\t}\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "55",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'set_bind_group',\nasync met=>{\n\tmet[1] = await reso.get(met[1])\n\treturn {\n\t\t'method':'setBindGroup',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'draw_indexed_indirect',\nasync met=>{\n\tmet[0] = await reso.get(met[0])\n\treturn {\n\t\t'method':'drawIndexedIndirect',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'draw',\nasync met=>{\n\treturn {\n\t\t'method':'draw',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nmepa.set(\n'draw_indirect',\nasync met=>{\n\tmet[0] = await reso.get(met[0])\n\treturn {\n\t\t'method':'drawIndirect',\n\t\t'param':met,\n\t}\n},)\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\nexport let main = async ()=>{\n",
+			"visible": true,
+			"time": "10102663.39618333",
+			"speed": "7.621621621621619",
+			"running": true,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nresosrc = await resosrc\ndv = await dv\n\ncontext.configure({\n\tdevice:dv,\n\tformat: presentationFormat,\n\tusage:\n\t\tGPUTextureUsage.RENDER_ATTACHMENT |\n\t\tGPUTextureUsage.COPY_DST\n\t,\n});\n\nloadcam()\n\nmiscbuf = dv.createBuffer({\n\tlabel: 'innii Uniform buffer '+Date()+'_'+Math.random().toFixed(13),\n\tsize: misc.byteLength,\n\tusage:\n\t\tGPUBufferUsage.UNIFORM\n\t\t| GPUBufferUsage.COPY_SRC\n\t\t| GPUBufferUsage.COPY_DST,\n})\nbbf = new Map()//buffer binding format\nbbf.set(\n\t'(misc)',\n\tmiscbuf,\n)\n\n\n//lih(resosrc)\nfor(let key in resosrc){// resosrc.create\n\tlet info = resosrc[key]// resosrc.create[key]\n\treso.set(key,\n\t\tcreate_gpu_object\n\t\t.get(info.type)\n\t\t?.(info,key,),\n\t)\n}\nlih(reso)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet memorydict = {};\nfor (const [k,v,] of reso) {\n\tif ((await v) instanceof WebAssembly.Memory) memorydict[k] = await v;\n}\n\ntunggureso.run(memorydict)\nwasmsrc = await Promise.all(await wasmsrc)\nlih(wasmsrc)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\naubuflist = Object.assign(...(await Promise.all(aubuflist)))\n\n//ASLI\n//cont = await contsrc\n\n//COBA\ncont = [].concat(...(await Promise.all(cont)))\nlih(cont)\n//\nlih(auconlist)\nfor(let contgroup of auconlist){\nfor(let con of contgroup){\n\tcon.src = aubuflist[con.src].data\n}\n}\n/*========\nfor(let sound of cont){\n\tsound.src = aubuflist[sound.src].data\n}\n--------*/\n\nsuara = new _aucon(cont)\nsuara.play()\n\ncload('menutup info...')\n\n\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet waitgpu = null\n\nlet draw = async t=>{\n\tsubmitarr = []\n\t\n\tencoarr = []\n\tlet wasmwait = []\n\tfor(let wasm of wasmsrc){\n\t\twasmwait.push(wasm.instance.exports.main?.(seek[0]))\n\t}\n\tawait Promise.all(wasmwait)\n\tawait runWAsmQueue()\n\t\n\tdv.queue.submit(submitarr)\n\twaitgpu = dv.queue.onSubmittedWorkDone()\n}\n\n",
+			"visible": true,
+			"time": "0.00000",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n/*========\n= = = = = =\n = = = = = =\n= = = = = =\n = = = = = =\n",
+			"visible": true,
+			"time": "3205174.9004016756",
+			"speed": "11.234234234234235",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "222",
+					"b": "0",
+					"frame": "2"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_gpuce = {}//GPUCommandEncoder\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nf_gpuce['gpu_begin_render_pass'] = (\n\t{\n\t\tdescriptor:descr,\n\t\tdata:rpmeth,\n\t},\n\tenco,\n)=>{\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = context.getCurrentTexture().createView(cvd)\n\t\t}\n\t}\n\t\n\tlet pass = enco.beginRenderPass(descr)\n\tfor(let met of rpmeth){\n\t\tpass[met.method](...met.param)\n\t}\n\tpass.end()\n\t\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nf_gpuce['gpu_clear_buffer'] = (\n\t{\n\t\tdescriptor:descr,\n\t\tdata,\n\t},\n\tenco,\n)=>{\n\tenco.clearBuffer(...data)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nf_gpuce['gpu_copy_buffer_to_buffer'] = (\n\t{\n\t\tdescriptor:descr,\n\t\tdata,\n\t},\n\tenco,\n)=>{\n\tenco.copyBufferToBuffer(...data)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nf_gpuce['gpu_copy_texture_to_texture'] = (\n\t{\n\t\tdescriptor:descr,\n\t\tdata,\n\t},\n\tenco,\n)=>{\n\t\n\t\n\tenco.copyTextureToTexture(\n\t\t{texture:data.src},\n\t\t{texture:data.dst},\n\t\t[data.w,data.h,],\n\t)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n= = = = = =\n = = = = = =\n= = = = = =\n = = = = = =\n--------*/\n",
+			"visible": true,
+			"time": "2721045.2152719083",
+			"speed": "9.540540540540539",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet step = 0\nlet spf = 1 //steps per frame\nset_setspf(val=>spf = val)\n\nlet loop = async t=>{\n\tnow[0] = Math.round(performance.now())\n\tif(step-- <= 1){\n\t\tprevseek[0] = seek[0]\n\t\tseek[0] = suara.getCurTime()\n\t\tranfl[0] = Math.random()\n\t\t\n\t\tstep = spf\n\t\tawait waitgpu //taruh di sebelum createView(); destroyed karena nunggu\n\t\tdv.queue.writeBuffer(miscbuf,0,misc,)\n\t\tdraw(t)\n\t}\n\t\n\trequestAnimationFrame(loop)\n\tuiloop(t)\n}\nrequestAnimationFrame(loop)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n}\n",
+			"visible": true,
+			"time": "1326344.47701068",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".1"
+				}
+			]
+		}
+	]
+]
